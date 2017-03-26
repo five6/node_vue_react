@@ -3,12 +3,20 @@
 module.exports = app => {
   class HomeController extends app.Controller {
     * index() {
-      const dbTest = app.mysql.get("dbTest");
-      var user =  yield dbTest.select("user");
-      const redisDev =  app.redis.get("dev");
-      var hello = yield redisDev.get("hello");
-      console.log(hello);
-      this.ctx.body = hello;
+        const userList = yield this.ctx.service.user.userList();
+        this.locals = {
+            users:userList
+        };
+        yield this.ctx.render('index.tpl',this.locals);
+    }
+    * profile(){
+        const uid = this.ctx.params.id;
+        const user = yield this.ctx.service.user.findOne(uid);
+        this.locals = {
+            user:user[0]
+        }
+        yield this.ctx.render('profile.tpl',this.locals )
+
     }
     * dashboard(){
 
@@ -21,7 +29,6 @@ module.exports = app => {
 	          { id: 2, title: 'this is news 2', url: '/news/2' }
 	        ]
 	      };
-	      console.log(dataList)
 	      yield this.ctx.render('news/list.tpl', dataList);
   	}
     * n1() {
