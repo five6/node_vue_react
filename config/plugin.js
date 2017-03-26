@@ -7,9 +7,17 @@ const config = {
         enable: true,
         package: 'egg-mysql',
     },
+    redis :{
+        enable: true,
+        package: 'egg-redis',
+    },
     nunjucks: {
         enable: true,
         package: 'egg-view-nunjucks',
-    }
+    },
+    passport : {
+    enable: true,
+    package: 'egg-passport',
+}
 };
 module.exports =config;

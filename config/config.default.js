@@ -32,5 +32,26 @@ module.exports = appInfo => {
         app: true,
         agent: false,
     };
+    config.redis = {
+      app: true,
+      agent: false,
+        clients:{
+            dev:{
+                host: '127.0.0.1',
+                port: 6379,
+                password: '',
+                db: '0',
+            },
+            prod:{
+                host: '127.0.0.1',
+                port: 6379,
+                password: '',
+                db: '0',
+            }
+        }
+  };
+  config.mongodb = {
+
+  };
   return config;
 };

@@ -5,7 +5,10 @@ module.exports = app => {
     * index() {
       const dbTest = app.mysql.get("dbTest");
       var user =  yield dbTest.select("user");
-      this.ctx.body = user;
+      const redisDev =  app.redis.get("dev");
+      var hello = yield redisDev.get("hello");
+      console.log(hello);
+      this.ctx.body = hello;
     }
     * dashboard(){
 
