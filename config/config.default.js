@@ -11,5 +11,26 @@ module.exports = appInfo => {
 	    '.tpl': 'nunjucks',
 	  },
   };
+  config.mysql = {
+        // 单数据库信息配置
+        clients:{
+            dbTest:{
+                host: 'localhost',
+                port: '3306',
+                user: 'root',
+                password: 'root',
+                database: 'test',
+            },
+            dbProd:{
+                host: 'localhost',
+                port: '3306',
+                user: 'root',
+                password: 'root',
+                database: 'prod',
+            }
+        },
+        app: true,
+        agent: false,
+    };
   return config;
 };

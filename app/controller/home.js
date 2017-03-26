@@ -3,7 +3,9 @@
 module.exports = app => {
   class HomeController extends app.Controller {
     * index() {
-      this.ctx.body = 'hi, egg';
+      const dbTest = app.mysql.get("dbTest");
+      var user =  yield dbTest.select("user");
+      this.ctx.body = user;
     }
     * dashboard(){
 
