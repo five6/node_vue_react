@@ -16,5 +16,17 @@
         </div>
       {% endfor %}
     </div>
+    <table>
+      <tr>
+      {% for topic in topics %}
+        <td>{{ topic.tab }}</td>
+      {% endfor %}
+      </tr>
+      <tr>
+         {% for topic in topics %}
+            <td>{{ topic.content }}</td>
+          {% endfor %}
+      </tr>
+    </table>
   </body>
 </html>

@@ -4,8 +4,10 @@ module.exports = app => {
   class HomeController extends app.Controller {
     * index() {
         const userList = yield this.ctx.service.user.userList();
+        const topics = yield this.ctx.app.cache || [];
         this.locals = {
-            users:userList
+            users:userList,
+            topics:topics
         };
         yield this.ctx.render('index.tpl',this.locals);
     }

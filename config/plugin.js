@@ -16,8 +16,12 @@ const config = {
         package: 'egg-view-nunjucks',
     },
     passport : {
-    enable: true,
-    package: 'egg-passport',
-}
+     enable: true,
+        package: 'egg-passport',
+    },
+    schedule:{
+        package: 'egg-schedule'
+    }
+
 };
 module.exports =config;
