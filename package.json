@@ -9,7 +9,11 @@
     "egg-passport": "^1.0.0",
     "egg-redis": "^1.0.1",
     "egg-schedule": "^2.3.0",
-    "egg-view-nunjucks": "^2.0.0"
+    "egg-session-redis": "^1.0.0",
+    "egg-validate": "^1.0.0",
+    "egg-view-nunjucks": "^2.0.0",
+    "lodash": "^4.17.4",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "autod": "^2.7.1",

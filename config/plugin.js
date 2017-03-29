@@ -11,6 +11,10 @@ const config = {
         enable: true,
         package: 'egg-redis',
     },
+    sessionRedis :{
+        enable: true,
+        package: 'egg-session-redis',
+    },
     nunjucks: {
         enable: true,
         package: 'egg-view-nunjucks',

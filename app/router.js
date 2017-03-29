@@ -7,4 +7,9 @@ module.exports = app => {
   app.get('/news', 'home.list');
   app.get('/news/1', 'home.n1');
   app.get('/news/2', 'home.n2');
+  app.get('/topics', 'topic.topics');
+  app.post('/topics', 'topic.create');
+  app.get('/topics/:id', 'topic.topicDetail');
+  app.put('/topics/:id', 'topic.putTopic');
+  app.delete('/topics/:id', 'topic.deleteTopic');
 };

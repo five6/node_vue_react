@@ -1,5 +1,5 @@
 'use strict';
-
+var _ = require("underscore");
 module.exports = app => {
   class HomeController extends app.Controller {
     * index() {

@@ -53,5 +53,13 @@ module.exports = appInfo => {
   config.mongodb = {
 
   };
+  config.middleware=[
+    'saveSession',
+    'errorHandler'
+   ];
+  // 只对 /api 前缀的 url 路径生效
+  config.errorHandler= {
+    match: '/api',
+  };
   return config;
 };
