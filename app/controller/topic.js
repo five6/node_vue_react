@@ -10,6 +10,7 @@ module.exports = app => {
     class TopicsController extends app.Controller {
         *create (ctx) {
             ctx.validate(createRule);
+            // const topics = yield this.ctx.app.cache || [];
             const id = yield ctx.service.topic.create(ctx.request.body);
             ctx.body = {
                 topic_id: id,

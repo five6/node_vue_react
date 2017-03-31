@@ -1,32 +1,16 @@
 
 <html>
   <head>
-    <title>User List</title>
+    <title>Index</title>
   </head>
   <style>
-    .item:hover{
-        background:greenyellow
-    }
   </style>
   <body>
-    <div class=userList">
-      {% for user in users %}
-        <div class="item">
-          <a href="/user/{{ user.id }}">{{ user.name }}</a>
-        </div>
-      {% endfor %}
-    </div>
-    <table>
-      <tr>
-      {% for topic in topics %}
-        <td>{{ topic.tab }}</td>
-      {% endfor %}
-      </tr>
-      <tr>
-         {% for topic in topics %}
-            <td>{{ topic.content }}</td>
-          {% endfor %}
-      </tr>
-    </table>
+    login:
+    <form action="/api/login" method="post">
+        <input name="userName">
+        <input type="password" name="password">
+        <button type="submit">Submit</button>
+    </form>
   </body>
 </html>

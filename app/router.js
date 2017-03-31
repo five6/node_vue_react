@@ -1,15 +1,12 @@
 'use strict';
 
 module.exports = app => {
-  app.get('/', 'home.index');
-  app.get('/user/:id', 'home.profile');
-  app.get('/dashboard','home.dashboard');
-  app.get('/news', 'home.list');
-  app.get('/news/1', 'home.n1');
-  app.get('/news/2', 'home.n2');
-  app.get('/topics', 'topic.topics');
-  app.post('/topics', 'topic.create');
-  app.get('/topics/:id', 'topic.topicDetail');
-  app.put('/topics/:id', 'topic.putTopic');
-  app.delete('/topics/:id', 'topic.deleteTopic');
+  app.get('/','index.index');
+  app.post('/api/login','user.login');
+  app.post('/api/register','user.register');
+  app.get('/api/topics', 'topic.topics');
+  app.post('/api/topics', 'topic.create');
+  app.get('/api/topics/:id', 'topic.topicDetail');
+  app.put('/api/topics/:id', 'topic.putTopic');
+  app.delete('/api/topics/:id', 'topic.deleteTopic');
 };

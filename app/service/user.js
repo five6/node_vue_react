@@ -3,15 +3,22 @@
  */
 module.exports = app => {
     class User extends app.Service {
-        * findOne(uid) {
-            const devTest =  app.mysql.get("dbTest");
-            const user = yield devTest.query(`select * from user where id = ${uid}`);
+        * login(body) {
+            // use below later
+            // const userName = body["userName"];
+            // const devTest =  app.mysql.get("dbTest");
+            // const user = yield devTest.query(`select * from user where name = ${userName}`);
+            // return user;
+            const cond = {
+                userName:body["userName"]
+            }
+            console.log(this.ctx.model.User);
+            const user = yield this.ctx.model.User.find(cond);
             return user;
         }
-        * userList(){
+        * register(body){
             const devTest =  app.mysql.get("dbTest");
-            const users = yield devTest.query('select * from user');
-            return users;
+            return {};
         }
     }
     return User;

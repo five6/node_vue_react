@@ -19,14 +19,14 @@ module.exports = appInfo => {
                 port: '3306',
                 user: 'root',
                 password: 'root',
-                database: 'test',
+                database: 'egg',
             },
             dbProd:{
                 host: 'localhost',
                 port: '3306',
                 user: 'root',
                 password: 'root',
-                database: 'prod',
+                database: 'egg',
             }
         },
         app: true,
@@ -50,8 +50,9 @@ module.exports = appInfo => {
             }
         }
   };
-  config.mongodb = {
-
+  config.mongoose = {
+      url: 'mongodb://127.0.0.1/egg,mongodb//127.0.0.1/go',
+      options: {}
   };
   config.middleware=[
     'saveSession',
@@ -61,5 +62,8 @@ module.exports = appInfo => {
   config.errorHandler= {
     match: '/api',
   };
+  config.saveSession = {
+      match:'/api/user'
+  }
   return config;
 };
