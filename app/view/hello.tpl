@@ -1,11 +1,14 @@
 
 <html>
   <head>
-    <title>welcome</title>
+    <title>Index</title>
   </head>
+  <style>
+    h1 {
+        height:30px;
+    }
+  </style>
   <body>
-  {% block body %}
-        <h1>{{ userName }</h1>
-    {% endblock %}
+    <h1>Hello ,{{userName}}!</h1>
   </body>
 </html>

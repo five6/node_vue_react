@@ -25,6 +25,10 @@ const config = {
     },
     schedule:{
         package: 'egg-schedule'
+    },
+    mongoose : {
+        enable: true,
+        package: 'egg-mongoose',
     }
 
 };

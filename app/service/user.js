@@ -10,15 +10,15 @@ module.exports = app => {
             // const user = yield devTest.query(`select * from user where name = ${userName}`);
             // return user;
             const cond = {
-                userName:body["userName"]
+                userName:body['userName']
             }
-            console.log(this.ctx.model.User);
-            const user = yield this.ctx.model.User.find(cond);
+            console.log(cond.userName)
+            const user = yield app.model.user.find(cond);
             return user;
         }
         * register(body){
             const devTest =  app.mysql.get("dbTest");
-            return {};
+            return null;
         }
     }
     return User;

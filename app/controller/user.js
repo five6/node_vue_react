@@ -9,8 +9,10 @@ module.exports = app => {
             this.locals = {
                 userName:user.userName
             };
+            console.log(user)
             yield this.ctx.render('hello.tpl',this.locals);
         }else{
+            console.log("not login")
             yield this.ctx.render('index.tpl',{});
         }
     }

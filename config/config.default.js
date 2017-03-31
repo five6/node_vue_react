@@ -51,7 +51,7 @@ module.exports = appInfo => {
         }
   };
   config.mongoose = {
-      url: 'mongodb://127.0.0.1/egg,mongodb//127.0.0.1/go',
+      url: 'mongodb://127.0.0.1',
       options: {}
   };
   config.middleware=[
@@ -64,6 +64,6 @@ module.exports = appInfo => {
   };
   config.saveSession = {
       match:'/api/user'
-  }
+  };
   return config;
 };
