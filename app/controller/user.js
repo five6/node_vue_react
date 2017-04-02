@@ -18,7 +18,11 @@ module.exports = app => {
     }
     * register(ctx){
         const body = ctx.request.body;
-        yield this.ctx.render('index.tpl',{});
+        yield this.ctx.service.user.register(body);
+        this.locals = {
+            loginSuccess:true
+        };
+        ctx.response.redirect('/',this.locals)
     }
 }
   return HomeController;

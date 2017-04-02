@@ -10,6 +10,12 @@ module.exports = app => {
         };
         yield this.ctx.render('index.tpl',this.locals);
     }
+    * register(){
+    	this.locals = {
+
+    	}
+    	yield this.ctx.render('register.tpl',this.locals);
+    }
 }
   return HomeController;
 };
