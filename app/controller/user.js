@@ -7,9 +7,9 @@ module.exports = app => {
         const user = yield this.ctx.service.user.login(body);
         if(user){
             this.locals = {
-                userName:user.userName
+                userName:user._id
             };
-            console.log(user)
+            ctx.session.userName = this.locals.userName;
             yield this.ctx.render('hello.tpl',this.locals);
         }else{
             console.log("not login")
@@ -19,10 +19,7 @@ module.exports = app => {
     * register(ctx){
         const body = ctx.request.body;
         yield this.ctx.service.user.register(body);
-        this.locals = {
-            loginSuccess:true
-        };
-        ctx.response.redirect('/',this.locals)
+        ctx.response.redirect('/')
     }
 }
   return HomeController;

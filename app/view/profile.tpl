@@ -8,10 +8,7 @@
     <div class=userList">
         <table>
             <tr>
-                <td>Id</td><td>{{ user.id }}</td>
-            </tr>
-             <tr>
-                <td>Name</td><td>{{ user.name }}</td>
+                <td>Id</td><td>{{ user._id }}</td>
             </tr>
         </table>
     </div>

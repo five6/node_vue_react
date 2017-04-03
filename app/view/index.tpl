@@ -14,9 +14,6 @@
             password : 'empty',
           }
        });
-        setTimeout(function(){
-          $("#alert-message").remove();
-        },2000);
       })
      </script>
   </head>
@@ -24,12 +21,6 @@
     
   </style>
   <body class="ui inverted segment">
-    {% if loginSuccess %}
-    <div class="ui message" id="alert-message">
-      <div class="header">注册成功!</div>
-      <p>请使用注册的用户名和密码登录</p>
-    </div>
-    {% endif %}
     <div class="ui form inverted">
       <form action="/api/login" method="post">
           <div class="field">

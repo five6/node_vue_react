@@ -11,19 +11,22 @@ module.exports = app => {
             // const user = yield devTest.query(`select * from user where name = ${userName}`);
             // return user;
             const cond = {
-                userName:body['userName']
+                _id:body['userName'],
+                password:getPassword(body['password'])
             };
-            const user = yield app.model.user.find(cond);
+            const user = yield app.model.user.findOne(cond);
             return user;
         }
         * register(body){
             // const devTest =  app.mysql.get("dbTest");
             const cond ={
-                userName:body['userName'],
+                _id:body['userName'],
+                sex:body['sex'],
                 password:getPassword(body['password'])
 
             };
-            console.log(cond);
+            const user = new app.model.user(cond);
+            const result = user.save();
             return null;
         }
     }

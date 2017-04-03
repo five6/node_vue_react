@@ -36,6 +36,12 @@ module.exports = appInfo => {
       app: true,
       agent: false,
         clients:{
+            session:{
+                host: '127.0.0.1',
+                port: 6379,
+                password: '',
+                db: '0',
+            },
             dev:{
                 host: '127.0.0.1',
                 port: 6379,
@@ -50,8 +56,11 @@ module.exports = appInfo => {
             }
         }
   };
+  config.sessionRedis = {
+    name: 'session' // specific `session` as the session store 
+};
   config.mongoose = {
-      url: 'mongodb://127.0.0.1',
+      url: 'mongodb://127.0.0.1/egg',
       options: {}
   };
   config.middleware=[
@@ -63,7 +72,7 @@ module.exports = appInfo => {
     match: '/api',
   };
   config.saveSession = {
-      match:'/api/user'
+      match:'/api/user/lgoin'
   };
   return config;
 };
