@@ -56,23 +56,37 @@ module.exports = appInfo => {
             }
         }
   };
+  //session保存方式
   config.sessionRedis = {
     name: 'session' // specific `session` as the session store 
-};
+  };
+  //数据库
   config.mongoose = {
       url: 'mongodb://127.0.0.1/egg',
       options: {}
   };
+  //中间件
   config.middleware=[
     'saveSession',
     'errorHandler'
    ];
+   //安全机制
+   config.security = {
+    csp: {
+      ignore: '/api/logout',
+      xframe: {
+      }
+    },
+    csrf: {
+       ignore: '/api/logout'
+    }
+  };
   // 只对 /api 前缀的 url 路径生效
   config.errorHandler= {
     match: '/api',
   };
   config.saveSession = {
-      match:'/api/user/lgoin'
+      match:'/api/lgoin'
   };
   return config;
 };

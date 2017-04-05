@@ -5,7 +5,11 @@ module.exports = app => {
     * index(ctx) {
         // const userList = yield this.ctx.service.user.userList();
         // const topics = yield this.ctx.app.cache || [];
-        yield this.ctx.render('index.tpl',{});
+        const locals ={
+            userName:ctx.session.userName
+        };
+        console.log(locals.userName);
+        yield this.ctx.render('index.tpl',locals);
     }
     * register(){
     	yield this.ctx.render('register.tpl',this.locals);

@@ -11,6 +11,7 @@
     "egg-passport": "^1.0.0",
     "egg-redis": "^1.0.1",
     "egg-schedule": "^2.3.0",
+    "egg-security": "^1.9.0",
     "egg-session-redis": "^1.0.0",
     "egg-validate": "^1.0.0",
     "egg-view-nunjucks": "^2.0.0",

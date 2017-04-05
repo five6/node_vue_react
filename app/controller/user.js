@@ -12,8 +12,9 @@ module.exports = app => {
             ctx.session.userName = this.locals.userName;
             yield this.ctx.render('hello.tpl',this.locals);
         }else{
+            ctx.session.userName = null;
             console.log("not login")
-            yield this.ctx.render('index.tpl',{});
+            ctx.response.redirect('/')
         }
     }
     * register(ctx){
@@ -21,6 +22,10 @@ module.exports = app => {
         yield this.ctx.service.user.register(body);
         ctx.response.redirect('/')
     }
-}
+    * logout(ctx){
+        ctx.session.userName = null;
+        ctx.response.redirect('/')
+    }
+  }
   return HomeController;
 };

@@ -20,20 +20,27 @@
   <style>
     
   </style>
-  <body class="ui inverted segment">
-    <div class="ui form inverted">
-      <form action="/api/login" method="post">
-          <div class="field">
-            <label>用户名</label>
-            <input name="userName" placeholder='用户名'>
+  <body>
+       {% if userName %}
+          {% include "header.tpl" %}
+          <h1>Hello ,{{userName}}!</h1>
+        {% else %}
+         <div class="ui inverted segment">
+          <div class="ui form inverted">
+            <form action="/api/login" method="post">
+                <div class="field">
+                  <label>用户名</label>
+                  <input name="userName" placeholder='用户名'>
+                </div>
+                <div class="field">
+                  <label>密码</label>
+                  <input type="password" placeholder='密码' name="password">
+                </div>
+                <button type="submit" class="ui primary button">提交</button>
+                <a href="/view/register" class="ui default button">注册</a>
+            </form>
           </div>
-          <div class="field">
-            <label>密码</label>
-            <input type="password" placeholder='密码' name="password">
-          </div>
-          <button type="submit" class="ui primary button">提交</button>
-          <a href="/view/register" class="ui default button">注册</a>
-        </form>
-    </div>
+        </div>
+        {% endif %}
   </body>
 </html>
