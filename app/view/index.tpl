@@ -25,7 +25,7 @@
           {% include "header.tpl" %}
           <h1>Hello ,{{userName}}!</h1>
         {% else %}
-         <div class="ui inverted segment">
+         <div class="ui inverted segment" style="height: 100%">
           <div class="ui form inverted">
             <form action="/api/login" method="post">
                 <div class="field">
