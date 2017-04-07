@@ -5,9 +5,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#logOut").on("click",function(e){
-				$.post('/api/logout').success(function(){
-				    window.location.href = "/";
-				});
+				$.post('/api/logout').success(function(){});
 			});
 		});
 	</script>

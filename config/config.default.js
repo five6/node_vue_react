@@ -67,8 +67,9 @@ module.exports = appInfo => {
   };
   //中间件
   config.middleware=[
-    'saveSession',
-    'errorHandler'
+    'saveSession'
+    // ,'auth'
+    // ,'errorHandler'
    ];
    //安全机制
    config.security = {
@@ -82,11 +83,18 @@ module.exports = appInfo => {
     }
   };
   // 只对 /api 前缀的 url 路径生效
-  config.errorHandler= {
-    match: '/api',
-  };
+  // config.errorHandler= {
+  //   match: '/api',
+  // };
   config.saveSession = {
       match:'/api/lgoin'
   };
+  // config.auth = {
+  //    ignore: [
+  //     '/',
+  //     '/view/index',
+  //     '/view/register'
+  //    ]
+  // }
   return config;
 };

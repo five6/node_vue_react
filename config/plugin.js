@@ -20,7 +20,7 @@ const config = {
         package: 'egg-view-nunjucks',
     },
     passport : {
-     enable: true,
+        enable: true,
         package: 'egg-passport',
     },
     schedule:{
