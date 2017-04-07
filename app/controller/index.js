@@ -4,8 +4,8 @@ module.exports = app => {
   class HomeController extends app.Controller {
     * index(ctx) {
         const locals ={};
-        if(ctx.isAuthenticated()){
-            locals.userName =ctx.user.userName;
+        if(this.ctx.isAuthenticated()){
+            locals.userName =this.ctx.user.userName;
         };
         console.log(locals.userName);
         yield this.ctx.render('index.tpl',locals);

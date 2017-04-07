@@ -7,12 +7,13 @@ module.exports = app => {
         const body = ctx.request.body;
         const user = yield ctx.service.user.login(body);
         if(user){
-            ctx.login(user);
+            this.ctx.login(user);
+            console.log(this.ctx);
             this.locals = {
-                userName:user._id
+                userName:this.ctx.user._id
             };
             // ctx.session.userName = this.locals.userName;
-            yield ctx.render('hello.tpl',this.locals);
+            yield this.ctx.render('hello.tpl',this.locals);
         }else{
             // ctx.session.userName = null;
             console.log("not login")
@@ -25,25 +26,25 @@ module.exports = app => {
         ctx.response.redirect('/')
     }
     * logout(ctx){
-        ctx.logout();
-        ctx.response.redirect('/');
+        this.ctx.logout();
+        this.ctx.redirect('/');
     }
     * books(ctx){
-        if(ctx.isAuthenticated()){
+        if(this.ctx.isAuthenticated()){
               const books =[
                 {name:"java",'price':124.50},
                 {name:"javascript",'price':50},
                 {name:"python",'price':100},
                 {name:"nodejs",'price':80}
             ]
-            ctx.body =books;
+            this.ctx.body =books;
         }else{
               const error = {
                      message:"not login error",
                      status:500
               }
-              this.body = {error};
-              this.status = error.status;
+              this.ctx.body = {error};
+              this.ctx.status = error.status;
         }
       
     }

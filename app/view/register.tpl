@@ -19,8 +19,8 @@
 		  });
     </script>
 </head>
-<body class="ui segment inverted">
-	<div class="ui form inverted">
+<body class="ui">
+	<div class="ui form ">
       <form action="/api/register" method="post">
           <div class="field">
             <label>用户名</label>
