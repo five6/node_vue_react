@@ -4,14 +4,13 @@ module.exports = app => {
   class HomeController extends app.Controller {
     * index(ctx) {
         const locals ={};
-        if(this.ctx.isAuthenticated()){
-            locals.userName =this.ctx.user.userName;
+        if(ctx.isAuthenticated()){
+            locals.userName = ctx.user._id;
         };
-        console.log(locals.userName);
-        yield this.ctx.render('index.tpl',locals);
+        yield ctx.render('index.tpl',locals);
     }
     * register(){
-    	yield this.ctx.render('register.tpl',this.locals);
+    	yield ctx.render('register.tpl',this.locals);
     }
 }
   return HomeController;
