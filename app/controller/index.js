@@ -9,7 +9,7 @@ module.exports = app => {
         };
         yield ctx.render('index.tpl',locals);
     }
-    * register(){
+    * register(ctx){
     	yield ctx.render('register.tpl',this.locals);
     }
 }

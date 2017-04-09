@@ -68,7 +68,7 @@ module.exports = appInfo => {
   //中间件
   config.middleware=[
     'saveSession'
-    // ,'auth'
+    ,'auth'
     // ,'errorHandler'
    ];
    //安全机制
@@ -89,12 +89,8 @@ module.exports = appInfo => {
   config.saveSession = {
       match:'/api/lgoin'
   };
-  // config.auth = {
-  //    ignore: [
-  //     '/',
-  //     '/view/index',
-  //     '/view/register'
-  //    ]
-  // }
+  config.auth = {
+     match:'/api/books'
+  }
   return config;
 };

@@ -15,6 +15,7 @@
   <a class="item"> </a>
   <div class="right menu">
     <a class="ui item" id="logOut">退出 </a>
+    <a class="ui item" href="/view/register">注册 </a>
   </div>
 </div>
 </body>

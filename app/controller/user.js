@@ -12,7 +12,7 @@ module.exports = app => {
                 const locals = {
                       userName: ctx.user._id
                 };
-                ctx.response.redirect("/","/");
+                ctx.response.redirect("/");
             }); 
           
         }else{
@@ -30,7 +30,6 @@ module.exports = app => {
         ctx.response.redirect('/')
     }
     * books(ctx){
-        if(ctx.isAuthenticated()){
               const books =[
                 {name:"java",'price':124.50},
                 {name:"javascript",'price':50},
@@ -38,14 +37,6 @@ module.exports = app => {
                 {name:"nodejs",'price':80}
             ]
             ctx.body = books;
-        }else{
-              const error = {
-                     message:"not login error",
-                     status:500
-              }
-              ctx.body = {error};
-              ctx.status = error.status;
-        }
       
     }
   }

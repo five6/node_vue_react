@@ -25,20 +25,36 @@
           {% include "header.tpl" %}
           <h1>Hello ,{{userName}}!</h1>
         {% else %}
-         <div class="ui" style="height: 100%">
-          <div class="ui form ">
-            <form action="/api/login" method="post">
-                <div class="field">
-                  <label>用户名</label>
-                  <input name="userName" placeholder='用户名'>
+        <div class="ui two column middle aligned relaxed fitted stackable grid">
+          <div class="column">
+            <div class="ui form segment">
+              <form action="/api/login" method="post">
+              <div class="field">
+                <label>用户名</label>
+                <div class="ui left icon input">
+                  <input type="text" name="userName" placeholder="Username">
+                  <i class="user icon"></i>
                 </div>
-                <div class="field">
-                  <label>密码</label>
-                  <input type="password" placeholder='密码' name="password">
+              </div>
+              <div class="field">
+                <label>密码</label>
+                <div class="ui left icon input">
+                  <input type="password" name="password">
+                  <i class="lock icon"></i>
                 </div>
-                <button type="submit" class="ui primary button">提交</button>
-                <a href="/view/register" class="ui default button">注册</a>
-            </form>
+              </div>
+              <button type="submit" class="ui blue submit button">登录</button>
+              </form>
+            </div>
+          </div>
+          <div class="ui vertical divider">
+            Or
+          </div>
+          <div class="center aligned column">
+            <a class="huge green ui labeled icon button" href="/view/register">
+              <i class="signup icon"></i>
+              注册
+            </a>
           </div>
         </div>
         {% endif %}
