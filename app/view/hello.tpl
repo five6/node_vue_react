@@ -8,9 +8,6 @@
      <script src="/public/semantic/dist/semantic.js"></script>
   </head>
   <style>
-    h1 {
-        height:30px;
-    }
   </style>
   <body>
     {% include "header.tpl" %}
