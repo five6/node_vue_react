@@ -22,8 +22,7 @@
   </style>
   <body>
        {% if userName %}
-          {% include "header.tpl" %}
-          <h1>Hello ,{{userName}}!</h1>
+          {% include "header.tpl" %}  
         {% else %}
         <div class="ui two column middle aligned relaxed fitted stackable grid">
           <div class="column">
