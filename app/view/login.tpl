@@ -6,7 +6,7 @@
 <body>
 	{% include "header.tpl" %}
 	<!-- content -->
-		<div class="ui container">
+		<div class="ui container masthead">
           	<div class="ui">
 	          <div class="column">
 	            <div class="ui form segment">
@@ -30,6 +30,7 @@
 	            </div>
 	          </div>
     	</div>
+    	 {% include "footer.tpl" %}
 	</body>
 	<script type="text/javascript">
        $(function() {

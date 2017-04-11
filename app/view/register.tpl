@@ -5,7 +5,7 @@
 </head>
 <body>
   {% include "header.tpl" %}
-  <div class="ui container">
+  <div class="ui container masthead">
       <div class="ui">
         <div class="ui form ">
           <form action="/api/register" method="post">
@@ -52,5 +52,6 @@
       })
     });
   </script>
+  {% include "footer.tpl" %}
 </body>
 </html>
