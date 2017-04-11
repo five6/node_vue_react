@@ -29,6 +29,10 @@ module.exports = app => {
         ctx.logout();
         ctx.response.redirect('/')
     }
+    * update(ctx){
+        const body = ctx.request.body;
+        const result = yield ctx.service.user.update(body);
+    }
     * books(ctx){
               const books =[
                 {name:"java",'price':124.50},

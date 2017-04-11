@@ -29,6 +29,11 @@ module.exports = app => {
             const result = user.save();
             return null;
         }
+        * update(body){
+            const user = new app.model.user(cond);
+            const result = user.save();
+            return null;
+        }
     }
     return User;
 };
