@@ -6,8 +6,8 @@
 <body>
 	{% include "header.tpl" %}
 	<!-- content -->
-		<div class="ui container masthead">
-          	<div class="ui">
+		<div class="ui container">
+          	<div class="ui content">
 	          <div class="column">
 	            <div class="ui form segment">
 	              <form action="/api/login" method="post">

@@ -1,4 +1,7 @@
-.ui.container.masthead > .ui{
+.ui.container > .ui.content{
 	padding: 5em;
 	 min-height: 700px;
+}
+.ui.container > .ui.footer{
+	padding: 1.5em;
 }

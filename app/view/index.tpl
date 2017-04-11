@@ -9,8 +9,8 @@
   <body>
         {% include "header.tpl" %}
         <!-- content -->
-        <div class="ui container masthead">
-            <div class="ui">
+        <div class="ui container">
+            <div class="ui content">
                 {% if userName %}
                   <h1>Hello {{ userName }} !</h1>
                 {% endif %}

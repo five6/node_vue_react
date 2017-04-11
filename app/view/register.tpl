@@ -5,8 +5,8 @@
 </head>
 <body>
   {% include "header.tpl" %}
-  <div class="ui container masthead">
-      <div class="ui">
+  <div class="ui container">
+      <div class="ui content">
         <div class="ui form ">
           <form action="/api/register" method="post">
               <div class="field">
