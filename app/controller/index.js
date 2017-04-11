@@ -9,6 +9,9 @@ module.exports = app => {
         };
         yield ctx.render('index.tpl',locals);
     }
+    * login(ctx){
+        yield ctx.render('login.tpl');
+    }
     * register(ctx){
     	yield ctx.render('register.tpl',this.locals);
     }
