@@ -139,13 +139,18 @@ $(function(){
 			window.location.reload();
 		});
 	});
+
+	$("#top-large-menu .item").click(function(){
+		$("#top-large-menu > .container").find("a.active").removeClass("active");
+		$(this).addClass("active");
+	});
 });
-	</script>
+</script>
 </head>
 <body>
 
 <!-- Following Menu -->
-<div class="ui large top fixed hidden2 menu">
+<div class="ui large top fixed menu" id="top-large-menu">
   <div class="ui container">
     <a class="active item">主页</a>
     <a class="item">好友动态</a>
