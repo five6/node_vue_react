@@ -30,9 +30,10 @@ module.exports = app => {
             return null;
         }
         * update(body){
-            const user = new app.model.user(cond);
-            const result = user.save();
-            return null;
+            var _id = body._id;
+            delete body.userName;
+            const result = app.model.user.update({_id:_id},{$set:body});
+            return result;
         }
     }
     return User;

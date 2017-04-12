@@ -1,10 +1,15 @@
 'use strict';
 
 module.exports = app => {
+  //view
   app.get('/','index.index');
   app.get('/view/index','index.index');
   app.get('/view/login','index.login');
   app.get('/view/register','index.register');
+  app.get('/view/logs','index.logs');
+  app.get('/view/album','index.album');
+   app.get('/view/profile','index.profile');
+  //api
   app.post('/api/login','user.login');
   app.post('/api/logout','user.logout');
   app.post('/api/register','user.register');

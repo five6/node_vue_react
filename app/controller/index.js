@@ -13,7 +13,16 @@ module.exports = app => {
         yield ctx.render('login.tpl');
     }
     * register(ctx){
-    	yield ctx.render('register.tpl',this.locals);
+    	yield ctx.render('register.tpl');
+    }
+    * logs(ctx){
+        yield ctx.render('logs.tpl',{userName:ctx.user._id});
+    }
+    * album(ctx){
+        yield ctx.render('album.tpl',{userName:ctx.user._id});
+    }
+   * profile(ctx){
+        yield ctx.render('profile.tpl',{userName:ctx.user._id});
     }
 }
   return HomeController;

@@ -152,11 +152,12 @@ $(function(){
 <!-- Following Menu -->
 <div class="ui large top fixed menu" id="top-large-menu">
   <div class="ui container">
-    <a class="active item">主页</a>
-    <a class="item">好友动态</a>
-    <a class="item">日志</a>
-    <a class="item">相册</a>
-    <a class="item">个人中心</a>
+    <a href="/view/index" class="active item">主页</a>
+    {% if userName %}
+ 		<a href="/view/logs" class="item">日志</a>
+	    <a href="/view/album" class="item">相册</a>
+	    <a href="/view/profile" class="item">个人中心</a>
+    {% endif %}
     <div class="right menu">
     {% if userName %}
 		<div class="item">
