@@ -30,9 +30,12 @@ module.exports = app => {
             return null;
         }
         * update(body){
-            var _id = body._id;
-            delete body.userName;
-            const result = app.model.user.update({_id:_id},{$set:body});
+            var _id = body.userName;
+            var passpword = getPassword(body["new-password"]);
+            var conds = {
+                password:password
+            };
+            const result = app.model.user.update({_id:_id},{"$set":conds});
             return result;
         }
     }

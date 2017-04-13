@@ -10,9 +10,45 @@
         <!-- content -->
         <div class="ui container">
             <div class="ui content">
-                  <h1>个人中心 !</h1>
+                  <div class="form ui">
+                      <form action="/api/user/update" method="post" name="updateUserInfo">
+                          <div class="field">
+                            <label>用户名</label>
+                            <div class="ui left icon input">
+                              <input type="text" readonly name="userName" placeholder="" value={{userName}}>
+                              <i class="user icon"></i>
+                            </div>
+                          </div>
+                          <div class="field">
+                                <label>原密码</label>
+                                <div class="ui left icon input">
+                                  <input type="password" name="old-password">
+                                  <i class="lock icon"></i>
+                                </div>
+                          </div>
+                          <div class="field">
+                                <label>新密码</label>
+                                <div class="ui left icon input">
+                                  <input type="password" name="new-password">
+                                  <i class="lock icon"></i>
+                                </div>
+                          </div>
+                          <button type="submit" class="ui primary button">确认修改密码</button>
+                      </form>
+                  </div>
             </div>
         </div>
-         {% include "footer.tpl" %}
+        <script type="text/javascript">
+        $(function() {
+          $('.select-gender').dropdown();
+          $('.ui.form').form({
+            fields: {
+              userName : 'empty',
+              "new-password" : ['minLength[6]', 'empty'],
+            }
+          })
+        });
+        </script>
+        {% include "footer.tpl" %}
   </body>
 </html>

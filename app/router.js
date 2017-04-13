@@ -14,5 +14,5 @@ module.exports = app => {
   app.post('/api/logout','user.logout');
   app.post('/api/register','user.register');
   app.get('/api/books','user.books');
-  app.put('/api/user/update','user.update');
+  app.post('/api/user/update','user.update');
 };

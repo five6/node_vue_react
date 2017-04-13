@@ -35,7 +35,7 @@
                   </div>
               </div>
               </div>
-                <button type="submit" class="ui primary button">注册</button>
+              <button type="submit" class="ui primary button">注册</button>
               </form>
         </div>
       </div>

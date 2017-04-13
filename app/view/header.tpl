@@ -136,7 +136,7 @@ $(function(){
 	$('.userOptions').dropdown();
 	$("#logOut").on("click",function(e){
 		$.post('/api/logout').success(function(){
-			window.location.reload();
+			window.location.href ="/";
 		});
 	});
 
