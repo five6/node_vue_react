@@ -31,11 +31,11 @@ module.exports = app => {
         }
         * update(body){
             var _id = body.userName;
-            var passpword = getPassword(body["new-password"]);
+            var password = getPassword(body["new-password"]);
             var conds = {
                 password:password
             };
-            const result = app.model.user.update({_id:_id},{"$set":conds});
+            const result = app.model.user.updateOne({_id:_id},{"$set":conds});
             return result;
         }
     }

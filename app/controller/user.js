@@ -31,7 +31,9 @@ module.exports = app => {
     }
     * update(ctx){
         const body = ctx.request.body;
-        const result = yield ctx.service.user.update(body);
+        yield ctx.service.user.update(body);
+        ctx.logout();
+        ctx.response.redirect('/');
     }
     * books(ctx){
               const books =[
