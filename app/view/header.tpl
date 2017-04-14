@@ -7,7 +7,7 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	  <!-- Site Properties -->
 	  <link rel="stylesheet" type="text/css" href="/public/css/common.css">
-	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/semantic.css">
+	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/semantic.min.css">
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/reset.css">
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/site.css">
 
@@ -111,6 +111,8 @@
   <script src="/public/semantic/dist/components/visibility.js"></script>
   <script src="/public/semantic/dist/components/sidebar.js"></script>
   <script src="/public/semantic/dist/components/transition.js"></script>
+  <script src="/public/js/underscore.js"></script>
+  <script src="/public/js/moment.js"></script>
   <script>
   $(document)
     .ready(function() {
