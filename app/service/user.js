@@ -27,7 +27,7 @@ module.exports = app => {
             };
             const user = new app.model.user(cond);
             const result = user.save();
-            return null;
+            return result;
         }
         * update(body){
             var _id = body.userName;

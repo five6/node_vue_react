@@ -16,11 +16,13 @@
             </div>
         </div>
           <script type="text/javascript">
-             $.get("/api/events").success(function(result){
+          var time = new Date().valueOf() - 60 * 1000 * 60;
+             $.get("/api/events?time="+time).success(function(result){
                 var events =[];
                 _.each(result,function(event){
                     var dateTime = event.time;
-                    dateTime = moment(dateTime).format("YYYY-MM-DD HH:mm:ss");
+                    moment.locale("cn");
+                    dateTime = moment(dateTime).fromNow();
                     var html =  
                     '<div class="event">'+
                       '<div class="label">'+
