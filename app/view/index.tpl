@@ -21,6 +21,12 @@
                 var events =[];
                 _.each(result,function(event){
                     var dateTime = event.time;
+                    var operation = event.operation;
+                    if(operation == 1){
+                      operation = "发表说说";
+                    }else{
+                      operation ="发布日志";
+                    }
                     moment.locale("cn");
                     dateTime = moment(dateTime).fromNow();
                     var html =  
@@ -29,7 +35,7 @@
                         '<img src='+event.userHead+'>'+
                       '</div>'+
                       '<div class="content">'+
-                        '<div class="summary"><a class="user"> '+ event.userId +' </a> '+ event.operation +'<div class="date">'+ dateTime +'</div>'+
+                        '<div class="summary"><a class="user"> '+ event.userId +' </a> '+ operation +'<div class="date">'+ dateTime +'</div>'+
                         '</div>'+
                         '<div class="meta">'+
                          '<a class="like"><i class="like icon"></i>'+event.likes+' 个赞</a>'+
