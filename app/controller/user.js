@@ -8,7 +8,6 @@ module.exports = app => {
         const user = yield ctx.service.user.login(body);
         if(user){
             ctx.login(user,function(){
-                console.log("logined  ")
                 const locals = {
                       userName: ctx.user._id
                 };
@@ -16,7 +15,6 @@ module.exports = app => {
             }); 
           
         }else{
-            console.log("not login")
             ctx.response.redirect('/')
         }
     }

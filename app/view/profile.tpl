@@ -26,21 +26,21 @@
         <div class="ui container" id="profile-updateInsert-rz">
              <div class="ui content">
                  <div class="form ui updateInsert-ss">
-                   <form action="/api/events/create" method="post" name="updateInsert-ss">
+                   <form name="updateInsert-ss">
                           <div class="field">
                             <label>标题</label>
                             <div class="ui icon left input">
-                              <input type="text" name="title" placeholder="" maxlength="100">
+                              <input type="text" name="title" placeholder="" maxlength="100" id="rz-title">
                               <input type="hidden" name="operation" value="1"/>
                             </div>
                           </div>
                           <div class="field">
                               <label>内容</label>
                               <div class="ui left icon input">
-                                <textarea rows="10" cols="20" name="content"></textarea>
+                                <textarea rows="10" cols="20" name="content"></textarea id="rz-content">
                               </div>
                           </div>
-                          <button type="submit" class="ui primary button">发表</button>
+                          <button type="button" id="submit-rz" class="ui primary button">发表</button>
                       </form>
                  </div>
             </div>
@@ -94,6 +94,21 @@
               $("#profile-menu").find("a.active").removeClass("active");
               $(this).addClass("active");
            });
+          $("#submit-rz").on("click",function(e){
+              var title = $("#rz-title").val();
+              var content = $("#rz-content").val();
+              $.ajax({
+                url:"/api/events/create",
+                dataType:"json",
+                method:"post",
+                success:function(){
+                  alert("success")
+                },
+                error:function(){
+                  alert("error");
+                }
+              })
+          });
           // $('.ui.modal').modal('show')
         });
 
