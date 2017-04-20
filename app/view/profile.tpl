@@ -90,13 +90,20 @@
           //  });
           $("#submit-rz").on("click",function(e){
               var title = $("#rz-title").val();
-              var content = $("#rz-content").val();
+              var content = $("#rz-content").text();
               $.ajax({
                 url:"/api/events/create",
                 dataType:"json",
+                data:{
+                  title:title,
+                  content:content,
+                  operation:2
+                },
                 method:"post",
                 success:function(){
-                  alert("success")
+                  alert("success");
+                  $("#rz-title").val("");
+                  $("#rz-content").text("");
                 },
                 error:function(){
                   alert("error");

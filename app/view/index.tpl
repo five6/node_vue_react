@@ -27,15 +27,18 @@
                     }else{
                       operation ="发布日志";
                     }
+                    var _id = event._id;
+                    var contents = event.title || event.content || "";//有title是日志 没有title 是说说
+                    var userHead = event.userHead || "/public/images/head/1.jpg"
                     moment.locale("cn");
                     dateTime = moment(dateTime).fromNow();
                     var html =  
                     '<div class="event">'+
                       '<div class="label">'+
-                        '<img src='+event.userHead+'>'+
+                        '<img src='+userHead+'>'+
                       '</div>'+
                       '<div class="content">'+
-                        '<div class="summary"><a class="user"> '+ event.userId +' </a> '+ operation +'<div class="date">'+ dateTime +'</div>'+
+                        '<div class="summary"><a class="user"> '+ event.userId +' </a> '+ operation +'<a  _id='+_id+' class="title a-event-detail">'+contents+'</a>'+'<div class="date">'+ dateTime +'</div>'+
                         '</div>'+
                         '<div class="meta">'+
                          '<a class="like"><i class="like icon"></i>'+event.likes+' 个赞</a>'+
@@ -46,6 +49,12 @@
               });
               $("#id-event-list").html(events.join(""));
              });
+
+
+             $("#id-event-list").on("click",".a-event-detail",function(){
+                alert(1);
+             })
+
           </script>
          {% include "footer.tpl" %}
   </body>

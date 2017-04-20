@@ -72,16 +72,16 @@ module.exports = appInfo => {
     // ,'errorHandler'
    ];
    //安全机制 线上启用
-  //  config.security = {
-  //   csp: {
-  //     ignore: '/api/logout',
-  //     xframe: {
-  //     }
-  //   },
-  //   csrf: {
-  //      ignore: '/api/logout'
-  //   }
-  // };
+   config.security = {
+    csp: {
+      enable: false,
+      // ignore: '/api/logout',
+    },
+    csrf: {
+      enable: false,
+      // ignore: '/api/logout'
+    }
+  };
   // 只对 /api 前缀的 url 路径生效
   // config.errorHandler= {
   //   match: '/api',
