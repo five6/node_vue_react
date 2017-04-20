@@ -25,6 +25,7 @@
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/icon.css">
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/sidebar.css">
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/transition.css">
+	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/tab.css">
 	  <style type="text/css">
 		    @media only screen and (max-width: 700px) {
 		      .ui.fixed.menu {
@@ -56,6 +57,7 @@
   <script src="/public/semantic/dist/components/visibility.js"></script>
   <script src="/public/semantic/dist/components/sidebar.js"></script>
   <script src="/public/semantic/dist/components/transition.js"></script>
+   <script src="/public/semantic/dist/components/tab.js"></script>
   <script src="/public/js/underscore.js"></script>
   <script src="/public/js/moment.js"></script>
   <script src="/public/js/zh-cn.js"></script>

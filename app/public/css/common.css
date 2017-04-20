@@ -5,3 +5,7 @@
 .ui.container > .ui.footer{
 	padding: 1.5em;
 }
+
+#profile-menu{
+	margin-bottom: 2rem;
+}
