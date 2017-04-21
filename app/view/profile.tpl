@@ -44,7 +44,18 @@
                       </div>
                 </div>
                 <div class="ui tab attached" data-tab="createSS">
-                    说说
+                    <div class="form ui updateInsert-ss">
+                     <form name="updateInsert-ss">
+                            <div class="field">
+                            <div class="field">
+                                <label>说说</label>
+                                <div class="ui left icon input">
+                                  <textarea rows="10" cols="20" name="content"></textarea id="ss-content">
+                                </div>
+                            </div>
+                            <button type="button" id="submit-ss" class="ui primary button button-publish-event">发表</button>
+                        </form>
+                      </div>
                 </div>
                 <div class="ui tab attached" data-tab="createRZ">
                    <div class="form ui updateInsert-ss">
@@ -53,7 +64,6 @@
                               <label>标题</label>
                               <div class="ui icon left input">
                                 <input type="text" name="title" placeholder="" maxlength="100" id="rz-title">
-                                <input type="hidden" name="operation" value="1"/>
                               </div>
                             </div>
                             <div class="field">
@@ -62,7 +72,7 @@
                                   <textarea rows="10" cols="20" name="content"></textarea id="rz-content">
                                 </div>
                             </div>
-                            <button type="button" id="submit-rz" class="ui primary button">发表</button>
+                            <button type="button" id="submit-rz" class="ui primary button button-publish-event">发表</button>
                         </form>
                    </div>
               </div>
@@ -84,25 +94,36 @@
               "content" : ['minLength[4]', 'empty']
             }
           });
+           $('.ui.form.updateInsert-rz').form({
+            fields: {
+              "content" : ['minLength[4]', 'empty']
+            }
+          });
           // $("#profile-menu .item").click(function(){
           //     $("#profile-menu").find("a.active").removeClass("active");
           //     $(this).addClass("active");
           //  });
-          $("#submit-rz").on("click",function(e){
-              var title = $("#rz-title").val();
-              var content = $("#rz-content").text();
+
+            $(".button-publish-event").on("click",function(e){
+              var data = {};
+              if($(e).is("#submit-rz")){
+                    data["title"] = $("#rz-title").val();
+                    data["content"] = $("#rz-content").text();
+                    data["operation"]  = 2;
+
+              }else if($(e).is("#submit-rz")){
+                    data["content"] = $("#ss-content").text();
+                    data["operation"]  = 1;
+              }
               $.ajax({
                 url:"/api/events/create",
                 dataType:"json",
-                data:{
-                  title:title,
-                  content:content,
-                  operation:2
-                },
+                data:data,
                 method:"post",
                 success:function(){
                   alert("success");
                   $("#rz-title").val("");
+                  $("#ss-content").text("");
                   $("#rz-content").text("");
                 },
                 error:function(){

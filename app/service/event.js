@@ -2,11 +2,13 @@ var moment = require("moment");
 var mongoose = require('mongoose');
 module.exports = app => {
 	class Event extends app.Service{
+		//查询方式，查询最后10条数据，然后排序，最后根据排序后最早的文章问基点，查找更早的10条数据
 		* list(time){
-			var cond = {
-				"time":{$gte:time}
+			var cond ={};
+			if(time){
+				cond["time"] ={$gte:time}
 			}
-            return yield app.model.event.find(cond);
+            return yield app.model.event.find(cond).sort({_id:-1}).limit(10);
 		}	
 		* detail(id){
 				var cond = {
