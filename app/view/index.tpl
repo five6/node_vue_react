@@ -84,25 +84,25 @@
                   lastEvent.after(events.join(""));
               });
              });
-             // $("#id-event-list").on("click",".eventLikes",function(e){
-             //    var clicks = $(e.target).attr("eventLikes");
-             //    $.ajax({
-             //      url:"/api/events/update",
-             //      method:"put",
-             //      type:"json",
-             //      data:{
+             $("#id-event-list").on("click",".eventLikes",function(e){
+                var clicks = $(e.target).attr("eventLikes");
+                $.ajax({
+                  url:"/api/events/update",
+                  method:"put",
+                  type:"json",
+                  data:{
                     
-             //      },
-             //      success:function(){
+                  },
+                  success:function(){
 
 
-             //      },
-             //      error:function(){
+                  },
+                  error:function(){
 
-             //      }
-             //    })
-              // });
-             // });
+                  }
+                })
+              });
+             });
           </script>
          {% include "footer.tpl" %}
   </body>
