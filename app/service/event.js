@@ -1,17 +1,17 @@
-var moment = require("moment");
-var mongoose = require('mongoose');
+const moment = require("moment");
+const mongoose = require('mongoose');
 module.exports = app => {
 	class Event extends app.Service{
 		//查询方式，查询最后10条数据，然后排序，最后根据排序后最早的文章问基点，查找更早的10条数据
 		* list(time){
-			var cond ={};
+			const cond ={};
 			if(time){
-				cond["time"] ={$gte:time}
+				cond["time"] ={$lt:time}
 			}
             return yield app.model.event.find(cond).sort({_id:-1}).limit(10);
 		}	
 		* detail(id){
-				var cond = {
+				const cond = {
 					"_id":new mongoose.Types.ObjectId(id)
 				};
 				const eventInfo = yield app.model.event.findOne(cond);
@@ -19,7 +19,7 @@ module.exports = app => {
 		}
 		* create(body){
 			console.log(this.ctx.user._id);
-			var time = new Date().getTime()
+			const time = new Date().getTime()
 			body.userId = this.ctx.user._id;
 			body.time = time;
 			body.likes = 0;
@@ -29,10 +29,19 @@ module.exports = app => {
             return event.save();
 		}
 		* update(body){
-
+			const _id = body["_id"];
+			delete body._id;
+			const cond = {
+					"_id":new mongoose.Types.ObjectId(_id)
+			};
+			const eventInfo = yield app.model.event.updateOne(cond,{"$set":body});
+			return eventInfo;
 		}
-		* delete(body){
-
+		* delete(id){
+			const cond = {
+				"_id":new mongoose.Types.ObjectId(id)
+			}
+			const result = yield app.model.event.remove(cond);
 		}
 	}
 	return Event;

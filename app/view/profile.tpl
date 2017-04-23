@@ -47,10 +47,9 @@
                     <div class="form ui updateInsert-ss">
                      <form name="updateInsert-ss">
                             <div class="field">
-                            <div class="field">
                                 <label>说说</label>
                                 <div class="ui left icon input">
-                                  <textarea rows="10" cols="20" name="content"></textarea id="ss-content">
+                                  <textarea id="ss-content" rows="10" cols="20" name="content"></textarea>
                                 </div>
                             </div>
                             <button type="button" id="submit-ss" class="ui primary button button-publish-event">发表</button>
@@ -106,13 +105,13 @@
 
             $(".button-publish-event").on("click",function(e){
               var data = {};
-              if($(e).is("#submit-rz")){
+              if($(e.target).is("#submit-rz")){
                     data["title"] = $("#rz-title").val();
-                    data["content"] = $("#rz-content").text();
+                    data["content"] = $("#rz-content").val();
                     data["operation"]  = 2;
 
-              }else if($(e).is("#submit-rz")){
-                    data["content"] = $("#ss-content").text();
+              }else if($(e.target).is("#submit-ss")){
+                    data["content"] = $("#ss-content").val();
                     data["operation"]  = 1;
               }
               $.ajax({
@@ -123,8 +122,8 @@
                 success:function(){
                   alert("success");
                   $("#rz-title").val("");
-                  $("#ss-content").text("");
-                  $("#rz-content").text("");
+                  $("#ss-content").val("");
+                  $("#rz-content").val("");
                 },
                 error:function(){
                   alert("error");
