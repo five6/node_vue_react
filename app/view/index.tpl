@@ -13,6 +13,17 @@
             <div class="ui content">
                 <div class="ui feed" id="id-event-list">
                 </div>
+                <div id="modal-container">
+                  <div class="ui modal modal-rz-detail">
+                    <div class="header" id="modal-rz-detail-header"></div>
+                    <div class="content" id="modal-rz-detail-body">
+                      <p></p>
+                    </div>
+                    <div class="actions">
+                      <div class="ui cancel button">确定</div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
           <script type="text/javascript">
@@ -62,7 +73,7 @@
                                 '<div class="summary"><a class="user"> '+ event.userId +' </a> '+ operation +'<a eventTime='+eventTime+'  _id='+_id+' class="event_id title a-event-rz-detail">'+contents+'</a>'+'<div class="date">'+ dateTime +'</div>'+
                                 '</div>'+
                                 '<div class="meta">'+
-                                 '<a class="like eventLikes" eventLikes='+event.likes+' ><i class="like icon" eventLikes='+event.likes+'></i>'+event.likes+' 个赞</a>'+
+                                 '<a class="like eventLikes" eventLikes='+event.likes+'  _id='+_id+'><i class="like icon" eventLikes='+event.likes+'  _id='+_id+'></i>'+event.likes+' 个赞</a>'+
                                 '</div>'+
                               '</div>'+
                             '</div>';
@@ -73,8 +84,12 @@
                     return events;
               }
 
-             $("#id-event-list").on("click",".a-event-rz-detail",function(){
-                alert(1);
+             $("#id-event-list").on("click",".a-event-rz-detail",function(e){
+                   var _id = $(e.target).attr("_id");
+                   $.get("/api/events/"+_id).success(function(result){
+                      rizhiDetail(result);
+                    });
+               
              })
              $("#id-event-list").on("click",".getMoreEvents",function(){
                 var lastEvent = $("#id-event-list").find("div.event").last();
@@ -86,8 +101,10 @@
              });
              $("#id-event-list").on("click",".eventLikes",function(e){
                 var clicks = $(e.target).attr("eventLikes");
+                var _id = $(e.target).attr("_id");
+                var action = ""
                 $.ajax({
-                  url:"/api/events/update",
+                  url:"/api/events/update/"+_id,
                   method:"put",
                   type:"json",
                   data:{
@@ -102,7 +119,13 @@
                   }
                 })
               });
-             });
+            function rizhiDetail(event){
+                var title = event.title;
+                var content = event.content;
+                $("#modal-rz-detail-header").html(title);
+                $("#modal-rz-detail-body p").html(content);
+                $('.modal-rz-detail.modal').modal('show');
+            }
           </script>
          {% include "footer.tpl" %}
   </body>

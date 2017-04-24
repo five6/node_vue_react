@@ -9,6 +9,7 @@ module.exports = appInfo => {
 	  defaultViewEngine: 'nunjucks',
 	  mapping: {
 	    '.tpl': 'nunjucks',
+      '.index': 'nunjucks'
 	  },
   };
   config.mysql = {

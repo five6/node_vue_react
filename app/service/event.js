@@ -15,6 +15,7 @@ module.exports = app => {
 					"_id":new mongoose.Types.ObjectId(id)
 				};
 				const eventInfo = yield app.model.event.findOne(cond);
+				console.log(eventInfo);
 				return eventInfo || {code:1,msg:"NOT FOUND!"};
 		}
 		* create(body){
@@ -41,7 +42,7 @@ module.exports = app => {
 			const cond = {
 				"_id":new mongoose.Types.ObjectId(id)
 			}
-			const result = yield app.model.event.remove(cond);
+			const result = yield app.model.event.deleteOne(cond);
 		}
 	}
 	return Event;

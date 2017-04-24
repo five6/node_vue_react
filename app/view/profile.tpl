@@ -68,7 +68,7 @@
                             <div class="field">
                                 <label>内容</label>
                                 <div class="ui left icon input">
-                                  <textarea rows="10" cols="20" name="content"></textarea id="rz-content">
+                                  <textarea  id="rz-content" rows="10" cols="20" name="content"></textarea>
                                 </div>
                             </div>
                             <button type="button" id="submit-rz" class="ui primary button button-publish-event">发表</button>
