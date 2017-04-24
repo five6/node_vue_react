@@ -7,6 +7,10 @@ module.exports = app =>{
 		 	const list = yield ctx.service.event.list(ctx.query.time);
 		 	ctx.body = list || [];
 		}
+		* userEventList(ctx){
+		 	const list = yield ctx.service.event.userEventList();
+		 	ctx.body = list || [];
+		}
 		* detail(ctx){
 			ctx.body = yield ctx.service.event.detail(ctx.params.id);
 		}
@@ -22,8 +26,7 @@ module.exports = app =>{
 			ctx.body = {code:0,msg:"success"};
 		}
 		* delete(ctx){
-			const body = ctx.request.body;
-			const result = yield ctx.service.event.delete(body);
+			const result = yield ctx.service.event.delete(ctx.params.id);
 			ctx.body = {code:0,msg:"success"};
 		}
 	};

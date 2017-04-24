@@ -9,6 +9,13 @@ module.exports = app => {
 				cond["time"] ={$lt:time}
 			}
             return yield app.model.event.find(cond).sort({_id:-1}).limit(10);
+		}
+		* userEventList(){
+			const cond ={
+				userId:this.ctx.user._id
+			};
+			console.log(cond)
+			return yield app.model.event.find(cond).sort({_id:-1});
 		}	
 		* detail(id){
 				const cond = {

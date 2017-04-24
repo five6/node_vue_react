@@ -16,6 +16,7 @@ module.exports = app => {
   app.get('/api/books','user.books');
   app.post('/api/user/update','user.update');
   app.get('/api/events','event.list');
+  app.get('/api/events/userEventList','event.userEventList');
   app.get('/api/events/:id','event.detail');
   app.post('/api/events/create','event.create');
   app.put('/api/events/update/:id','event.update');
