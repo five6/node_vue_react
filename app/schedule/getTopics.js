@@ -5,7 +5,7 @@ module.exports =app => {
   var config = {};
 
   config.schedule = {
-     interval: "30s",
+     interval: "30m",
       type: "all"
   };
   config.task = function* (ctx){ 
