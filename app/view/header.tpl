@@ -83,6 +83,16 @@
     })
   ;
 $(function(){
+	if(location.href.indexOf("profile") > -1){
+		$("#menu-item-profile").addClass("active");
+	}else if(location.href.indexOf("index") > -1) {
+		$("#menu-item-index").addClass("active");
+	}else if(location.href.indexOf("album") > -1){
+		$("#menu-item-album").addClass("active");
+	}
+	else if(location.href.indexOf("topics") > -1){
+		$("#menu-item-topics").addClass("active");
+	}
 	$('.userOptions').dropdown();
 	$("#logOut").on("click",function(e){
 		$.post('/api/logout').success(function(){
@@ -90,10 +100,10 @@ $(function(){
 		});
 	});
 
-	$("#top-large-menu .item").click(function(){
-		$("#top-large-menu > .container").find("a.active").removeClass("active");
-		$(this).addClass("active");
-	});
+	// $("#top-large-menu .item").click(function(){
+	// 	$("#top-large-menu > .container").find("a.active").removeClass("active");
+	// 	$(this).addClass("active");
+	// });
 });
 </script>
 </head>
@@ -102,11 +112,11 @@ $(function(){
 <!-- Following Menu -->
 <div class="ui large top fixed menu" id="top-large-menu">
   <div class="ui container">
-    <a href="/view/index" class="active item">主页</a>
+    <a href="/view/index" class="item" id="menu-item-index">主页</a>
     {% if userName %}
- 		<a href="/view/logs" class="item">日志</a>
-	    <a href="/view/album" class="item">相册</a>
-	    <a href="/view/profile" class="item">个人中心</a>
+ 		<a href="/view/topics" class="item" id="menu-item-topics">主题</a>
+	    <a href="/view/album" class="item" id="menu-item-album">相册</a>
+	    <a href="/view/profile" class="item" id="menu-item-profile">个人中心</a>
     {% endif %}
     <div class="right menu">
     {% if userName %}

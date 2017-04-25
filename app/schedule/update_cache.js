@@ -1,14 +1,17 @@
 'use strict';
-module.exports  = {
-  // 通过 schedule 属性来设置定时任务的执行间隔等配置
-  schedule: {
+module.exports  = app => {
+  var config = {};
+  config.schedule ={
     type:"all",
-    interval:"5m"
-  },
-  task: function* (ctx){ 
-    const res = yield ctx.curl('https://cnodejs.org/api/v1/topics', {
-      dataType: 'json',
-    });
-    ctx.app.cache = res.data.data;
-  }
+    interval:"30s"
+  };
+  config.task = function* (ctx){ 
+      const res = yield ctx.curl('https://cnodejs.org/api/v1/topics', {
+        dataType: 'json',
+      });
+        console.log("dddddddddddddddddddddddddddddd");
+       ctx.logger.info("执行一次task ： update_cache");
+      ctx.app.cache = res.data.data;
+  };
+  return config;
 };

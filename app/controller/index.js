@@ -1,5 +1,5 @@
 'use strict';
-var _ = require("underscore");
+const _ = require("underscore");
 module.exports = app => {
   class HomeController extends app.Controller {
     * index(ctx) {
@@ -15,8 +15,8 @@ module.exports = app => {
     * register(ctx){
     	yield ctx.render('register.tpl');
     }
-    * logs(ctx){
-        yield ctx.render('logs.tpl',{userName:ctx.user._id});
+    * topics(ctx){
+        yield ctx.render('topics.tpl',{userName:ctx.user._id});
     }
     * album(ctx){
         yield ctx.render('album.tpl',{userName:ctx.user._id});

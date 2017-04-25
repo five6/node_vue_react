@@ -152,8 +152,8 @@
                 var operation = event.operation == 1 ? "说说":"日志";
                 tables +="<tr>"+
                   "<td>"+time+"</td>"+
-                  "<td>"+(event.title ||'')+"</td>"+
-                  "<td>"+(event.content || '')+"</td>"+
+                  "<td><div class='td-div-event-title'>"+(event.title ||'')+"</sdiv></td>"+
+                  "<td><div class='td-div-event-content'>"+(event.content || '')+"</div></td>"+
                   "<td>"+operation+"</td>"+
                   "<td _id="+ event._id +" ><button class='ui button button-removeEvent'>删除</button></td>"+
                   "</tr>";

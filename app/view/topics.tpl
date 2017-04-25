@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>日志</title>
+    <title>topics</title>
   </head>
   <style>
     
@@ -10,7 +10,7 @@
         <!-- content -->
         <div class="ui container">
             <div class="ui content">
-                  <h1>日志 !</h1>
+                  <h1>topics !</h1>
             </div>
         </div>
          {% include "footer.tpl" %}

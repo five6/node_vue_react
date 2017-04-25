@@ -6,7 +6,7 @@ module.exports = app => {
   app.get('/view/index','index.index');
   app.get('/view/login','index.login');
   app.get('/view/register','index.register');
-  app.get('/view/logs','index.logs');
+  app.get('/view/topics','index.topics');
   app.get('/view/album','index.album');
    app.get('/view/profile','index.profile');
   //api

@@ -13,3 +13,9 @@
 	cursor: pointer !important;
 
 }
+.td-div-event-title{
+	max-width: 10em;
+}
+.td-div-event-content{
+max-width: 20em;
+}
