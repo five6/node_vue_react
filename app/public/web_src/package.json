@@ -1,0 +1,11 @@
+{
+  "name": "web_src",
+  "version": "0.0.1",
+  "description": "egg web client build project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "five6",
+  "license": "MIT"
+}

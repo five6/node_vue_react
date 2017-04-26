@@ -9,8 +9,10 @@ module.exports = app => {
 		}
 		* topic(_id){
 			const cond = {
-				
+				"_id":_id	
 			}
+			const topics = yield app.model.topics.find(cond);
+			return topic;
 		}
 	};
 	return Topics;

@@ -5,6 +5,6 @@ module.exports = mongoose => {
         head:{type:String},
         body:{type:String},
         time:{type:Number}
-    });
+    },{collection: "topics"});
     return mongoose.model('topics', topicsSchema);
 }

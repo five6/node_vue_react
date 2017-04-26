@@ -11,6 +11,6 @@ module.exports = mongoose => {
 		create_at:{type:String},
 		author:{type:Object},
 		replies:{type:Array}
-    });
+    },{collection: "topic"});
     return mongoose.model('topic', TopicSchema);
 }

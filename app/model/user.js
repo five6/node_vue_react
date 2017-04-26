@@ -4,6 +4,6 @@ module.exports = mongoose => {
     	_id: {type: String},
         sex: { type: Number},
         password: { type: String}
-    });
+    },{collection: "user"});
     return mongoose.model('user', UserSchema);
 }

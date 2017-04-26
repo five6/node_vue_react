@@ -13,6 +13,11 @@
                   <h1>topics !</h1>
             </div>
         </div>
+        <script type="text/javascript">
+            $(function(){
+                
+            })
+        </script>
          {% include "footer.tpl" %}
   </body>
 </html>

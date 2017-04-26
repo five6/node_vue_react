@@ -10,6 +10,6 @@ module.exports = mongoose => {
         likes:{type:Number},
         updateTime:{type:Number},
         likeUsers:{type:Array}
-    });
-    return mongoose.model('event', EventSchema);
+    },{collection: "events"});
+    return mongoose.model('events', EventSchema);
 }
