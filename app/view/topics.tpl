@@ -10,14 +10,13 @@
         <!-- content -->
         <div class="ui container">
             <div class="ui content">
-                  <h1>topics !</h1>
+                  <div id="topic-container" class="ui">
+
+                  <div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(function(){
-                
-            })
-        </script>
+        <script
+         <script src="/public/web/topics.js"></script>
          {% include "footer.tpl" %}
   </body>
 </html>
