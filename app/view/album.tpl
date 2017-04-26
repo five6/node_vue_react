@@ -10,9 +10,10 @@
         <!-- content -->
         <div class="ui container">
             <div class="ui content">
-                  <h1>相册 !</h1>
+                  <div id="album-container" />
             </div>
         </div>
-         {% include "footer.tpl" %}
+        <script src="/public/web/album.js"></script>
+        {% include "footer.tpl" %}
   </body>
 </html>

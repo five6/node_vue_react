@@ -16,7 +16,7 @@
             </div>
         </div>
         <script
-         <script src="/public/web/topics.js"></script>
+         <script src="/public/web/topic.js"></script>
          {% include "footer.tpl" %}
   </body>
 </html>
