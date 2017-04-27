@@ -1,5 +1,7 @@
-//我说注释
-/** 我说注释***/
-console.log("topic.js");
-
-console.log("topic.js 2")
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Topic from '../components/topic';
+const nodeDiv =document.getElementById("topic-container");
+ReactDOM.render(
+	<Topic />,nodeDiv
+)

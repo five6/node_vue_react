@@ -42,43 +42,45 @@ module.exports = {
     module:{
     	loaders:[
     		{
-				test:/\.js$/,
+				test:/\.jsx?$/,
 				loader:'babel-loader',
 				exclude:path.resolve( __dirname,"node_modules"),
-				include:path.resolve( __dirname,"src")
+			 	options:{
+		 			presets: ['es2015', 'react']
+			 	}
 			},
-        {
-          test:/\.css$/,
-          use:[
-              'style-loader',
-              {
-                  loader: 'css-loader',
-                  options: {
-                      importLoaders: 1
+            {
+              test:/\.css$/,
+              use:[
+                  'style-loader',
+                  {
+                      loader: 'css-loader',
+                      options: {
+                          importLoaders: 1
+                      }
+                  },
+                  {
+                      loader:'postcss-loader',
+                      options: {
+                          plugins: function () {
+                              return [
+                                  require('autoprefixer')
+                              ];
+                          }
+                      }
                   }
-              },
-              {
-                loader:'postcss-loader',
-                options: {
-                    plugins: function () {
-                        return [
-                            require('autoprefixer')
-                        ];
-                    }
-                }
-              }
-            ]
-        },
-       {
+                ]
+            },
+            {
 				test: /\.less$/,
-            use: [{
-                loader: "style-loader" // creates style nodes from JS strings
-            }, {
-                loader: "css-loader" // translates CSS into CommonJS
-            }, {
-                loader: "less-loader" // compiles Less to CSS
-            }]
-        }
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader" // compiles Less to CSS
+                }]
+            }
     	]
     }
 }

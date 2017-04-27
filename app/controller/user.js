@@ -33,16 +33,6 @@ module.exports = app => {
         ctx.logout();
         ctx.response.redirect('/');
     }
-    * books(ctx){
-              const books =[
-                {name:"java",'price':124.50},
-                {name:"javascript",'price':50},
-                {name:"python",'price':100},
-                {name:"nodejs",'price':80}
-            ]
-            ctx.body = books;
-      
-    }
   }
   return HomeController;
 };

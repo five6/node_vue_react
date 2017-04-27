@@ -8,14 +8,9 @@
   <body>
         {% include "header.tpl" %}
         <!-- content -->
-        <div class="ui container">
-            <div class="ui content">
-                  <div id="topic-container" class="ui">
-
-                  <div>
-            </div>
+        <div class="ui container" id="topic-container">
+           
         </div>
-        <script
          <script src="/public/web/topic.js"></script>
          {% include "footer.tpl" %}
   </body>

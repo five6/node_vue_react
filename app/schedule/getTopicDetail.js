@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 module.exports = app => {
 	var config = {};
 	config.schedule = {
-		interval:"30m",
+		interval:"30s",
 		type:"all"
 	};
 	config.task = function* (ctx){
@@ -16,8 +16,13 @@ module.exports = app => {
 		function* range() {
 		  for(var i=0;i< ids.length;i++){
 		  	const id = ids[i];
-			const topic =  yield ctx.curl('https://cnodejs.org/api/v1/topic/'+id, {});
-			topics.push(topic);
+			const result =  yield ctx.curl('https://cnodejs.org/api/v1/topic/'+id, {
+				 dataType: 'json'
+			});
+			const topic = result.data.data ;
+			if(topic){
+				topics.push(topic);
+			}
 		  }
 		} 
 		//先把topic对应的topic 获取 ，然后保存detail
@@ -37,7 +42,7 @@ module.exports = app => {
 	      });
 	    });
 	    bulkOperate(app.model.topic.bulkWrite,app.model.topic,ops,function(err,result){
-	        ctx.logger.info("保存topic详情完成 ： "+result);
+	        ctx.logger.info("保存topic详情完成 ： ");
 	    });
 	};
 	return config;
