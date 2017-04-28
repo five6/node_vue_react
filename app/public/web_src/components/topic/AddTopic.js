@@ -1,5 +1,8 @@
 import React from 'react';
-export default class AddTopic extends React.Component {
+import PropTypes from 'prop-types'
+import { Provider,connect } from 'react-redux'
+import { for_add_topic } from '../../actions/topic'
+class AddTopic extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -10,7 +13,7 @@ export default class AddTopic extends React.Component {
 		this.onSumit = this.onSumit.bind(this);
 	}
 	onSumit(){
-
+		console.log();
 	}
 	render(){
 		return(
@@ -35,10 +38,30 @@ export default class AddTopic extends React.Component {
 	                        	<textarea value={this.state.content}></textarea>
 	                        </div>
 	                    </div>
-	                    <button type="button" onClick={this.onSubmit} className="ui primary button">发表</button>
+	                    <button type="button" onClick={this.onSumit()} className="ui primary button">发表</button>
 	                </form>
 	              </div>
 	        </div>
 		)
 	}
 };
+
+function mapStateToProps(state) {
+  return {
+    data: state
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSumit: () => dispatch(for_add_topic)
+  }
+}
+
+
+const AddTopicContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddTopic)
+
+export default AddTopicContainer;

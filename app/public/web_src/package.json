@@ -19,9 +19,11 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "postcss-loader": "^0.9.1",
+    "prop-types": "^15.5.8",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-loader": "^2.4.0",
+    "redux-logger": "^3.0.1",
     "webpack": "^2.4.1",
     "webpack-dashboard": "^0.3.0",
     "webpack-livereload-plugin": "^0.8.1"
