@@ -22,7 +22,7 @@ module.exports = app => {
   app.put('/api/events/update/:id','event.update');
   app.delete('/api/events/delete/:id','event.delete');
   // topic api
-  app.get("/api/topics","topics.topics");
+  app.get("/api/topics","topics.list");
   app.get("/api/topics/:id","topics.topic");
   app.get("/api/topics/create","topics.create"); 
   app.put("/api/topics/update/:id","topics.update");

@@ -1,1 +1,1 @@
-console.log("album.js");
+console.log("album.js")

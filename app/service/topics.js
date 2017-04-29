@@ -3,10 +3,10 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 module.exports = app => {
 	class Topics extends app.Service{
-		* topics(ctx){
+		* list(ctx){
 			const cond ={};
-		  	const page = ctx.requst.query.page || 1;
-		    const size = parseInt(ctx.requst.query.per_page || 15);
+		  	const page = ctx.req.query.page || 1;
+		    const size = parseInt(ctx.query.per_page || 15);
 		    const skip = (page - 1) * size;
 			return yield app.model.topics.find(cond).skip(skip).limit(size);
 		}

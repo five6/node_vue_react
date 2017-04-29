@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider,connect } from 'react-redux';
-import { fetch_topics_if_need,fetch_topic_detail_if_need,for_delete_topic,action_received_topic_list } from '../../actions/topic';
+import { fetch_topics_if_need,action_received_topic_list } from '../../actions/topic';
 class TopicList extends React.Component{
 	constructor(props) {
 		super(props);
@@ -54,21 +54,19 @@ class TopicList extends React.Component{
 };
 
 
-const TopicListContainer =({fetch_topics_if_need,fetch_topic_detail_if_need,for_delete_topic,action_received_topic_list}) => (
+const TopicListContainer =({fetch_topics_if_need,action_received_topic_list}) => (
 	<TopicList 
 		fetch_topics_if_need={() => fetch_topics_if_need()}
-		fetch_topic_detail_if_need ={(topicId) => fetch_topic_detail_if_need(topicId)}
-		for_delete_topic ={(topicId)=> for_delete_topic(topicId)} 
 	></TopicList>
 	)
 
 const mapStateToProps = state => ({
-  topics: state.topics
+  topics: state
 })
 
 
 export default connect(
   mapStateToProps,
-  { fetch_topics_if_need, fetch_topic_detail_if_need,for_delete_topic}
+  { fetch_topics_if_need}
 )(TopicListContainer)
 
