@@ -8,7 +8,7 @@ module.exports = app =>{
 		 	ctx.body = list || [];
 		}
 		* topic(ctx){
-		 	const list = yield ctx.service.topics.tooic();
+		 	const list = yield ctx.service.topics.topic(ctx.params.id);
 		 	ctx.body = list || [];
 		}
 		* detail(ctx){
