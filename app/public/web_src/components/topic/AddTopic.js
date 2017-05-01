@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Provider,connect } from 'react-redux'
 import { for_add_topic } from '../../actions/topic'
-class AddTopic extends React.Component {
+export default class AddTopic extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -45,23 +45,3 @@ class AddTopic extends React.Component {
 		)
 	}
 };
-
-function mapStateToProps(state) {
-  return {
-    data: state
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onSumit: () => dispatch(for_add_topic)
-  }
-}
-
-
-const AddTopicContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddTopic)
-
-export default AddTopicContainer;

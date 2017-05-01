@@ -3,12 +3,19 @@ import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {createLogger}  from 'redux-logger';
 
-function topics(state,action){
+const initialState = {
+	topics:[]
+}
+function topicReducer(state = initialState,action){
 	switch(action.type){
 		case "GET_TOPIC_LIST":
-			return state;
+			return Object.assign({}, state, {
+		       topics: action.topics
+		    })
 		case "RECEIVED_TOPIC_LIST":
-			return state;
+			return Object.assign({}, state, {
+		       topics: action.topics
+		    })
 		default:
 			return state;
 	}
@@ -18,5 +25,11 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger())
 }
 
-const store = createStore(topics,applyMiddleware(...middleware));
+
+
+const store = createStore(
+  topicReducer,
+  applyMiddleware(...middleware)
+)
+
 export default store;
