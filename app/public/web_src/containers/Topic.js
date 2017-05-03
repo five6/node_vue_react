@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AddTopic from '../components/topic/AddTopic';
 import TopicList  from '../components/topic/TopicList';
+import Topicdetail from '../components/topic/Topicdetail';
 import {fetch_topics_if_need,fetch_topicDetail_if_need} from '../actions/topic';
 
 
@@ -34,10 +35,12 @@ class TopicApp extends React.Component {
 			<div className="ui content">
 			 	<div className="ui top attached tabular menu" id="topics-tab" style={{marginBottom: 2 +'em'}}>
 			        <a className="item active"  data-tab="topics-list">主题列表</a>
+			        <a className="item"  data-tab="topics-topic">主题列表</a>
 			        <a className="item"  data-tab="topics-create">新建主题</a>
 			    </div>
 		  	<TopicList getTopicDetail={this.getTopicDetail}  topics={this.props.topics} /> 
 		    <AddTopic />
+		    <Topicdetail />
 		</div>
 		)
 	}

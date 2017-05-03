@@ -1,86 +1,76 @@
-var path = require('path')
-var webpack = require('webpack')
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var DashboardPlugin = require('webpack-dashboard/plugin');
-var isProduction;
-var plugins;
-if(process.env.NODE_ENV =="production"){
-  isProduction = true;
-  plugins = [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            comments: false,
-            sourceMap: false
-        })
-  ]
-}else {
-    var LiveReloadPlugin = require('webpack-livereload-plugin');
-    plugins = [
-      new LiveReloadPlugin({}),
-      new webpack.HotModuleReplacementPlugin(),
-    ];
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const pxtorem = require('postcss-pxtorem');
 
-}
+
 module.exports = {
-    devtool: isProduction ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
-    entry:{
-    	topic:[
-    		'./entry/topic'
-    	],
-    	album:[
-    		'./entry/album'
-    	]
-    },
-    output:{
-        path: path.resolve(__dirname, '../web'),
-        filename: '[name].js',
-        publicPath: '/static/'
-    },
-    plugins:plugins,
-    module:{
-    	loaders:[
-    		{
-				test:/\.jsx?$/,
-				loader:'babel-loader',
-				exclude:path.resolve( __dirname,"node_modules"),
-			 	options:{
-		 			presets: ['es2015', 'react']
-			 	}
-			},
-            {
-              test:/\.css$/,
-              use:[
-                  'style-loader',
-                  {
-                      loader: 'css-loader',
-                      options: {
-                          importLoaders: 1
-                      }
-                  },
-                  {
-                      loader:'postcss-loader',
-                      options: {
-                          plugins: function () {
-                              return [
-                                  require('autoprefixer')
-                              ];
-                          }
-                      }
-                  }
-                ]
-            },
-            {
-				test: /\.less$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "less-loader" // compiles Less to CSS
-                }]
-            }
-    	]
-    }
+  devtool: 'source-map', // or 'inline-source-map'
+  devServer: {
+    disableHostCheck: true
+  },
+
+  entry: { "index": path.resolve(__dirname, 'src/index') },
+
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
+    path: path.join(__dirname, '/dist'),
+    publicPath: '/dist/'
+  },
+
+  resolve: {
+    modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
+    extensions: ['', '.web.js', '.jsx', '.js', '.json'],
+  },
+
+  module: {
+    noParse: [/moment.js/],
+    loaders: [
+      {
+        test: /\.jsx$/, exclude: /node_modules/, loader: 'babel',
+        query: {
+          plugins: [
+            ["transform-runtime", { polyfill: false }],
+            ["import", [{ "style": "css", "libraryName": "antd-mobile" }]]
+          ],
+          presets: ['es2015', 'stage-0', 'react']
+        }
+      },
+      { test: /\.(jpg|png)$/, loader: "url?limit=8192" },
+      // svg-sprite for antd-mobile@1.0
+      { test: /\.(svg)$/i, loader: 'svg-sprite', include: [
+        require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
+        // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 自己私人的 svg 存放目录
+      ]},
+      // { test: /\.css$/, loader: 'style!css' }, // 把css处理成内联style，动态插入到页面
+      { test: /\.less$/i, loader: ExtractTextPlugin.extract('style', 'css!postcss!less') },
+      { test: /\.css$/i, loader: ExtractTextPlugin.extract('style', 'css!postcss') }
+    ]
+  },
+  postcss: [
+    autoprefixer({
+      browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
+    }),
+    pxtorem({ rootValue: 100, propWhiteList: [] })
+  ],
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
+  },
+  plugins: [
+    // new webpack.optimize.CommonsChunkPlugin('shared.js'),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: 'autoprefixer'      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // minChunks: 2,
+      name: 'shared',
+      filename: 'shared.js'
+    }),
+    new ExtractTextPlugin('[name].css', { allChunks: true }),
+  ]
+
 }

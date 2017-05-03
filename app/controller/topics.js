@@ -10,7 +10,7 @@ module.exports = app =>{
 		* topic(ctx){
 		 	const list = yield ctx.service.topics.topic(ctx.params.id);
 		 	ctx.body = list || [];
-		}
+		}		
 		* detail(ctx){
 			ctx.body = yield ctx.service.topics.detail(ctx.params.id);
 		}
