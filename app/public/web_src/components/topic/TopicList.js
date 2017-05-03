@@ -8,6 +8,8 @@ export default class TopicList extends React.Component{
 		super(props);
 		console.log(props);
 		this.tab_cn = this.tab_cn.bind(this);
+		this.getTopicDetail = this.getTopicDetail.bind(this);
+		this.deleteTopic = this.deleteTopic.bind(this);
 	}
 	componentDidMount() {
 
@@ -15,6 +17,13 @@ export default class TopicList extends React.Component{
 	componentWillReceiveProps(nextProps) {
 		console.log("topicList")
 		console.log(nextProps)
+	}
+	getTopicDetail(element){
+		var topicId = element.target.attributes["data-topic-id"].value;
+		this.props.getTopicDetail(topicId);
+	}
+	deleteTopic(element){
+		var topicId = element.target.attributes["data-topic-id"].value;
 	}
 	tab_cn(tab){
 		if(tab =="ask"){
@@ -53,7 +62,7 @@ export default class TopicList extends React.Component{
 							<td>{item.visit_count}</td>
 							<td>{item.reply_count}</td>
 							<td>
-								<button className="button ui">删除</button><button className="button ui">详情</button>
+								<button data-topic-id={item.id}  onClick={(e) => this.deleteTopic(e)} className="button ui">删除</button><button data-topic-id={item.id} onClick={(e) => this.getTopicDetail(e)} className="button ui">详情</button>
 							</td>
 						</tr>)}
 					</tbody>

@@ -9,7 +9,6 @@ module.exports = app => {
 		    const size = parseInt(ctx.query.per_page || 15);
 		    const skip = (page - 1) * size;
 			return yield app.model.topics.find(cond).skip(skip).limit(size);
-			
 		}
 		* topic(_id){
 			const cond = {

@@ -11,11 +11,19 @@ function topicReducer(state = initialState,action){
 		case "GET_TOPIC_LIST":
 			return Object.assign({}, state, {
 		       topics: action.topics
-		    })
+		    });
 		case "RECEIVED_TOPIC_LIST":
 			return Object.assign({}, state, {
 		       topics: action.topics
-		    })
+		    });
+	    case "GET_TOPIC_DETAIL":
+	    	return Object.assign({},state,{
+	    		topicId:action.topicId
+	    	});
+    	case "RECEIVED_TOPIC_DETAIL":
+    		return Object.assign({},state,{
+    			topic:action.topic
+    		});
 		default:
 			return state;
 	}

@@ -1,4 +1,4 @@
-import {GET_TOPIC_LIST,RECEIVED_TOPIC_LIST}  from '../constants/ActionTypes';
+import {GET_TOPIC_LIST,RECEIVED_TOPIC_LIST,RECEIVED_TOPIC_DETAIL,GET_TOPIC_DETAIL}  from '../constants/ActionTypes';
 
 export function action_get_topic_list(topics){
 		return {
@@ -12,6 +12,33 @@ export function action_received_topic_list(topics) {
     type: RECEIVED_TOPIC_LIST,
     topics
   };
+}
+
+export function action_get_topic_detail(topicId){
+	return {
+		type:GET_TOPIC_DETAIL,
+		topicId
+	}
+}
+export function action_received_topic_detail(topic){
+	return {
+		type:RECEIVED_TOPIC_DETAIL,
+		topic
+	};
+}
+const fetch_topicDetail = topicId => dispatch => {
+	dispatch(action_get_topic_detail(topicId));
+	$.ajax({
+		url:"/api/topics/"+topicId,
+		method:"get",
+		type:"json",
+		success:function(topics){
+			return dispatch(action_received_topic_detail(topics));
+		},
+		error:function(err,status){
+			console.log(err);
+		}
+	})
 }
 const fetch_topics = topics => dispatch =>{
 	dispatch(action_get_topic_list(topics));
