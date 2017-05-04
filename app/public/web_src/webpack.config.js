@@ -11,8 +11,10 @@ module.exports = {
     disableHostCheck: true
   },
 
-  entry: { "index": path.resolve(__dirname, 'src/index') },
-
+  entry: { 
+    topic: path.resolve(__dirname, './entry/topic'),
+    album: path.resolve(__dirname, './entry/album') 
+  },
   output: {
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
@@ -21,16 +23,24 @@ module.exports = {
   },
 
   resolve: {
-    modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
-    extensions: ['', '.web.js', '.jsx', '.js', '.json'],
+    extensions: ['.web.js', '.jsx', '.js', '.json'],
   },
 
   module: {
-    noParse: [/moment.js/],
-    loaders: [
+    rules: [
+       {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+      },
       {
-        test: /\.jsx$/, exclude: /node_modules/, loader: 'babel',
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
         query: {
+          limit: 10000
+      },
+      {
+        test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader',
+        options: {
           plugins: [
             ["transform-runtime", { polyfill: false }],
             ["import", [{ "style": "css", "libraryName": "antd-mobile" }]]
