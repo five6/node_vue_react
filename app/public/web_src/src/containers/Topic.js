@@ -40,7 +40,6 @@ class TopicApp extends React.Component {
 			    </div>
 		  	<TopicList getTopicDetail={this.getTopicDetail}  topics={this.props.topics} /> 
 		    <AddTopic />
-		    <Topicdetail />
 		</div>
 		)
 	}

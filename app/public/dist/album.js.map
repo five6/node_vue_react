@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/entry/album.js"],"names":["console","log"],"mappings":";;;;;AAAAA,QAAQC,GAAR,CAAY,UAAZ,E","file":"album.js","sourcesContent":["console.log(\"album.js\")\n\n\n// WEBPACK FOOTER //\n// ./src/entry/album.js"],"sourceRoot":""}
