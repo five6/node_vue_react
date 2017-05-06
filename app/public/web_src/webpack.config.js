@@ -14,7 +14,8 @@ module.exports = {
   },
 
   entry: { 
-    topic: path.resolve(__dirname, './src/entry/topic'),
+    topics: path.resolve(__dirname, './src/entry/topics'),
+    topic: path.resolve(__dirname, './src/entry/topicDetail'),
     album: path.resolve(__dirname, './src/entry/album') 
   },
   output: {
@@ -43,23 +44,12 @@ module.exports = {
                 // https://babeljs.io/docs/usage/options/
                 babelrc: false,
                 presets: [
-                  // A Babel preset that can automatically determine the Babel plugins and polyfills
-                  // https://github.com/babel/babel-preset-env
-                  // Experimental ECMAScript proposals
-                  // https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-
                   'stage-2',
-                  // JSX, Flow
-                  // https://github.com/babel/babel/tree/master/packages/babel-preset-react
                   'react',
-                  // Optimize React code for the production build
-                  // https://github.com/thejameskyle/babel-react-optimize
                 ],
                 plugins: [
-                  // Adds component stack to warning messages
-                  // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
+                  ['import', { libraryName: 'antd-mobile', style: 'css' }],
                   ...isDebug ? ['transform-react-jsx-source'] : [],
-                  // Adds __self attribute to JSX which React will use for some warnings
-                  // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
                   ...isDebug ? ['transform-react-jsx-self'] : [],
                 ],
               },
@@ -70,13 +60,10 @@ module.exports = {
                 {
                   loader: 'css-loader',
                   options: {
-                    // CSS Loader https://github.com/webpack/css-loader
                     importLoaders: 1,
                     sourceMap: isDebug,
-                    // CSS Modules https://github.com/css-modules/css-modules
                     modules: true,
                     localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-                    // CSS Nano http://cssnano.co/options/
                     minimize: !isDebug,
                     discardComments: { removeAll: true },
                   },
@@ -98,14 +85,9 @@ module.exports = {
               ],
             },
     ]
-  },
-  externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
-  },
+  },  
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      // minChunks: 2,
       name: 'shared',
       filename: 'shared.js'
     }),

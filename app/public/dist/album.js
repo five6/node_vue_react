@@ -1,11 +1,11 @@
-webpackJsonp([1],{
+webpackJsonp([2],{
 
-/***/ 65:
+/***/ 240:
 /***/ (function(module, exports) {
 
 console.log("album.js");
 
 /***/ })
 
-},[65]);
+},[240]);
 //# sourceMappingURL=album.js.map

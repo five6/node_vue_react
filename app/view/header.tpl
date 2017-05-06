@@ -114,7 +114,11 @@ $(function(){
   <div class="ui container">
     <a href="/view/index" class="item" id="menu-item-index">主页</a>
     {% if userName %}
- 		<a href="/view/topics" class="item" id="menu-item-topics">主题</a>
+    	{% if topicId %}
+ 			<a href="/view/topic/{{topicId}}" class="item" id="menu-item-topics">主题</a>
+		{% else %}
+ 			<a href="/view/topics" class="item" id="menu-item-topics">主题</a>
+		{% endif %}
 	    <a href="/view/album" class="item" id="menu-item-album">相册</a>
 	    <a href="/view/profile" class="item" id="menu-item-profile">个人中心</a>
     {% endif %}

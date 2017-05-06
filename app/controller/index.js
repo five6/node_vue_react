@@ -16,7 +16,20 @@ module.exports = app => {
     	yield ctx.render('register.tpl');
     }
     * topics(ctx){
-        yield ctx.render('topics.tpl',{userName:ctx.user._id});
+        const locals ={};
+        if(ctx.isAuthenticated()){
+            locals.userName = ctx.user._id;
+        };
+        yield ctx.render('topics.tpl',locals);
+    }
+    * topic(ctx){
+        const locals = {
+            topicId:ctx.params.id
+        }
+         if(ctx.isAuthenticated()){
+            locals.userName = ctx.user._id;
+        };
+        yield ctx.render('topic.html',locals);
     }
     * album(ctx){
         yield ctx.render('album.tpl',{userName:ctx.user._id});

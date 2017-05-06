@@ -1,4 +1,4 @@
-webpackJsonp([1],[
+webpackJsonp([0],[
 /* 0 */
 /***/ (function(module, exports) {
 
@@ -25345,14 +25345,15 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 234 */
+/* 234 */,
+/* 235 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Topic__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Topics__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_topic__ = __webpack_require__(102);
 
 
@@ -25364,7 +25365,7 @@ class TopicsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_react_redux__["a" /* Provider */],
       { store: __WEBPACK_IMPORTED_MODULE_3__reducers_topic__["a" /* default */] },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Topic__["a" /* default */], null)
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Topics__["a" /* default */], null)
     );
   }
 }
@@ -25372,10 +25373,250 @@ class TopicsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
 
 /***/ }),
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */
+/* 236 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_topic__ = __webpack_require__(57);
+
+
+
+
+class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			tab: "",
+			title: "",
+			content: ""
+		};
+		this.onSumit = this.onSumit.bind(this);
+	}
+	onSumit() {
+		console.log();
+	}
+	render() {
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'ui tab attached', 'data-tab': 'topics-create' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'form ui' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'form',
+					null,
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'field' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'label',
+							null,
+							'\u7C7B\u578B'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'ui left icon input' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: this.state.title })
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'field' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'label',
+							null,
+							'\u6807\u9898'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'ui left icon input' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: this.state.title })
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'field' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'label',
+							null,
+							'\u5185\u5BB9'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'ui left icon input' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { value: this.state.content })
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'button',
+						{ type: 'button', onClick: this.onSumit(), className: 'ui primary button' },
+						'\u53D1\u8868'
+					)
+				)
+			)
+		);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = AddTopic;
+;
+
+/***/ }),
+/* 237 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_topic__ = __webpack_require__(57);
+
+
+
+
+
+class TopicList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+	constructor(props) {
+		super(props);
+		console.log(props);
+		this.tab_cn = this.tab_cn.bind(this);
+		this.getTopicDetail = this.getTopicDetail.bind(this);
+		this.deleteTopic = this.deleteTopic.bind(this);
+	}
+	componentDidMount() {}
+	componentWillReceiveProps(nextProps) {
+		console.log("topicList");
+		console.log(nextProps);
+	}
+	getTopicDetail(element) {
+		var topicId = element.target.attributes["data-topic-id"].value;
+		window.location.href = "/view/topic/" + topicId;
+	}
+	deleteTopic(element) {
+		var topicId = element.target.attributes["data-topic-id"].value;
+		this.props.deleteTopic(topicId);
+	}
+	tab_cn(tab) {
+		if (tab == "ask") {
+			return "问答";
+		} else if (tab == "share") {
+			return "分享";
+		} else if (tab == "job") {
+			return "招聘";
+		} else {
+			return "其他";
+		}
+	}
+	render() {
+		const { topics } = this.props;
+		console.log(topics.length);
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'ui tab attached', 'data-tab': 'topics-list' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'table',
+				{ className: 'ui celled table' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'thead',
+					null,
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'tr',
+						null,
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							'ID'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							'\u7C7B\u578B'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							'\u6807\u9898'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							'\u67E5\u770B'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							'\u56DE\u590D'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							'\u64CD\u4F5C'
+						)
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'tbody',
+					null,
+					topics.map(item => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'tr',
+						{ key: item.id },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							item.id
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							this.tab_cn(item.tab)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							item.title
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							item.visit_count
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							item.reply_count
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'td',
+							null,
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'button',
+								{ 'data-topic-id': item.id, onClick: e => this.deleteTopic(e), className: 'button ui' },
+								'\u5220\u9664'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'button',
+								{ 'data-topic-id': item.id, onClick: e => this.getTopicDetail(e), className: 'button ui' },
+								'\u8BE6\u60C5'
+							)
+						)
+					))
+				)
+			)
+		);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = TopicList;
+;
+
+/***/ }),
+/* 238 */,
+/* 239 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25385,8 +25626,10 @@ class TopicsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_topic_Topicdetail__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_topic__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_topic_TopicList__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_topic_Topicdetail__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_topic__ = __webpack_require__(57);
 
 
 
@@ -25395,31 +25638,63 @@ class TopicsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
 
 
-class TopicApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+
+
+class TopicsApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 	constructor(props) {
 		super(props);
-		const locations = window.location.href.split("/");
-		const topicId = locations[locations.length - 1];
-		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_topic__["a" /* fetch_topicDetail_if_need */])(topicId));
-		this.state = { topicId: topicId };
+		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__actions_topic__["b" /* fetch_topics_if_need */])(this.props.topics));
+		this.deleteTopic = this.deleteTopic.bind(this);
 	}
-	componentDidMount() {}
+	deleteTopic(id) {
+		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__actions_topic__["b" /* fetch_topics_if_need */])(id));
+	}
+	componentDidMount() {
+		$('#topics-tab .item').tab();
+	}
+	componentDidUpdate(prevProps, prevState) {}
+	componentWillReceiveProps(nextProps) {
+		console.log("componentWillReceiveProps");
+	}
 	render() {
-		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_topic_Topicdetail__["a" /* default */], { topicId: this.state.topicId, topic: this.props.topic });
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'ui content' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'ui top attached tabular menu', id: 'topics-tab', style: { marginBottom: 2 + 'em' } },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ className: 'item active', 'data-tab': 'topics-list' },
+					'\u4E3B\u9898\u5217\u8868'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ className: 'item', 'data-tab': 'topics-create' },
+					'\u65B0\u5EFA\u4E3B\u9898'
+				)
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_topic_TopicList__["a" /* default */], { deleteTopic: this.deleteTopic, topics: this.props.topics }),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__["a" /* default */], null)
+		);
 	}
 }
+
+TopicsApp.propTypes = {
+	topics: __WEBPACK_IMPORTED_MODULE_2_prop_types___default.a.array.isRequired
+};
 
 function mapStateToProps(state) {
 	return {
-		topic: state.topic
+		topics: state.topics
 	};
 }
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps)(TopicApp));
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps)(TopicsApp));
 
 /***/ }),
-/* 239 */,
 /* 240 */,
-/* 241 */
+/* 241 */,
+/* 242 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25428,14 +25703,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_TopicRoot__ = __webpack_require__(234);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_TopicsRoot__ = __webpack_require__(235);
+
 
 
 
 
 const nodeDiv = document.getElementById("topic-container");
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_TopicRoot__["a" /* default */], null), nodeDiv);
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_TopicsRoot__["a" /* default */], null), nodeDiv);
 
 /***/ })
-],[241]);
-//# sourceMappingURL=topic.js.map
+],[242]);
+//# sourceMappingURL=topics.js.map

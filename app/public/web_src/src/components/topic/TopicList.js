@@ -20,10 +20,11 @@ export default class TopicList extends React.Component{
 	}
 	getTopicDetail(element){
 		var topicId = element.target.attributes["data-topic-id"].value;
-		this.props.getTopicDetail(topicId);
+		window.location.href="/view/topic/"+ topicId
 	}
 	deleteTopic(element){
 		var topicId = element.target.attributes["data-topic-id"].value;
+		this.props.deleteTopic(topicId);
 	}
 	tab_cn(tab){
 		if(tab =="ask"){
