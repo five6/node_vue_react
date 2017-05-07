@@ -19,3 +19,13 @@
 .td-div-event-content{
 max-width: 20em;
 }
+.topic-user{
+	margin-right: 10px !important;
+}
+.summary:hover{
+	text-decoration: underline !important;
+	cursor: pointer!important;
+}
+#topic-event-feed .event:hover{
+	background: #f6f6f6
+}

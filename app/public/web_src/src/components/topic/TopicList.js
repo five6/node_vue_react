@@ -6,10 +6,18 @@ import { fetch_topics_if_need,action_received_topic_list } from '../../actions/t
 export default class TopicList extends React.Component{
 	constructor(props) {
 		super(props);
+		this.state = {
+			displayDelete: {
+				display:"none"
+			}
+		}
 		console.log(props);
 		this.tab_cn = this.tab_cn.bind(this);
+		this.topicDate = this.topicDate.bind(this);
 		this.getTopicDetail = this.getTopicDetail.bind(this);
 		this.deleteTopic = this.deleteTopic.bind(this);
+		this.onMouseOver = this.onMouseOver.bind(this);
+		this.onMouseOut = this.onMouseOut.bind(this);
 	}
 	componentDidMount() {
 
@@ -24,7 +32,8 @@ export default class TopicList extends React.Component{
 	}
 	deleteTopic(element){
 		var topicId = element.target.attributes["data-topic-id"].value;
-		this.props.deleteTopic(topicId);
+		// this.props.deleteTopic(topicId);
+		alert("will delete topic that topicId = "+ topicId)
 	}
 	tab_cn(tab){
 		if(tab =="ask"){
@@ -37,37 +46,36 @@ export default class TopicList extends React.Component{
 			return "其他";
 		}
 	}
+	topicDate(date){
+		return moment(date).fromNow();
+	}
+	onMouseOver(element){
+		$(element.target).find(".deleteTopic").show();
+	}
+	onMouseOut(element){
+		$(element.target).find(".deleteTopic").hide();
+	}
 	render(){
 		  const { topics } = this.props;
-		  console.log(topics.length)
 		return(
 			<div className="ui tab attached" data-tab="topics-list">
-
-				<table className="ui celled table">
-					<thead>
-						<tr>
-							<td>ID</td>
-							<td>类型</td>
-							<td>标题</td>
-							<td>查看</td>
-							<td>回复</td>
-							<td>操作</td>
-						</tr>
-					</thead>
-					<tbody>
-				      {topics.map(item =>
-				        <tr key={item.id}>
-				        	<td>{item.id}</td>
-							<td>{this.tab_cn(item.tab)}</td>
-							<td>{item.title}</td>
-							<td>{item.visit_count}</td>
-							<td>{item.reply_count}</td>
-							<td>
-								<button data-topic-id={item.id}  onClick={(e) => this.deleteTopic(e)} className="button ui">删除</button><button data-topic-id={item.id} onClick={(e) => this.getTopicDetail(e)} className="button ui">详情</button>
-							</td>
-						</tr>)}
-					</tbody>
-				</table>
+				<div className="ui feed" id="topic-event-feed">
+					{topics.map(item =>
+	                    <div key= {item.id} className="event">
+	                      	<div className="label">
+	                        	<img  src={item.author.avatar_url}/>
+	                      	</div>
+	                      	<div className="content">
+		                        <div className="summary" onMouseOver={(e)=> this.onMouseOver(e)} onMouseLeave ={(e)=>this.onMouseOut(e)}>
+		                        	<a className="user topic-user">{item.author.loginname}</a> 
+	                        		<span data-topic-id={item.id} onClick={(e)=> this.getTopicDetail(e)} >{item.title}</span>
+		                        	<div className="date">{this.topicDate(item.create_at)}</div>
+		                        	<div className="date deleteTopic" style={this.state.displayDelete}><a data-topic-id={item.id} onClick={(e)=>this.deleteTopic(e)}>删除</a></div>
+		                        </div>
+	                  		</div>
+	                    </div>
+			         )}
+		         </div>
 			</div>
 		)
 	}

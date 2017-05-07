@@ -6834,6 +6834,8 @@ module.exports = g;
 /* unused harmony export action_received_topic_list */
 /* unused harmony export action_get_topic_detail */
 /* unused harmony export action_received_topic_detail */
+/* unused harmony export action_delete_topic */
+/* unused harmony export action_received_delete_topic */
 
 
 function action_get_topic_list(topics) {
@@ -6860,6 +6862,18 @@ function action_received_topic_detail(topic) {
 	return {
 		type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["d" /* RECEIVED_TOPIC_DETAIL */],
 		topic
+	};
+}
+function action_delete_topic(topicId) {
+	return {
+		type: DELETE_TOPIC,
+		topicId
+	};
+}
+function action_received_delete_topic(topicId) {
+	return {
+		type: RECEIVED_DELETE_TOPIC,
+		topicId
 	};
 }
 const fetch_topicDetail = topicId => dispatch => {
@@ -6890,6 +6904,20 @@ const fetch_topics = topics => dispatch => {
 		}
 	});
 };
+const fetch_delete_topic = topicId => dispatch => {
+	dispatch(action_delete_topic(delete_topic(topicId)));
+	$.ajax({
+		url: "/api/topics",
+		method: "get",
+		type: "json",
+		success: function () {
+			return dispatch(action_received_delete_topic(topicId));
+		},
+		error: function (err, status) {
+			console.log(err);
+		}
+	});
+};
 const fetch_topics_if_need = topics => (dispatch, getState) => {
 	dispatch(fetch_topics(topics));
 };
@@ -6900,6 +6928,12 @@ const fetch_topicDetail_if_need = topicId => (dispatch, getState) => {
 	dispatch(fetch_topicDetail(topicId));
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetch_topicDetail_if_need;
+
+
+const fetch_delete_topic_if_need = topicId => (dispatch, getState) => {
+	dispatch(fetch_delete_topic(topicId));
+};
+/* unused harmony export fetch_delete_topic_if_need */
 
 
 /***/ }),
@@ -11073,6 +11107,12 @@ const GET_TOPIC_DETAIL = "GET_TOPIC_DETAIL";
 const RECEIVED_TOPIC_DETAIL = "RECEIVED_TOPIC_DETAIL";
 /* harmony export (immutable) */ __webpack_exports__["d"] = RECEIVED_TOPIC_DETAIL;
 
+const DELETE_TOPIC = "DELETE_TOPIC";
+/* unused harmony export DELETE_TOPIC */
+
+const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
+/* unused harmony export RECEIVED_DELETE_TOPIC */
+
 
 /***/ }),
 /* 101 */
@@ -11091,6 +11131,12 @@ const GET_TOPIC_DETAIL = "GET_TOPIC_DETAIL";
 
 const RECEIVED_TOPIC_DETAIL = "RECEIVED_TOPIC_DETAIL";
 /* unused harmony export RECEIVED_TOPIC_DETAIL */
+
+const DELETE_TOPIC = "DELETE_TOPIC";
+/* unused harmony export DELETE_TOPIC */
+
+const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
+/* unused harmony export RECEIVED_DELETE_TOPIC */
 
 
 /***/ }),
