@@ -4,36 +4,45 @@ import thunk from 'redux-thunk';
 import {createLogger}  from 'redux-logger';
 
 const initialState = {
-	topics:[]
+	topics:[],
+	topic:{}
 }
 function topicReducer(state = initialState,action){
 	switch(action.type){
-		case "GET_TOPIC_LIST":
+		case types.GET_TOPIC_LIST:
 			return Object.assign({}, state, {
 		       topics: action.topics
 		    });
-		case "RECEIVED_TOPIC_LIST":
+		case types.RECEIVED_TOPIC_LIST:
 			return Object.assign({}, state, {
 		       topics: action.topics
 		    });
-	    case "GET_TOPIC_DETAIL":
+	    case types.GET_TOPIC_DETAIL:
 	    	return Object.assign({},state,{
 	    		topicId:action.topicId
 	    	});
-    	case "RECEIVED_TOPIC_DETAIL":
+    	case types.RECEIVED_TOPIC_DETAIL:
     		return Object.assign({},state,{
     			topic:action.topic
     		});
-		case "DELETE_TOPIC":
+		case types.DELETE_TOPIC:
 			return Object.assign({},state,{
 	    		topicId:action.topicId
 	    	});
-		case "RECEIVED_DELETE_TOPIC":
+		case types.RECEIVED_DELETE_TOPIC:
 			return Object.assign({},state,{
 	    		topics: state.topics.filter(topic =>
 		        	topic.id !== action.topicId
 	      		)
 	    	});
+    	case types.ADD_TOPIC:
+    		return Object.assign({}, state, {
+		       topic: action.topic
+		    }); 
+	    case types.RECEIVED_ADD_TOPIC:
+	    	return Object.assign({}, state, {
+		       topic: action.topic
+		    }); 
 		default:
 			return state;
 	}

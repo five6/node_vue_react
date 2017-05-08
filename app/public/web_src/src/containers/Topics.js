@@ -24,7 +24,6 @@ class TopicsApp extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log("componentWillReceiveProps")
 	}
 	render(){
 		return(
@@ -34,7 +33,7 @@ class TopicsApp extends React.Component {
 			        <a className="item"  data-tab="topics-create">新建主题</a>
 			    </div>
 		  	<TopicList deleteTopic={this.deleteTopic}  topics={this.props.topics} /> 
-		    <AddTopic />
+		    <AddTopic  topic ={this.props.topic}/>
 		</div>
 		)
 	}

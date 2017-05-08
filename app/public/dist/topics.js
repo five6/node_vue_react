@@ -10934,6 +10934,8 @@ function verifyPlainObject(value, displayName, methodName) {
 /* unused harmony export action_received_topic_detail */
 /* unused harmony export action_delete_topic */
 /* unused harmony export action_received_delete_topic */
+/* unused harmony export action_add_topic */
+/* unused harmony export action_received_add_topic */
 
 
 function action_get_topic_list(topics) {
@@ -10972,6 +10974,18 @@ function action_received_delete_topic(topicId) {
 	return {
 		type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["f" /* RECEIVED_DELETE_TOPIC */],
 		topicId
+	};
+}
+function action_add_topic(topic) {
+	return {
+		type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["g" /* ADD_TOPIC */],
+		topic
+	};
+}
+function action_received_add_topic(topic) {
+	return {
+		type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["h" /* RECEIVED_ADD_TOPIC */],
+		topic
 	};
 }
 const fetch_topicDetail = topicId => dispatch => {
@@ -11016,6 +11030,23 @@ const fetch_delete_topic = topicId => dispatch => {
 		}
 	});
 };
+const fetch_add_topic = topic => dispatch => {
+	dispatch(action_delete_topic(topic));
+	$.ajax({
+		url: "/api/topics/create",
+		method: "post",
+		type: "json",
+		data: {
+			topic: JSON.stringify(topic)
+		},
+		success: function () {
+			return dispatch(action_received_delete_topic(topicId));
+		},
+		error: function (err, status) {
+			console.log(err);
+		}
+	});
+};
 const fetch_topics_if_need = topics => (dispatch, getState) => {
 	dispatch(fetch_topics(topics));
 };
@@ -11032,6 +11063,12 @@ const fetch_delete_topic_if_need = topicId => (dispatch, getState) => {
 	dispatch(fetch_delete_topic(topicId));
 };
 /* harmony export (immutable) */ __webpack_exports__["c"] = fetch_delete_topic_if_need;
+
+
+const fetch_add_topc_if_need = topic => (dispatch, getState) => {
+	dispatch(fetch_add_topic(topic));
+};
+/* harmony export (immutable) */ __webpack_exports__["d"] = fetch_add_topc_if_need;
 
 
 /***/ }),
@@ -25284,6 +25321,12 @@ const DELETE_TOPIC = "DELETE_TOPIC";
 const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
 /* harmony export (immutable) */ __webpack_exports__["f"] = RECEIVED_DELETE_TOPIC;
 
+const ADD_TOPIC = "ADD_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["g"] = ADD_TOPIC;
+
+const RECEIVED_ADD_TOPIC = "RECEIVED_ADD_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVED_ADD_TOPIC;
+
 
 /***/ }),
 /* 231 */
@@ -25292,22 +25335,28 @@ const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
 "use strict";
 //topic 
 const GET_TOPIC_LIST = "GET_TOPIC_LIST";
-/* unused harmony export GET_TOPIC_LIST */
+/* harmony export (immutable) */ __webpack_exports__["a"] = GET_TOPIC_LIST;
 
 const RECEIVED_TOPIC_LIST = "RECEIVED_TOPIC_LIST";
-/* unused harmony export RECEIVED_TOPIC_LIST */
+/* harmony export (immutable) */ __webpack_exports__["b"] = RECEIVED_TOPIC_LIST;
 
 const GET_TOPIC_DETAIL = "GET_TOPIC_DETAIL";
-/* unused harmony export GET_TOPIC_DETAIL */
+/* harmony export (immutable) */ __webpack_exports__["c"] = GET_TOPIC_DETAIL;
 
 const RECEIVED_TOPIC_DETAIL = "RECEIVED_TOPIC_DETAIL";
-/* unused harmony export RECEIVED_TOPIC_DETAIL */
+/* harmony export (immutable) */ __webpack_exports__["d"] = RECEIVED_TOPIC_DETAIL;
 
 const DELETE_TOPIC = "DELETE_TOPIC";
-/* unused harmony export DELETE_TOPIC */
+/* harmony export (immutable) */ __webpack_exports__["e"] = DELETE_TOPIC;
 
 const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
-/* unused harmony export RECEIVED_DELETE_TOPIC */
+/* harmony export (immutable) */ __webpack_exports__["f"] = RECEIVED_DELETE_TOPIC;
+
+const ADD_TOPIC = "ADD_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["g"] = ADD_TOPIC;
+
+const RECEIVED_ADD_TOPIC = "RECEIVED_ADD_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVED_ADD_TOPIC;
 
 
 /***/ }),
@@ -25327,33 +25376,42 @@ const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
 
 
 const initialState = {
-	topics: []
+	topics: [],
+	topic: {}
 };
 function topicReducer(state = initialState, action) {
 	switch (action.type) {
-		case "GET_TOPIC_LIST":
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["a" /* GET_TOPIC_LIST */]:
 			return Object.assign({}, state, {
 				topics: action.topics
 			});
-		case "RECEIVED_TOPIC_LIST":
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["b" /* RECEIVED_TOPIC_LIST */]:
 			return Object.assign({}, state, {
 				topics: action.topics
 			});
-		case "GET_TOPIC_DETAIL":
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["c" /* GET_TOPIC_DETAIL */]:
 			return Object.assign({}, state, {
 				topicId: action.topicId
 			});
-		case "RECEIVED_TOPIC_DETAIL":
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["d" /* RECEIVED_TOPIC_DETAIL */]:
 			return Object.assign({}, state, {
 				topic: action.topic
 			});
-		case "DELETE_TOPIC":
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["e" /* DELETE_TOPIC */]:
 			return Object.assign({}, state, {
 				topicId: action.topicId
 			});
-		case "RECEIVED_DELETE_TOPIC":
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["f" /* RECEIVED_DELETE_TOPIC */]:
 			return Object.assign({}, state, {
 				topics: state.topics.filter(topic => topic.id !== action.topicId)
+			});
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["g" /* ADD_TOPIC */]:
+			return Object.assign({}, state, {
+				topic: action.topic
+			});
+		case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__["h" /* RECEIVED_ADD_TOPIC */]:
+			return Object.assign({}, state, {
+				topic: action.topic
 			});
 		default:
 			return state;
@@ -25444,17 +25502,13 @@ class TopicsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			tab: "",
-			title: "",
-			content: ""
-		};
 		this.onSumit = this.onSumit.bind(this);
 	}
 	onSumit() {
-		console.log();
+		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_topic__["d" /* fetch_add_topc_if_need */])(this.props.topic));
 	}
 	render() {
+		const { topic } = this.props;
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: 'ui tab attached', 'data-tab': 'topics-create' },
@@ -25475,7 +25529,25 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'ui left icon input' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: this.state.title })
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'select',
+								{ value: topic.tab },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'option',
+									{ value: 'share' },
+									'\u5206\u4EAB'
+								),
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'option',
+									{ value: 'ask' },
+									'\u95EE\u7B54'
+								),
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'option',
+									{ value: 'job' },
+									'\u62DB\u8058'
+								)
+							)
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -25489,7 +25561,7 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'ui left icon input' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: this.state.title })
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: topic.title })
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -25503,7 +25575,7 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'ui left icon input' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { value: this.state.content })
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { value: topic.content })
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -25680,9 +25752,7 @@ class TopicsApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 		$('#topics-tab .item').tab();
 	}
 	componentDidUpdate(prevProps, prevState) {}
-	componentWillReceiveProps(nextProps) {
-		console.log("componentWillReceiveProps");
-	}
+	componentWillReceiveProps(nextProps) {}
 	render() {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
@@ -25702,7 +25772,7 @@ class TopicsApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_topic_TopicList__["a" /* default */], { deleteTopic: this.deleteTopic, topics: this.props.topics }),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__["a" /* default */], null)
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__["a" /* default */], { topic: this.props.topic })
 		);
 	}
 }
