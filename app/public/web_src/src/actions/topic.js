@@ -1,4 +1,4 @@
-import {GET_TOPIC_LIST,RECEIVED_TOPIC_LIST,RECEIVED_TOPIC_DETAIL,GET_TOPIC_DETAIL,}  from '../constants/ActionTypes';
+import {GET_TOPIC_LIST,RECEIVED_TOPIC_LIST,RECEIVED_TOPIC_DETAIL,GET_TOPIC_DETAIL,DELETE_TOPIC,RECEIVED_DELETE_TOPIC}  from '../constants/ActionTypes';
 
 export function action_get_topic_list(topics){
 		return {
@@ -67,7 +67,7 @@ const fetch_topics = topics => dispatch =>{
 	})
 }
 const fetch_delete_topic = topicId => dispatch => {
-	 dispatch(action_delete_topic(delete_topic(topicId)));
+	 dispatch(action_delete_topic(topicId));
 	$.ajax({
 		url:"/api/topics",
 		method:"get",

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import AddTopic from '../components/topic/AddTopic';
 import TopicList  from '../components/topic/TopicList';
 import Topicdetail from '../components/topic/Topicdetail';
-import {fetch_topics_if_need} from '../actions/topic';
+import {fetch_topics_if_need,fetch_delete_topic_if_need} from '../actions/topic';
 
 
 class TopicsApp extends React.Component {
@@ -16,7 +16,7 @@ class TopicsApp extends React.Component {
 	 	this.deleteTopic = this.deleteTopic.bind(this);
 	}
 	deleteTopic(id){
-		this.props.dispatch(fetch_topics_if_need(id));
+		this.props.dispatch(fetch_delete_topic_if_need(id));
 	}
 	componentDidMount() {
 		$('#topics-tab .item').tab();

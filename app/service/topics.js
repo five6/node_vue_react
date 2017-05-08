@@ -6,7 +6,7 @@ module.exports = app => {
 		* list(ctx){
 			const cond ={};
 		  	const page = ctx.req.query.page || 1;
-		    const size = parseInt(ctx.query.per_page || 15);
+		    const size = parseInt(ctx.query.per_page || 30);
 		    const skip = (page - 1) * size;
 			return yield app.model.topics.find(cond).skip(skip).limit(size);
 		}

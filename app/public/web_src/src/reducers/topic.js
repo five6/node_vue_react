@@ -24,6 +24,16 @@ function topicReducer(state = initialState,action){
     		return Object.assign({},state,{
     			topic:action.topic
     		});
+		case "DELETE_TOPIC":
+			return Object.assign({},state,{
+	    		topicId:action.topicId
+	    	});
+		case "RECEIVED_DELETE_TOPIC":
+			return Object.assign({},state,{
+	    		topics: state.topics.filter(topic =>
+		        	topic.id !== action.topicId
+	      		)
+	    	});
 		default:
 			return state;
 	}

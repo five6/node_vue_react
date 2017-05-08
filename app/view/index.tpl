@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>大家好！</title>
+    <link rel="shortcut icon" type="image/x-icon" href="public/images/logo.jpg" media="screen" />
   </head>
   <style>
     

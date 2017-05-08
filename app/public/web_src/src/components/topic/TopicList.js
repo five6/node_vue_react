@@ -32,8 +32,8 @@ export default class TopicList extends React.Component{
 	}
 	deleteTopic(element){
 		var topicId = element.target.attributes["data-topic-id"].value;
-		// this.props.deleteTopic(topicId);
-		alert("will delete topic that topicId = "+ topicId)
+		this.props.deleteTopic(topicId);
+		// alert("will delete topic that topicId = "+ topicId)
 	}
 	tab_cn(tab){
 		if(tab =="ask"){
