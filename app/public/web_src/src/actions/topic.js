@@ -99,10 +99,10 @@ const fetch_add_topic = topic => dispatch => {
 		method:"post",
 		type:"json",
 		data:{
-			topic:JSON.stringify(topic)
+			topic:topic
 		},
 		success:function(){
-			return dispatch(action_received_delete_topic(topicId));
+			//return dispatch(action_received_add_topic(topicId));
 		},
 		error:function(err,status){
 			console.log(err);

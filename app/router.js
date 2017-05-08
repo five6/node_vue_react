@@ -25,7 +25,7 @@ module.exports = app => {
   // topic api
   app.get("/api/topics","topics.list");
   app.get("/api/topics/:id","topics.topic");
-  app.get("/api/topics/create","topics.create"); 
+  app.post("/api/topics/create","topics.create"); 
   app.put("/api/topics/update/:id","topics.update");
   app.delete("/api/topics/:id","topics.delete");
 

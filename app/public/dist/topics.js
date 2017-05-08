@@ -11037,10 +11037,10 @@ const fetch_add_topic = topic => dispatch => {
 		method: "post",
 		type: "json",
 		data: {
-			topic: JSON.stringify(topic)
+			topic: topic
 		},
 		success: function () {
-			return dispatch(action_received_delete_topic(topicId));
+			//return dispatch(action_received_add_topic(topicId));
 		},
 		error: function (err, status) {
 			console.log(err);
@@ -25505,7 +25505,15 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 		this.onSumit = this.onSumit.bind(this);
 	}
 	onSumit() {
-		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_topic__["d" /* fetch_add_topc_if_need */])(this.props.topic));
+		const tab = document.querySelector("#topic-create-tab").value;
+		const title = document.querySelector("#topic-create-title").value;
+		const content = document.querySelector("#topic-create-content").value;
+		const topic = {
+			tab: tab,
+			title: title,
+			content: content
+		};
+		this.props.addTopic(topic);
 	}
 	render() {
 		const { topic } = this.props;
@@ -25531,7 +25539,7 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 							{ className: 'ui left icon input' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'select',
-								{ value: topic.tab },
+								{ id: 'topic-create-tab', value: topic.tab },
 								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 									'option',
 									{ value: 'share' },
@@ -25561,7 +25569,7 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'ui left icon input' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: topic.title })
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'topic-create-title', value: topic.title })
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -25575,12 +25583,12 @@ class AddTopic extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'ui left icon input' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { value: topic.content })
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { id: 'topic-create-content', value: topic.content })
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'button',
-						{ type: 'button', onClick: this.onSumit(), className: 'ui primary button' },
+						{ type: 'button', onClick: this.onSumit, className: 'ui primary button' },
 						'\u53D1\u8868'
 					)
 				)
@@ -25744,9 +25752,13 @@ class TopicsApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 		super(props);
 		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__actions_topic__["b" /* fetch_topics_if_need */])(this.props.topics));
 		this.deleteTopic = this.deleteTopic.bind(this);
+		this.addTopic = this.addTopic.bind(this);
 	}
 	deleteTopic(id) {
 		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__actions_topic__["c" /* fetch_delete_topic_if_need */])(id));
+	}
+	addTopic(topic) {
+		this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__actions_topic__["d" /* fetch_add_topc_if_need */])(topic));
 	}
 	componentDidMount() {
 		$('#topics-tab .item').tab();
@@ -25772,7 +25784,7 @@ class TopicsApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_topic_TopicList__["a" /* default */], { deleteTopic: this.deleteTopic, topics: this.props.topics }),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__["a" /* default */], { topic: this.props.topic })
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__["a" /* default */], { addTopic: this.addTopic, topic: this.props.topic })
 		);
 	}
 }
@@ -25783,7 +25795,8 @@ TopicsApp.propTypes = {
 
 function mapStateToProps(state) {
 	return {
-		topics: state.topics
+		topics: state.topics,
+		topic: state.topic
 	};
 }
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps)(TopicsApp));

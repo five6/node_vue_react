@@ -16,8 +16,15 @@ module.exports = app =>{
 		}
 		* create(ctx){
 			const body = ctx.request.body;
-
-			const result = yield ctx.service.topics.create(body);
+			const topic = body.topic || {};
+			const to ={
+				loginUser: ctx.user._id,
+				tab:topic.tab || "",
+				content:topic.content||"",
+				title:topic.title ||""
+			}
+			console.log(to);
+			const result = yield ctx.service.topics.create(to);
 			ctx.body = {code:0,msg:"success"};
 		}
 		* update(ctx){

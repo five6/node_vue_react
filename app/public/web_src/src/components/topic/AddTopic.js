@@ -8,7 +8,15 @@ export default class AddTopic extends React.Component {
 		this.onSumit = this.onSumit.bind(this);
 	}
 	onSumit(){
-		this.props.dispatch(fetch_add_topc_if_need(this.props.topic));
+		const tab = document.querySelector("#topic-create-tab").value;
+		const title = document.querySelector("#topic-create-title").value;
+		const content = document.querySelector("#topic-create-content").value;
+		const topic = {
+			tab:tab,
+			title:title,
+			content:content
+		}
+		this.props.addTopic(topic);
 	}
 	render(){
 		const {topic}  = this.props;
@@ -19,7 +27,7 @@ export default class AddTopic extends React.Component {
 	             		<div className="field">
 	                        <label>类型</label>
 	                        <div className="ui left icon input">
-	                        	<select value={topic.tab}>
+	                        	<select id="topic-create-tab" value={topic.tab}>
 	                        		<option value="share">分享</option>
 	                        		<option value="ask">问答</option>
 	                        		<option value="job">招聘</option>
@@ -29,16 +37,16 @@ export default class AddTopic extends React.Component {
 	             		<div className="field">
 	                        <label>标题</label>
 	                        <div className="ui left icon input">
-	                        	<input value={topic.title} />
+	                        	<input id="topic-create-title"  value={topic.title} />
 	                        </div>
 	                    </div>
 	                    <div className="field">
 	                        <label>内容</label>
 	                        <div className="ui left icon input">
-	                        	<textarea value={topic.content}></textarea>
+	                        	<textarea id="topic-create-content"  value={topic.content}></textarea>
 	                        </div>
 	                    </div>
-	                    <button type="button" onClick={this.onSumit()} className="ui primary button">发表</button>
+	                    <button type="button" onClick={this.onSumit} className="ui primary button">发表</button>
 	                </form>
 	              </div>
 	        </div>

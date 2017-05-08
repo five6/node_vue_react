@@ -17,8 +17,24 @@ module.exports = app => {
 			return yield app.model.topic.findOne(cond);
 		}
 		* create(body){
-			const topic  = yield new app.model.topic(body);
-			return topic.save();
+			const id = new mongoose.Types.ObjectId();
+			const _id = new mongoose.Types.ObjectId(id);
+			const topic = {
+				id:id,
+			 	_id:_id,
+				tab:body.tab,
+				title:body.title,
+				content:body.content,
+		        author_id:body.loginUser,
+		        reply_count:0,
+				visit_count: 0,
+				create_at:new Date(),
+				author:body.loginUser,
+				replies:[]
+			}
+			console.log(topic);
+			const topic2  =  new app.model.topics(topic);
+			return topic2.save();
 		}
 		* update(body){
 			body = body || {};
