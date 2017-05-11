@@ -23,10 +23,10 @@ class TopicsApp extends React.Component {
 		this.props.dispatch(fetch_add_topc_if_need(topic));
 	}
 	componentDidMount() {
-		$('#topics-tab .item').tab();
 	}
 	componentDidUpdate(prevProps, prevState) {
-	}
+        $('#topics-tab .item').tab();
+    }
 	componentWillReceiveProps(nextProps) {
 	}
 	render(){
