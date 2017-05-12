@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 module.exports = app => {
 	var config = {};
 	config.schedule = {
-		interval:"30h",
+		interval:"30m",
 		type:"all"
 	};
 	config.task = function* (ctx){

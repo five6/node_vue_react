@@ -29,4 +29,8 @@ module.exports = app => {
   app.put("/api/topics/update/:id","topics.update");
   app.delete("/api/topics/:id","topics.delete");
 
+  //news
+  app.get("/api/news/articles","news.articles");
+  app.get("/api/news/news/article/:id","news.newsList");
+  app.get("/api/news/:id","news.detail");
 };
