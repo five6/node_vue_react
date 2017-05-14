@@ -18,17 +18,20 @@ export default class TopicList extends React.Component{
 		this.deleteTopic = this.deleteTopic.bind(this);
 		this.onMouseOver = this.onMouseOver.bind(this);
 		this.onMouseOut = this.onMouseOut.bind(this);
+		this.getMoreTopics = this.getMoreTopics.bind(this);
 	}
 	componentDidMount() {
 
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log("topicList")
-		console.log(nextProps)
+	}
+	getMoreTopics(element){
+		const topicId = element.target.attributes["data-topic-id"].value;
+		this.props.getMoreTopics(topicId);
 	}
 	getTopicDetail(element){
 		var topicId = element.target.attributes["data-topic-id"].value;
-		window.location.href="/view/topic/"+ topicId
+		window.location.href="/view/topic/"+ topicId;
 	}
 	deleteTopic(element){
 		var topicId = element.target.attributes["data-topic-id"].value;
@@ -56,27 +59,38 @@ export default class TopicList extends React.Component{
 		$(element.target).find(".deleteTopic").hide();
 	}
 	render(){
-		  const { topics } = this.props;
+		const self = this;
+	 	const { topics } = this.props;
+ 		function MoreTopic({topics}){
+			if(topics.length){
+				const lastTopic = topics[topics.length-1];
+				const lastTopicId = lastTopic.id;
+				return (
+					<div data-topic-id={lastTopicId} onClick ={(e)=> self.getMoreTopics(e)} className="getMoreTopic event button"> 更多 </div>
+				)
+			}else{
+				return(<div></div>);
+			}
+		}
 		return(
-			<div className="ui tab attached" data-tab="topics-list">
-				<div className="ui feed" id="topic-event-feed">
-					{topics.map(item =>
-	                    <div key= {item.id} className="event">
-	                      	<div className="label">
-	                        	<img  src={item.author.avatar_url}/>
-	                      	</div>
-	                      	<div className="content">
-		                        <div className="summary" onMouseOver={(e)=> this.onMouseOver(e)} onMouseLeave ={(e)=>this.onMouseOut(e)}>
-		                        	<a className="user topic-user">{item.author.loginname}</a> 
-	                        		<span data-topic-id={item.id} onClick={(e)=> this.getTopicDetail(e)} >{item.title}</span>
-		                        	<div className="date">{this.topicDate(item.create_at)}</div>
-		                        	<div className="date deleteTopic" style={this.state.displayDelete}><a data-topic-id={item.id} onClick={(e)=>this.deleteTopic(e)}>删除</a></div>
-		                        </div>
-	                  		</div>
-	                    </div>
-			         )}
-		         </div>
-			</div>
+			<div className="ui feed" id="topic-event-feed">
+				{topics.map(item =>
+	                <div key= {item.id} className="event">
+	                  	<div className="label">
+	                    	<img  src={item.author.avatar_url}/>
+	                  	</div>
+	                  	<div className="content">
+	                        <div className="summary" onMouseOver={(e)=> this.onMouseOver(e)} onMouseLeave ={(e)=>this.onMouseOut(e)}>
+	                        	<a className="user topic-user">{item.author.loginname}</a> 
+	                    		<span data-topic-id={item.id} onClick={(e)=> this.getTopicDetail(e)} >{item.title}</span>
+	                        	<div className="date">{this.topicDate(item.create_at)}</div>
+	                        	<div className="date deleteTopic" style={this.state.displayDelete}><a data-topic-id={item.id} onClick={(e)=>this.deleteTopic(e)}>删除</a></div>
+	                        </div>
+	              		</div>
+	                </div>
+		         )}
+		        <MoreTopic topics={topics} />
+	         </div>
 		)
 	}
 };

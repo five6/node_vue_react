@@ -30,7 +30,9 @@
           <script type="text/javascript">
              $.get("/api/events").success(function(result){
               var events = returnRzSs(result);
-              events = events.concat('<div class="getMoreEvents button">更多</div>');
+              if(events.length){
+                events = events.concat('<div class="getMoreEvents button">更多</div>');
+              }
               $("#id-event-list").html(events.join(""));
              });
               function returnRzSs(result){

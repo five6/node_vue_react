@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {createLogger}  from 'redux-logger';
-
+import 	_ from 'lodash';
 const initialState = {
 	topics:[],
 	topic:{}
@@ -43,6 +43,16 @@ function topicReducer(state = initialState,action){
 	    	return Object.assign({}, state, {
 		       topic: action.topic
 		    }); 
+	    case types.GET_MORE_TOPICS:
+	    	return Object.assign({},state,{
+	    		topicId:action.topicId
+	    	});
+	    case types.RECEIVED_GET_MORE_TOPICS:
+	    	const newTopics = action.topics;
+	    	const nowTopics = state.topics;
+	    	return Object.assign({}, state, {
+		       topics: nowTopics.concat(newTopics)
+		    });
 		default:
 			return state;
 	}

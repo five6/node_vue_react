@@ -4,7 +4,7 @@ const _ = require("underscore");
 module.exports = app =>{
 	class TopicController extends app.Controller {
 		* list(ctx){
-		 	const list = yield ctx.service.topics.list(ctx);
+		 	const list = yield ctx.service.topics.list();
 		 	ctx.body = list || [];
 		}
 		* topic(ctx){
@@ -35,6 +35,10 @@ module.exports = app =>{
 		* delete(ctx){
 			const result = yield ctx.service.topics.delete(ctx.params.id);
 			ctx.body = {code:0,msg:"success"};
+		}
+		* more(ctx){
+			const list = yield ctx.service.topics.more(ctx);
+		 	ctx.body = list || [];
 		}
 	};
 	return TopicController;

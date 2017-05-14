@@ -19,6 +19,7 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "lodash": "^4.17.4",
     "postcss-loader": "^0.9.1",
     "postcss-pxtorem": "^4.0.1",
     "prop-types": "^15.5.8",

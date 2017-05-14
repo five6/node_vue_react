@@ -3,12 +3,8 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 module.exports = app => {
 	class Topics extends app.Service{
-		* list(ctx){
-			const cond ={};
-		  	const page = ctx.req.query.page || 1;
-		    const size = parseInt(ctx.query.per_page || 30);
-		    const skip = (page - 1) * size;
-			return yield app.model.topics.find(cond).skip(skip).limit(size);
+		* list(){
+			return yield app.model.topics.find().limit(5).sort({_id:-1});
 		}
 		* topic(_id){
 			const cond = {
@@ -40,7 +36,7 @@ module.exports = app => {
 			body = body || {};
 			const _id = body._id;
 			delete body._id;
-			const cond = {
+			const cond = { 
 				"_id":new mongoose.Types.ObjectId(_id)
 			};
 			return yield app.model.topic.updateOne(cond,{"$set":body});
@@ -49,8 +45,20 @@ module.exports = app => {
 			const cond = {
 				"_id":new mongoose.Types.ObjectId(id)
 			};
-			return yield app.model.topic.deleteOne(cond);
+			console.log(cond)
+			yield app.model.topics.deleteOne(cond);
+			yield app.model.topic.deleteOne(cond);
+			return;
 		} 
+		* more(ctx){
+			const topicId = ctx.query.topicId;
+			const cond ={
+				"_id":{
+					$lt:new mongoose.Types.ObjectId(topicId)
+				}
+			};
+			return yield app.model.topics.find(cond).limit(5).sort({_id:-1});
+		}
 	};
 	return Topics;
 }

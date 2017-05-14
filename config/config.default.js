@@ -4,7 +4,7 @@ module.exports = appInfo => {
   const config = {};
 
   // should change to your own
-  config.keys = appInfo.name + '_1490355041161_6026';
+  config.keys = appInfo.name + '_egg_key_2017000035';
   config.view = {
 	  defaultViewEngine: 'nunjucks',
 	  mapping: {

@@ -9,7 +9,8 @@
 #profile-menu{
 	margin-bottom: 2rem;
 }
-.getMoreEvents{
+.getMoreEvents,
+.getMoreTopic{
 	cursor: pointer !important;
 
 }

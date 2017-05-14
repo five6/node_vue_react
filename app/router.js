@@ -28,7 +28,7 @@ module.exports = app => {
   app.post("/api/topics/create","topics.create"); 
   app.put("/api/topics/update/:id","topics.update");
   app.delete("/api/topics/:id","topics.delete");
-
+  app.get("/api/topics/more","topics.more");
   //news
   app.get("/api/news/articles","news.articles");
   app.get("/api/news/news/article/:id","news.newsList");
