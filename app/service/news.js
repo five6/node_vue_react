@@ -1,10 +1,14 @@
 'use strict';
 const moment = require("moment");
 const mongoose = require('mongoose');
+const _ = require('lodash');
 module.exports = app =>{
 	class NewsService extends app.Service{
 		* articles(){
-			const result = yield app.model.article.find();
+			let result = yield app.model.article.find();
+			result = _.groupBy(result,function(item){
+				return item.country || "Ohters";
+			});
 			return result || [];
 		}
 		* newsList(articleId){

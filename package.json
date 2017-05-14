@@ -6,6 +6,7 @@
   "dependencies": {
     "crypto": "0.0.3",
     "egg": "^1.0.0",
+    "egg-cors": "^1.1.0",
     "egg-mongoose": "^1.1.1",
     "egg-mysql": "^2.0.0",
     "egg-passport": "^1.0.0",
