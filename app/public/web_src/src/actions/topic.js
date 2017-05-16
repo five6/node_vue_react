@@ -7,10 +7,11 @@ export function action_get_topic_list(topics){
 		}
 }
 
-export function action_received_topic_list(topics) {
+export function action_received_topic_list(topics,totalCount) {
   return {
     type: types.RECEIVED_TOPIC_LIST,
-    topics
+    topics,
+    totalCount
   };
 }
 
@@ -82,8 +83,9 @@ const fetch_topics = topics => dispatch =>{
 		url:"/api/topics",
 		method:"get",
 		type:"json",
-		success:function(topics){
-			return dispatch(action_received_topic_list(topics));
+		success:function(result){
+
+			return dispatch(action_received_topic_list(result.topics,result.totalCount));
 		},
 		error:function(err,status){
 			console.log(err);

@@ -61,13 +61,20 @@ export default class TopicList extends React.Component{
 	render(){
 		const self = this;
 	 	const { topics } = this.props;
- 		function MoreTopic({topics}){
+	 	const {totalCount} = this.props;
+ 		function MoreTopic({topics,totalCount}){
 			if(topics.length){
 				const lastTopic = topics[topics.length-1];
 				const lastTopicId = lastTopic.id;
-				return (
-					<div data-topic-id={lastTopicId} onClick ={(e)=> self.getMoreTopics(e)} className="getMoreTopic event button"> 更多 </div>
-				)
+				if(totalCount > topics.length){
+					return (
+					<div data-topic-id={lastTopicId} onClick ={(e)=> self.getMoreTopics(e)} className="getMoreTopic event button"> 加载更多 </div>
+					)
+				}else{
+					return (
+					<div className="getMoreTopic event button"> 没有更多了 </div>
+					)
+				}
 			}else{
 				return(<div></div>);
 			}
@@ -77,11 +84,11 @@ export default class TopicList extends React.Component{
 				{topics.map(item =>
 	                <div key= {item.id} className="event">
 	                  	<div className="label">
-	                    	<img  src={item.author.avatar_url}/>
+	                    	<img  src={item.author? (item.author.avatar_url?item.author.avatar_url:"" ):""}/>
 	                  	</div>
 	                  	<div className="content">
 	                        <div className="summary" onMouseOver={(e)=> this.onMouseOver(e)} onMouseLeave ={(e)=>this.onMouseOut(e)}>
-	                        	<a className="user topic-user">{item.author.loginname}</a> 
+	                        	<a className="user topic-user">{item.author?(item.author.loginname? item.author.loginname:""):""}</a> 
 	                    		<span data-topic-id={item.id} onClick={(e)=> this.getTopicDetail(e)} >{item.title}</span>
 	                        	<div className="date">{this.topicDate(item.create_at)}</div>
 	                        	<div className="date deleteTopic" style={this.state.displayDelete}><a data-topic-id={item.id} onClick={(e)=>this.deleteTopic(e)}>删除</a></div>
@@ -89,7 +96,7 @@ export default class TopicList extends React.Component{
 	              		</div>
 	                </div>
 		         )}
-		        <MoreTopic topics={topics} />
+		        <MoreTopic topics={topics} totalCount={totalCount}/>
 	         </div>
 		)
 	}

@@ -35,19 +35,21 @@ class TopicsApp extends React.Component {
 	render(){
 		return(
 			<div className="ui content">
-		  		<TopicList deleteTopic={this.deleteTopic} getMoreTopics={this.getMoreTopics} topics={this.props.topics}  /> 
+		  		<TopicList deleteTopic={this.deleteTopic} getMoreTopics={this.getMoreTopics} totalCount={this.props.totalCount} topics={this.props.topics}  /> 
 			</div>
 		)
 	}
 }
 
 TopicsApp.propTypes = {
-  topics: PropTypes.array.isRequired
+  topics: PropTypes.array.isRequired,
+  totalCount:PropTypes.number.isRequired
 }
 
 
 function mapStateToProps(state) {
   return {
+  	totalCount:state.totalCount,
   	topics:state.topics,
   	topic:state.topic
   }

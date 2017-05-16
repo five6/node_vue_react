@@ -4,7 +4,12 @@ const mongoose = require('mongoose');
 module.exports = app => {
 	class Topics extends app.Service{
 		* list(){
-			return yield app.model.topics.find().limit(5).sort({_id:-1});
+			const topics = yield app.model.topics.find({id:{$exists:true}}).limit(150).sort({_id:-1});
+			const totalCount = yield app.model.topics.count({id:{$exists:true}});
+			return {
+				topics:topics,
+				totalCount:totalCount
+			}
 		}
 		* topic(_id){
 			const cond = {
@@ -53,11 +58,12 @@ module.exports = app => {
 		* more(ctx){
 			const topicId = ctx.query.topicId;
 			const cond ={
+				"id":{"$exists":true},
 				"_id":{
 					$lt:new mongoose.Types.ObjectId(topicId)
 				}
 			};
-			return yield app.model.topics.find(cond).limit(5).sort({_id:-1});
+			return yield app.model.topics.find(cond).limit(150).sort({_id:-1});
 		}
 	};
 	return Topics;

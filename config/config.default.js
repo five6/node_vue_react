@@ -74,20 +74,29 @@ module.exports = appInfo => {
    ];
    //安全机制 线上启用
    config.security = {
-    domainWhiteList: [ 'http://localhost:8080' ],
+    domainWhiteList: [ 'http://localhost:8080'],
     csp: {
       enable: false,
       // ignore: '/api/logout',
     },
     csrf: {
       enable: false,
-      // ignore: '/api/logout'
+	    useSession: false,          // if useSession set to true, the secret will keep in session instead of cookie
+	    ignoreJSON: false,          // skip check JSON requests if ignoreJSON set to true
+	    cookieName: 'csrfToken',    // csrf token's cookie name
+	    sessionName: 'csrfToken',   // csrf token's session name
+	    headerName: 'x-csrf-token', // request csrf token's name in header
+	    bodyName: '_csrf',          // request csrf token's name in body
+	    queryName: '_csrf',         // request csrf token's name in query
     }
   };
+  config.cors = {
+  	allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH' 
+  };
   // 只对 /api 前缀的 url 路径生效
-  // config.errorHandler= {
-  //   match: '/api',
-  // };
+  config.errorHandler= {
+    match: '/api',
+  };
   config.saveSession = {
       match:'/api/lgoin'
   };

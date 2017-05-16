@@ -5,17 +5,20 @@ import {createLogger}  from 'redux-logger';
 import 	_ from 'lodash';
 const initialState = {
 	topics:[],
+	totalCount:0,
 	topic:{}
 }
 function topicReducer(state = initialState,action){
 	switch(action.type){
 		case types.GET_TOPIC_LIST:
 			return Object.assign({}, state, {
+			   totalCount:state.totalCount,
 		       topics: action.topics
 		    });
 		case types.RECEIVED_TOPIC_LIST:
 			return Object.assign({}, state, {
-		       topics: action.topics
+		       topics: action.topics,
+		       totalCount:action.totalCount
 		    });
 	    case types.GET_TOPIC_DETAIL:
 	    	return Object.assign({},state,{
@@ -49,8 +52,10 @@ function topicReducer(state = initialState,action){
 	    	});
 	    case types.RECEIVED_GET_MORE_TOPICS:
 	    	const newTopics = action.topics;
-	    	const nowTopics = state.topics;
+    		const nowTopics = state.topics;
+
 	    	return Object.assign({}, state, {
+    		   totalCount:state.totalCount,
 		       topics: nowTopics.concat(newTopics)
 		    });
 		default:
