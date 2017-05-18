@@ -4,26 +4,27 @@ const async = require("async");
 module.exports = app => {
     class AlbumsController extends app.Controller{
         * albums(ctx){
-            return yield app.service.albums.albumList();
+            const result = yield ctx.service.albums.albumList(ctx);
+            ctx.body = result;
         }
         * album(ctx){
-            return yield app.service.albums.oneAlbum(ctx.params.id);
+            return yield ctx.service.albums.oneAlbum(ctx.params.id);
         }
         * updateAlbum(ctx){
-            return yield app.service.albums.updateAlbum(ctx.params.id,ctx.body);
+            return yield ctx.service.albums.updateAlbum(ctx.params.id,ctx.body);
         }
         * deleteAlbum(ctx){
-            return yield app.service.albums.deleteAlbum( ctx.params.id); 
+            return yield ctx.service.albums.deleteAlbum( ctx.params.id);
         }
         * createAlbum(ctx){
             const body = ctx.body;
-            return yield app.service.albums.createAlbum(body);
+            return yield ctx.service.albums.createAlbum(body);
         }
         * uploadPhotos(ctx){
-            return yield app.service.albums.uploadPhotos(ctx);
+            return yield ctx.service.albums.uploadPhotos(ctx);
         }
         * deletePhotos(ctx){
-            return yield app.service.albums.deletePhotos(ctx);
+            return yield ctx.service.albums.deletePhotos(ctx);
         }
     };
     return AlbumsController;

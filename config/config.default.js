@@ -70,7 +70,7 @@ module.exports = appInfo => {
   config.middleware=[
     'saveSession'
     ,'auth'
-    // ,'errorHandler'
+    ,'error'
    ];
    //安全机制 线上启用
    config.security = {
@@ -94,12 +94,14 @@ module.exports = appInfo => {
   	allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH' 
   };
   // 只对 /api 前缀的 url 路径生效
-  config.errorHandler= {
+  config.error= {
     match: '/api',
   };
+  //登录的时候保存session
   config.saveSession = {
       match:'/api/lgoin'
   };
+  //如果不在router.js文件里面添加的话，可以在这儿配置
   config.auth = {
      match:'/api/books'
   }

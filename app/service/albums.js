@@ -4,8 +4,11 @@ const _ = require('lodash');
 const mongoose  = require('mongoose');
 module.exports = app => {
     class AlbumsService extends app.Service{
-        * albumList(albumId){
-            yield app.model.albums.find();
+        * albumList(ctx){
+        	const cond = {
+        		userId: ctx.user._id
+			}
+            return yield app.model.albums.find(cond);
         }
         * oneAlbum(albumId){
         	const cond = {

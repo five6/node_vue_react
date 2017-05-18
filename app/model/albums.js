@@ -6,5 +6,6 @@ module.exports = mongoose =>{
         photos:{type:Array},
         create_at:{type:Object},
         update_at:{type:Object}
-    })
+    },{collection: "albums"});
+    return mongoose.model('albums', albumsModel)
 };
