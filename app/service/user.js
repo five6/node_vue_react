@@ -1,7 +1,8 @@
 /**
  * create by five6 at 20170326 17:54
  */
- var crypto = require('crypto');
+var crypto = require('crypto');
+var moment = require('moment');
 module.exports = app => {
     class User extends app.Service {
         * login(body) {
@@ -22,6 +23,8 @@ module.exports = app => {
             const cond ={
                 _id:body['userName'],
                 sex:body['sex'],
+                create_at:new Date(),
+                last_login:new Date(),
                 password:getPassword(body['password'])
 
             };

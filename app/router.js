@@ -33,4 +33,13 @@ module.exports = app => {
   app.get("/api/news/articles","news.articles");
   app.get("/api/news/news/article/:id","news.newsList");
   app.get("/api/news/:id","news.detail");
+
+  //albums
+  app.get("/api/albums","albums.albums");//获取所有相册
+  app.get("/api/albums/:id","albums.album");//获取单个相册
+  app.put("/api/albums/:id","albums.updateAlbum");//更新相册内容
+  app.delete("/api/albums/:id","albums.deleteAlbum");//删除相册
+  app.post("/api/albums/album/create","albums.createAlbum");//新增相册
+  app.post("/api/albums/:id/photos","albums.uploadPhotos");//添加图片
+  app.delete("/api/albums/:id/photo","albums","deletePhotos"); //删除图片
 };
