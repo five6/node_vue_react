@@ -104,6 +104,21 @@ module.exports = appInfo => {
   //如果不在router.js文件里面添加的话，可以在这儿配置
   config.auth = {
      match:'/api/books'
-  }
+  };
+  config.multipart = {
+        whitelist: [
+            '.png',
+            '.jpg',
+            '.jpeg', // image/jpeg
+            '.png', // image/png, image/x-png
+            '.gif', // image/gif
+            '.bmp', // image/bmp
+            '.wbmp', // image/vnd.wap.wbmp
+            '.webp',
+            '.tif',
+            '.psd',
+            '.svg',
+    ]
+  };
   return config;
 };

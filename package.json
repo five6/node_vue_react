@@ -8,6 +8,7 @@
     "egg": "^1.0.0",
     "egg-cors": "^1.1.0",
     "egg-mongoose": "^1.1.1",
+    "egg-multipart": "^1.4.0",
     "egg-mysql": "^2.0.0",
     "egg-passport": "^1.0.0",
     "egg-redis": "^1.0.1",

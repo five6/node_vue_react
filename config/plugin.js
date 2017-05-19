@@ -23,6 +23,10 @@ const config = {
         enable: true,
         package: 'egg-passport',
     },
+    multipart:{
+        enable:true,
+        package:'egg-multipart'
+    },
     schedule:{
         package: 'egg-schedule'
     },
