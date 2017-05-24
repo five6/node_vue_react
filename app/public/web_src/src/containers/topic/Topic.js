@@ -3,8 +3,8 @@ import redux from 'redux';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Topicdetail from '../components/topic/Topicdetail';
-import {fetch_topicDetail_if_need} from '../actions/topic';
+import Topicdetail from '../../components/topic/Topicdetail';
+import {fetch_topicDetail_if_need} from '../../actions/topic';
 
 class TopicApp extends React.Component{
 	constructor(props) {

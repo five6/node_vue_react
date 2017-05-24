@@ -4,6 +4,8 @@
   "description": "egg demo project",
   "private": true,
   "dependencies": {
+    "cheerio": "^0.22.0",
+    "crawler": "^1.0.5",
     "crypto": "0.0.3",
     "egg": "^1.0.0",
     "egg-cors": "^1.1.0",
@@ -18,7 +20,9 @@
     "egg-validate": "^1.0.0",
     "egg-view-nunjucks": "^2.0.0",
     "global": "^4.3.2",
+    "jsdom": "^11.0.0",
     "lodash": "^4.17.4",
+    "request": "^2.81.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

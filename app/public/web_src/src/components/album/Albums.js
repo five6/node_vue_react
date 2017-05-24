@@ -15,14 +15,22 @@ export default class Albums extends React.Component{
 
 		const {albums} = this.props;
 		return(
-			<div className="albums">
-				{
-					albums.map(album,index =>{
-						<Album  photos={album.photos}>
-					})
-				}
-
-			</div>
+			<div>
+                <div className="toolbar">
+                    <div className="ui buttons">
+                        <button className="ui red basic button">上传照片</button>
+                        <button className="ui blue basic button">创建相册</button>
+                    </div>
+                </div>
+                <div className="albums">
+                    {
+                        albums.map(album,index =>{
+                            <Album  photos={album.photos} />
+                        })
+                    }
+                
+                </div>
+            </div>
 		)
 	}
 }

@@ -3,10 +3,10 @@ import redux from 'redux';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import AddTopic from '../components/topic/AddTopic';
-import TopicList  from '../components/topic/TopicList';
-import Topicdetail from '../components/topic/Topicdetail';
-import {fetch_topics_if_need,fetch_delete_topic_if_need,fetch_add_topc_if_need,fetch_get_more_topc_if_need} from '../actions/topic';
+import AddTopic from '../../components/topic/AddTopic';
+import TopicList  from '../../components/topic/TopicList';
+import Topicdetail from '../../components/topic/Topicdetail';
+import {fetch_topics_if_need,fetch_delete_topic_if_need,fetch_add_topc_if_need,fetch_get_more_topc_if_need} from '../../actions/topic';
 
 
 class TopicsApp extends React.Component {

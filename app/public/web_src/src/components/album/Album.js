@@ -6,20 +6,22 @@ export default class Album extends React.Component{
 		super(props);
 	}
 	componentDidMount() {
-		
+	
 	}
 	render(){
 		const {photos} = this.props;
 		return(
-             {
-         		photos.map(photo=>{
-         			<div className="album">
-         				<div className="photo">
-         					<img src="">
-         				</div>
-         			</div>
-         		});
-             }
+            <div>
+                {
+                    photos.map(photo=>{
+						<div className="album">
+							<div className="photo">
+								<img src=""/>
+							</div>
+						</div>
+					})
+				}
+			</div>
 
 		)
 	}
