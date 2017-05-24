@@ -16,7 +16,7 @@ module.exports = {
   entry: { 
     topics: path.resolve(__dirname, './src/entry/topics'),
     topic: path.resolve(__dirname, './src/entry/topicDetail'),
-    album: path.resolve(__dirname, './src/entry/album') 
+    albums: path.resolve(__dirname, './src/entry/albums')
   },
   output: {
     filename: '[name].js',

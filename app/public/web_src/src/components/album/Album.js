@@ -13,10 +13,10 @@ export default class Album extends React.Component{
 		return(
             <div>
                 {
-                    photos.map(photo=>{
+                    photos.map(photo=> {
 						<div className="album">
 							<div className="photo">
-								<img src=""/>
+								<img src={photo.src}/>
 							</div>
 						</div>
 					})

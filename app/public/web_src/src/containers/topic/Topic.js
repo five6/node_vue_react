@@ -18,7 +18,9 @@ class TopicApp extends React.Component{
 	}
 	render(){
 		return(
-			<Topicdetail topicId={this.state.topicId} topic={this.props.topic}/>
+			<div className="ui content">
+				<Topicdetail topicId={this.state.topicId} topic={this.props.topic}/>
+			</div>
 		)
 	}
 }

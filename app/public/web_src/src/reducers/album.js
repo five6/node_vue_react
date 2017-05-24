@@ -43,6 +43,8 @@ function albumReducer(state = initState,action) {
             break;
         case types.R_DEL_PHOTO:
             break;
+        default:
+            return state;
     }
 }
 const middleware = [thunk];
