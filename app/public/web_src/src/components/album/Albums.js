@@ -16,8 +16,19 @@ export default class Albums extends React.Component{
         ;
     }
 
-    onclicCreateAlbum(e){
-        alert(1)
+    onclicCreateAlbum(element){
+        const name = this.refs.preAlbumName.value;
+        const description = this.refs.preAlbumDescription.value;
+        const topic = this.refs.preAlbumTopic.value;
+        const authority = this.refs.prelbumAuthority.value;
+        const album = {
+            name:name,
+            description,description,
+            authority:authority,
+            topic:topic
+
+        }
+        this.props.createAlbum(album);
     }
 
 	componentDidMount() {
@@ -37,7 +48,9 @@ export default class Albums extends React.Component{
                 <div className="albums">
                     {
                         albums.map(album =>{
-                            <Album  photos={album.photos} />
+                           <div className="albums-one">
+                                {album.name}
+                           </div>
                         })
                     }
                 
@@ -49,19 +62,19 @@ export default class Albums extends React.Component{
                             <div className="field">
                                 <label>相册名称</label>
                                 <div className="ui left icon input">
-                                    <input type="text" name="albumName" maxLength="30" placeholder="" />
+                                    <input type="text" ref="preAlbumName"  name="albumName" maxLength="30" placeholder="" />
                                 </div>
                             </div>
                             <div className="field">
                                 <label>相册描述</label>
                                 <div className="ui left icon input">
-                                    <textarea name="albumDescription" maxLength="2000" rows="5" cols="8" placeholder="非必填"></textarea>
+                                    <textarea ref="preAlbumDescription" name="albumDescription" maxLength="2000" rows="5" cols="8" placeholder="非必填"></textarea>
                                 </div>
                             </div>
                             <div className="inline fields">
                                 <label htmlFor="topic">主题</label>
                                 <div className="field">
-                                    <div className="ui radio checkbox albumTopic">
+                                    <div className="ui radio checkbox albumTopic" ref="preAlbumTopic">
                                         <input type="radio" name="topic" defaultChecked tabIndex="0" className="hidden"/>
                                             <label>普通</label>
                                     </div>
@@ -87,7 +100,7 @@ export default class Albums extends React.Component{
                             </div>
                             <div className="field">
                                 <label>权限</label>
-                                <div className="ui albumAuthority selection dropdown">
+                                <div className="ui albumAuthority selection dropdown" ref="prelbumAuthority">
                                     <input type="hidden" name="sex"/>
                                     <i className="dropdown icon"></i>
                                     <div className="default text">所有人可见</div>

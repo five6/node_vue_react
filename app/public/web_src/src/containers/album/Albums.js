@@ -6,13 +6,29 @@ import Albums from '../../components/album/Albums';
 class AlbumApp extends React.Component{
     constructor(props) {
         super(props);
+        this.createAlbum = this.createAlbum.bind(this);
+        this.deleteAlbum = this.deleteAlbum.bind(this);
+        this.updateAlbum = this.updateAlbum.bind(this);
+        this.getAlbums = this.getAlbums.bind(this);
     }
     componentDidMount(){
         
     }
+    getAlbums(){
+      alert("get albums");
+    }
+    createAlbum(album){
+      alert(album);
+    }
+    deleteAlbum(){
+      alert("delete alubm");
+    }
+    updateAlbum(){
+      alert("update album");
+    }
     render(){
     	return(
-            <Albums  albums={this.props.albums} />
+            <Albums updateAlbum={this.updateAlbum} deleteAlbum={this.deleteAlbum} createAlbum={this.createAlbum}  getAlbums={this.getAlbums} albums={this.props.albums} />
 		);
     }
 

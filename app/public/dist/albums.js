@@ -1,14 +1,14 @@
 webpackJsonp([1],{
 
-/***/ 107:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Albums__ = __webpack_require__(245);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_album__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Albums__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_album__ = __webpack_require__(122);
 
 
 
@@ -28,11 +28,10 @@ class AlbumsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
 /***/ }),
 
-/***/ 238:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__ = __webpack_require__(243);
 /* unused harmony export action_get_albums */
 /* unused harmony export action_received_albums */
 /* unused harmony export action_delete_album */
@@ -43,6 +42,7 @@ class AlbumsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 /* unused harmony export action_received_add_photo */
 /* unused harmony export action_delete_photo */
 /* unused harmony export action_received_delete_photo */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__ = __webpack_require__(114);
 
 
 function action_get_albums(userId) {
@@ -127,13 +127,13 @@ const ajax_get_albums = userId => dispatch => {
 
 /***/ }),
 
-/***/ 239:
+/***/ 110:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 
 
@@ -162,19 +162,19 @@ class Album extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 		);
 	}
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Album;
+/* unused harmony export default */
 
 
 /***/ }),
 
-/***/ 240:
+/***/ 111:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_album__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Album__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_album__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Album__ = __webpack_require__(110);
 
 
 
@@ -193,8 +193,19 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         ;
     }
 
-    onclicCreateAlbum(e) {
-        alert(1);
+    onclicCreateAlbum(element) {
+        const name = this.refs.preAlbumName.value;
+        const description = this.refs.preAlbumDescription.value;
+        const topic = this.refs.preAlbumTopic.value;
+        const authority = this.refs.prelbumAuthority.value;
+        const album = {
+            name: name,
+            description, description,
+            authority: authority,
+            topic: topic
+
+        };
+        this.props.createAlbum(album);
     }
 
     componentDidMount() {}
@@ -226,7 +237,11 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 'div',
                 { className: 'albums' },
                 albums.map(album => {
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Album__["a" /* default */], { photos: album.photos });
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'albums-one' },
+                        album.name
+                    );
                 })
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -254,7 +269,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'ui left icon input' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'albumName', maxLength: '30', placeholder: '' })
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'preAlbumName', name: 'albumName', maxLength: '30', placeholder: '' })
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -268,7 +283,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'ui left icon input' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { name: 'albumDescription', maxLength: '2000', rows: '5', cols: '8', placeholder: '\u975E\u5FC5\u586B' })
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { ref: 'preAlbumDescription', name: 'albumDescription', maxLength: '2000', rows: '5', cols: '8', placeholder: '\u975E\u5FC5\u586B' })
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -284,7 +299,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                                 { className: 'field' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
-                                    { className: 'ui radio checkbox albumTopic' },
+                                    { className: 'ui radio checkbox albumTopic', ref: 'preAlbumTopic' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', defaultChecked: true, tabIndex: '0', className: 'hidden' }),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'label',
@@ -346,7 +361,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'ui albumAuthority selection dropdown' },
+                                { className: 'ui albumAuthority selection dropdown', ref: 'prelbumAuthority' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: 'sex' }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'dropdown icon' }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -400,7 +415,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 /***/ }),
 
-/***/ 243:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -448,7 +463,7 @@ const R_DEL_PHOTO = "R_DEL_PHOTO";
 
 /***/ }),
 
-/***/ 244:
+/***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -496,45 +511,61 @@ const R_DEL_PHOTO = "R_DEL_PHOTO";
 
 /***/ }),
 
-/***/ 245:
+/***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_album_Albums__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_album_Albums__ = __webpack_require__(111);
 
 
 
 
 
 class AlbumApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount() {}
-    render() {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_album_Albums__["a" /* default */], { albums: this.props.albums });
-    }
+  constructor(props) {
+    super(props);
+    this.createAlbum = this.createAlbum.bind(this);
+    this.deleteAlbum = this.deleteAlbum.bind(this);
+    this.updateAlbum = this.updateAlbum.bind(this);
+    this.getAlbums = this.getAlbums.bind(this);
+  }
+  componentDidMount() {}
+  getAlbums() {
+    alert("get albums");
+  }
+  createAlbum(album) {
+    alert(album);
+  }
+  deleteAlbum() {
+    alert("delete alubm");
+  }
+  updateAlbum() {
+    alert("update album");
+  }
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_album_Albums__["a" /* default */], { updateAlbum: this.updateAlbum, deleteAlbum: this.deleteAlbum, createAlbum: this.createAlbum, getAlbums: this.getAlbums, albums: this.props.albums });
+  }
 
 }
 AlbumApp.propTypes = {
-    albums: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired
+  albums: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired
 };
 
 function mapStateToProps(state) {
-    return {
-        albums: state.albums
-    };
+  return {
+    albums: state.albums
+  };
 }
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(AlbumApp));
 
 /***/ }),
 
-/***/ 248:
+/***/ 119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -543,7 +574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_album_AlbumsRoot__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_album_AlbumsRoot__ = __webpack_require__(106);
 
 
 
@@ -553,17 +584,17 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 251:
+/***/ 122:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__ = __webpack_require__(244);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_redux_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
 
 
@@ -619,5 +650,5 @@ const store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["b" /* c
 
 /***/ })
 
-},[248]);
+},[119]);
 //# sourceMappingURL=albums.js.map
