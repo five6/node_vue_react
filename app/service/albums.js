@@ -38,7 +38,7 @@ module.exports = app => {
         * createAlbum(query){
         	const body = {
         		name:body.name||"",
-        		tag:body.tag||"",
+                description:body.description||"",
         		photos:[],
         		create_at:new Date(),
         		update_at:new Date()	

@@ -6,6 +6,7 @@
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	  <!-- Site Properties -->
+   	  <link rel="shortcut icon" type="image/x-icon" href="public/images/logo.jpg" media="screen" />
 	  <link rel="stylesheet" type="text/css" href="/public/css/common.css">
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/semantic.min.css">
 	  <link rel="stylesheet" type="text/css" href="/public/semantic/dist/components/reset.css">

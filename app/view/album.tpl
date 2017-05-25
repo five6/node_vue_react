@@ -14,7 +14,7 @@
             </div>
         </div>
         <script src="/public/dist/shared.js"></script>
-        <script src="/public/dist/album.js"></script>
+        <script src="/public/dist/albums.js"></script>
         {% include "footer.tpl" %}
   </body>
 </html>

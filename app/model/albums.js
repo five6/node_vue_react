@@ -2,7 +2,7 @@
 module.exports = mongoose =>{
     const albumsModel = new mongoose.Schema({
         name:{type:String},
-        tag:{type:String},
+        description:{type:String},
         photos:{type:Array},
         create_at:{type:Object},
         update_at:{type:Object}
