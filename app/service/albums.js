@@ -35,11 +35,16 @@ module.exports = app => {
         	}
 			return yield app.model.albums.deleteOne(cond);	
         }
-        * createAlbum(query){
+        * createAlbum(ctx){
+            const query = ctx.request.body;
+            console.log(query);
         	const body = {
-        		name:body.name||"",
-                description:body.description||"",
+        		name:query.name,
+                userId:ctx.user._id,
+                description:query.description,
         		photos:[],
+                topic:query.topic,
+                authority:query.authority,
         		create_at:new Date(),
         		update_at:new Date()	
         	}

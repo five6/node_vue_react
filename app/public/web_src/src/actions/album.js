@@ -71,11 +71,29 @@ const ajax_get_albums = userId => dispatch => {
         url:"/api/albums",
         method:"get",
         type:"json",
-        success:function(topics){
-            dispatch(action_received_albums(topics));
+        success:function(){
+            dispatch(action_received_albums());
         },
         error:function(err,status){
             console.log(err);
         }
     })
 };
+const ajax_create_albums = album => dispatch => {
+    dispatch(action_add_album(album));
+    $.ajax({
+        url:"/api/albums",
+        method:"post",
+        type:"json",
+        data:album,
+        success:function(album){
+            dispatch(action_received_add_album(album));
+        },
+        error:function(err,status){
+            console.log(err);
+        }
+    })
+};
+export const fetch_ajax_create_albums = album => (dispatch,getState) => {
+    dispatch(ajax_create_albums(album));
+}

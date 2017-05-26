@@ -3,6 +3,7 @@ module.exports = mongoose =>{
     const albumsModel = new mongoose.Schema({
         name:{type:String},
         description:{type:String},
+        userId:{type:String},
         topic:{type:Number},
         photos:{type:Array},
         create_at:{type:Object},

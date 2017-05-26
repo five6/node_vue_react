@@ -43,7 +43,7 @@ module.exports = app => {
   app.get("/api/albums/:id",auth,"albums.album");//获取单个相册
   app.put("/api/albums/:id",auth,"albums.updateAlbum");//更新相册内容
   app.delete("/api/albums/:id",auth,"albums.deleteAlbum");//删除相册
-  app.post("/api/albums/album/create",auth,"albums.createAlbum");//新增相册
+  app.post("/api/albums",auth,"albums.createAlbum");//新增相册
   app.post("/api/albums/:id/photos",auth,"albums.uploadPhotos");//添加图片
   app.delete("/api/albums/:id/photos",auth,"albums.deletePhotos"); //删除图片
 };

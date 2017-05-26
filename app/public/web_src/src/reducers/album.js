@@ -22,11 +22,17 @@ function albumReducer(state = initState,action) {
             
             
         case types.ADD_ALBUM:
+            console.log("添加相册！")
+            return Object.assign({},state,{
+                album:action.album
+            });
             break;
         case types.R_ADD_ALBUM:
+            console.log("成功添加相册！")
+            return Object.assign({},state,{
+                album:action.album
+            });
             break;
-            
-            
         case types.DEL_ALBUM:
             break;
         case types.R_DEL_ALBUM:
