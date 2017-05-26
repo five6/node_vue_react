@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import Albums from '../../components/album/Albums';
-import {fetch_ajax_create_albums} from '../../actions/album';
+import {fetch_ajax_create_albums,fetch_ajax_get_albums} from '../../actions/album';
 class AlbumApp extends React.Component{
     constructor(props) {
         super(props);
@@ -10,6 +10,7 @@ class AlbumApp extends React.Component{
         this.deleteAlbum = this.deleteAlbum.bind(this);
         this.updateAlbum = this.updateAlbum.bind(this);
         this.getAlbums = this.getAlbums.bind(this);
+        this.props.dispatch(fetch_ajax_get_albums([]));
     }
     componentDidMount(){
         

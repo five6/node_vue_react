@@ -8,13 +8,13 @@ module.exports = app => {
         	const cond = {
         		userId: ctx.user._id
 			}
-            return yield app.model.albums.find(cond);
+            return yield app.model.album.find(cond);
         }
         * oneAlbum(albumId){
         	const cond = {
     			_id:new mongoose.Types.ObjectId(albumId)
         	};
-        	yield app.model.albums.findOne(cond);
+        	yield app.model.album.findOne(cond);
         }
         * updateAlbum(albumId,body){
         	let sets = {
@@ -27,13 +27,13 @@ module.exports = app => {
         		sets.tag = body.tag;
         	}
         	sets.update_at = new Date();
-        	return yield app.model.albums.updateOne(cond,{"$set":sets});
+        	return yield app.model.album.updateOne(cond,{"$set":sets});
         }
         * deleteAlbum(albumId){
     		const cond = {
         		_id:new mongoose.Types.ObjectId(albumId)
         	}
-			return yield app.model.albums.deleteOne(cond);	
+			return yield app.model.album.deleteOne(cond);
         }
         * createAlbum(ctx){
             const query = ctx.request.body;
@@ -49,7 +49,7 @@ module.exports = app => {
         		update_at:new Date()	
         	}
 			const albums = new app.model.album(body);
-			albums.save();
+			return yield albums.save();
         }
         * uploadPhotos(ctx){
         	const body = ctx.body ||{};
@@ -74,7 +74,7 @@ module.exports = app => {
 			const cond = {
         		_id:{"$in":idList}
         	}
-			return yield app.model.albums.delete(cond);	
+			return yield app.model.album.delete(cond);
         }
     }
     return AlbumsService;

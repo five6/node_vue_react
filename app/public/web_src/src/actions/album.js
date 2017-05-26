@@ -1,9 +1,9 @@
 import * as types  from '../constants/ActionTypes.album';
 
-export function action_get_albums(userId) {
+export function action_get_albums(albums) {
     return {
         type:types.F_ALBUMS,
-        userId
+        albums
     }
 }
 export function action_received_albums(albums) {
@@ -65,14 +65,15 @@ export function action_received_delete_photo(photoId) {
     }
 }
 
-const ajax_get_albums = userId => dispatch => {
-    dispatch(action_get_albums(userId));
+const ajax_get_albums = albums => dispatch => {
+    dispatch(action_get_albums(albums));
     $.ajax({
         url:"/api/albums",
         method:"get",
         type:"json",
-        success:function(){
-            dispatch(action_received_albums());
+        success:function(result){
+            const albums = result.albums;
+            dispatch(action_received_albums(albums));
         },
         error:function(err,status){
             console.log(err);
@@ -86,7 +87,8 @@ const ajax_create_albums = album => dispatch => {
         method:"post",
         type:"json",
         data:album,
-        success:function(album){
+        success:function(result){
+            const album = result.album||{};
             dispatch(action_received_add_album(album));
         },
         error:function(err,status){
@@ -96,4 +98,7 @@ const ajax_create_albums = album => dispatch => {
 };
 export const fetch_ajax_create_albums = album => (dispatch,getState) => {
     dispatch(ajax_create_albums(album));
-}
+};
+export const fetch_ajax_get_albums = albums => (dispatch,getState) => {
+    dispatch(ajax_get_albums(albums));
+};

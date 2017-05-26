@@ -10,11 +10,15 @@ const initState = {
 function albumReducer(state = initState,action) {
     switch (action.type){
         case types.F_ALBUMS:
+            return Object.assign({},state,{
+                albums:action.albums
+            });
             break;
         case types.R_ALBUMS:
+            return Object.assign({},state,{
+                albums:action.albums
+            });
             break;
-            
-            
         case types.F_ALBUM:
             break;
         case types.R_ALBUM:

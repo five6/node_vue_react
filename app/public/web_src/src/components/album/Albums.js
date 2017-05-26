@@ -19,7 +19,7 @@ export default class Albums extends React.Component{
     onclicCreateAlbum(element){
         const name = this.refs.preAlbumName.value;
         const description = this.refs.preAlbumDescription.value;
-        const topic = this.refs.preAlbumTopic.value;
+        const topic = $(this.refs.preAlbumTopic).find("input[type='radio']:checked").val();
         const authority = this.refs.albumAuthority.value;
         const album = {
             name:name,
@@ -79,29 +79,29 @@ export default class Albums extends React.Component{
                                             <textarea ref="preAlbumDescription" name="albumDescription" maxLength="2000" rows="5" cols="8" placeholder="非必填"></textarea>
                                         </div>
                                     </div>
-                                    <div className="inline fields">
+                                    <div className="inline fields" ref="preAlbumTopic">
                                         <label htmlFor="topic">主题</label>
                                         <div className="field">
                                             <div className="ui radio checkbox albumTopic">
-                                                <input type="radio" ref="preAlbumTopic" name="topic" value="0" defaultChecked tabIndex="0" className="hidden"/>
+                                                <input type="radio"   name="topic" value="0" defaultChecked tabIndex="0" className="hidden"/>
                                                     <label>普通</label>
                                             </div>
                                         </div>
                                         <div className="field">
                                             <div className="ui radio checkbox albumTopic">
-                                                <input type="radio" ref="preAlbumTopic" value="1" name="topic" tabIndex="0" className="hidden"/>
+                                                <input type="radio" name="topic" value="1"  tabIndex="0" className="hidden"/>
                                                     <label>亲子</label>
                                             </div>
                                         </div>
                                         <div className="field">
                                             <div className="ui radio checkbox albumTopic">
-                                                <input type="radio" ref="preAlbumTopic" name="topic" value="2" tabIndex="0" className="hidden" />
+                                                <input type="radio"  name="topic" value="2" tabIndex="0" className="hidden" />
                                                     <label>旅游</label>
                                             </div>
                                         </div>
                                         <div className="field">
                                             <div className="ui radio checkbox albumTopic">
-                                                <input type="radio" ref="preAlbumTopic" name="topic" value="3" tabIndex="0" className="hidden" />
+                                                <input type="radio" name="topic" value="3" tabIndex="0" className="hidden" />
                                                     <label>校友</label>
                                             </div>
                                         </div>
