@@ -1,14 +1,140 @@
 webpackJsonp([1],{
 
+/***/ 106:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export action_get_albums */
+/* unused harmony export action_received_albums */
+/* unused harmony export action_delete_album */
+/* unused harmony export action_received_delete_album */
+/* unused harmony export action_add_album */
+/* unused harmony export action_received_add_album */
+/* unused harmony export action_add_photo */
+/* unused harmony export action_received_add_photo */
+/* unused harmony export action_delete_photo */
+/* unused harmony export action_received_delete_photo */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__ = __webpack_require__(238);
+
+
+function action_get_albums(albums) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["a" /* F_ALBUMS */],
+        albums: albums
+    };
+}
+function action_received_albums(albums) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["b" /* R_ALBUMS */],
+        albums
+    };
+}
+
+function action_delete_album(albumId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["c" /* DEL_ALBUM */],
+        albumId
+    };
+}
+function action_received_delete_album(albumId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["d" /* R_DEL_ALBUM */],
+        albumId
+    };
+}
+
+function action_add_album(album) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["e" /* ADD_ALBUM */],
+        album
+    };
+}
+function action_received_add_album(album) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["f" /* R_ADD_ALBUM */],
+        album
+    };
+}
+
+function action_add_photo(photo) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["g" /* ADD_PHOTO */],
+        photo
+    };
+}
+function action_received_add_photo(photo) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["h" /* R_ADD_PHOTO */],
+        photo
+    };
+}
+
+function action_delete_photo(photoId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["i" /* DEL_PHOTO */],
+        photoId
+    };
+}
+function action_received_delete_photo(photoId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["j" /* R_DEL_PHOTO */],
+        photoId
+    };
+}
+
+const ajax_get_albums = albums => dispatch => {
+    dispatch(action_get_albums(albums));
+    $.ajax({
+        url: "/api/albums",
+        method: "get",
+        type: "json",
+        success: function (result) {
+            const albums = result.albums;
+            dispatch(action_received_albums(albums));
+        },
+        error: function (err, status) {
+            console.log(err);
+        }
+    });
+};
+const ajax_create_albums = album => dispatch => {
+    dispatch(action_add_album(album));
+    $.ajax({
+        url: "/api/albums",
+        method: "post",
+        type: "json",
+        data: album,
+        success: function (result) {
+            const album = result.album || {};
+            dispatch(action_received_add_album(album));
+        },
+        error: function (err, status) {
+            console.log(err);
+        }
+    });
+};
+const fetch_ajax_create_albums = album => (dispatch, getState) => {
+    dispatch(ajax_create_albums(album));
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = fetch_ajax_create_albums;
+
+const fetch_ajax_get_albums = albums => (dispatch, getState) => {
+    dispatch(ajax_get_albums(albums));
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = fetch_ajax_get_albums;
+
+
+/***/ }),
+
 /***/ 107:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Albums__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_album__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Albums__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_album__ = __webpack_require__(246);
 
 
 
@@ -28,7 +154,7 @@ class AlbumsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
 /***/ }),
 
-/***/ 110:
+/***/ 234:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68,14 +194,14 @@ class Album extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 /***/ }),
 
-/***/ 111:
+/***/ 235:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_album__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Album__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_album__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Album__ = __webpack_require__(234);
 
 
 
@@ -84,7 +210,9 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
         this.showCreateAlbumModal = this.showCreateAlbumModal.bind(this);
-        this.onclicCreateAlbum = this.onclicCreateAlbum.bind(this);
+        this.onclickCreateAlbum = this.onclickCreateAlbum.bind(this);
+        this.onclickUpdatePhotos = this.onclickUpdatePhotos.bind(this);
+        this.createDate = this.createDate.bind(this);
     }
 
     showCreateAlbumModal() {
@@ -92,8 +220,11 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         $('.albumAuthority').dropdown();
         $('.ui.radio.albumTopic').checkbox();
     }
-
-    onclicCreateAlbum(element) {
+    showUploadPhotosModal() {}
+    onclickUpdatePhotos(element) {
+        alert("唉， 可惜，功能还没完成呢！");
+    }
+    onclickCreateAlbum(element) {
         const name = this.refs.preAlbumName.value;
         const description = this.refs.preAlbumDescription.value;
         const topic = $(this.refs.preAlbumTopic).find("input[type='radio']:checked").val();
@@ -117,8 +248,10 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             }
         });
     }
+    createDate(date) {
+        return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
+    }
     render() {
-
         const { albums } = this.props;
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -131,7 +264,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     { className: 'ui buttons' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { className: 'ui red basic button' },
+                        { onClick: e => this.onclickUpdatePhotos(e), className: 'ui red basic button' },
                         '\u4E0A\u4F20\u7167\u7247'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -143,14 +276,43 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'albums' },
-                albums.map(album => {
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                { className: 'albums', id: 'albums-albums' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'ui cards' },
+                    albums.map(album => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'albums-one' },
-                        album.name
-                    );
-                })
+                        { className: 'card', key: album._id },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'image' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: 'http://www.semantic-ui.cn/images/wireframe/image.png' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'content' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'a',
+                                { className: 'header' },
+                                album.name
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'meta' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: 'date' },
+                                    this.createDate(album.create_at)
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'description' },
+                                album.description
+                            )
+                        )
+                    ))
+                )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
@@ -313,7 +475,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     { className: 'actions' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { onClick: e => this.onclicCreateAlbum(e), className: 'ui blue button' },
+                        { onClick: e => this.onclickCreateAlbum(e), className: 'ui blue button' },
                         '\u786E\u5B9A'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -331,7 +493,7 @@ class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 /***/ }),
 
-/***/ 114:
+/***/ 238:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -379,7 +541,7 @@ const R_DEL_PHOTO = "R_DEL_PHOTO";
 
 /***/ }),
 
-/***/ 115:
+/***/ 239:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -427,7 +589,7 @@ const R_DEL_PHOTO = "R_DEL_PHOTO";
 
 /***/ }),
 
-/***/ 116:
+/***/ 240:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -435,9 +597,9 @@ const R_DEL_PHOTO = "R_DEL_PHOTO";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_album_Albums__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_album__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_album_Albums__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_album__ = __webpack_require__(106);
 
 
 
@@ -450,7 +612,7 @@ class AlbumApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.deleteAlbum = this.deleteAlbum.bind(this);
     this.updateAlbum = this.updateAlbum.bind(this);
     this.getAlbums = this.getAlbums.bind(this);
-    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["a" /* fetch_ajax_get_albums */])([]));
+    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["a" /* fetch_ajax_get_albums */])(props.albums));
   }
   componentDidMount() {}
   getAlbums() {
@@ -483,7 +645,7 @@ function mapStateToProps(state) {
 
 /***/ }),
 
-/***/ 119:
+/***/ 243:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -502,17 +664,17 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 122:
+/***/ 246:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__ = __webpack_require__(115);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_redux_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
 
 
@@ -549,7 +711,8 @@ function albumReducer(state = initState, action) {
         case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["f" /* R_ADD_ALBUM */]:
             console.log("成功添加相册！");
             return Object.assign({}, state, {
-                album: action.album
+                album: action.album,
+                albums: state.albums.concat([action.album])
             });
             break;
         case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["g" /* DEL_ALBUM */]:
@@ -578,133 +741,7 @@ const store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["b" /* c
 /* harmony default export */ __webpack_exports__["a"] = (store);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
-/***/ }),
-
-/***/ 67:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export action_get_albums */
-/* unused harmony export action_received_albums */
-/* unused harmony export action_delete_album */
-/* unused harmony export action_received_delete_album */
-/* unused harmony export action_add_album */
-/* unused harmony export action_received_add_album */
-/* unused harmony export action_add_photo */
-/* unused harmony export action_received_add_photo */
-/* unused harmony export action_delete_photo */
-/* unused harmony export action_received_delete_photo */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__ = __webpack_require__(114);
-
-
-function action_get_albums(albums) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["a" /* F_ALBUMS */],
-        albums
-    };
-}
-function action_received_albums(albums) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["b" /* R_ALBUMS */],
-        albums
-    };
-}
-
-function action_delete_album(albumId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["c" /* DEL_ALBUM */],
-        albumId
-    };
-}
-function action_received_delete_album(albumId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["d" /* R_DEL_ALBUM */],
-        albumId
-    };
-}
-
-function action_add_album(album) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["e" /* ADD_ALBUM */],
-        album
-    };
-}
-function action_received_add_album(album) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["f" /* R_ADD_ALBUM */],
-        album
-    };
-}
-
-function action_add_photo(photo) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["g" /* ADD_PHOTO */],
-        photo
-    };
-}
-function action_received_add_photo(photo) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["h" /* R_ADD_PHOTO */],
-        photo
-    };
-}
-
-function action_delete_photo(photoId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["i" /* DEL_PHOTO */],
-        photoId
-    };
-}
-function action_received_delete_photo(photoId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["j" /* R_DEL_PHOTO */],
-        photoId
-    };
-}
-
-const ajax_get_albums = albums => dispatch => {
-    dispatch(action_get_albums(albums));
-    $.ajax({
-        url: "/api/albums",
-        method: "get",
-        type: "json",
-        success: function (result) {
-            const albums = result.albums;
-            dispatch(action_received_albums(albums));
-        },
-        error: function (err, status) {
-            console.log(err);
-        }
-    });
-};
-const ajax_create_albums = album => dispatch => {
-    dispatch(action_add_album(album));
-    $.ajax({
-        url: "/api/albums",
-        method: "post",
-        type: "json",
-        data: album,
-        success: function (result) {
-            const album = result.album || {};
-            dispatch(action_received_add_album(album));
-        },
-        error: function (err, status) {
-            console.log(err);
-        }
-    });
-};
-const fetch_ajax_create_albums = album => (dispatch, getState) => {
-    dispatch(ajax_create_albums(album));
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = fetch_ajax_create_albums;
-
-const fetch_ajax_get_albums = albums => (dispatch, getState) => {
-    dispatch(ajax_get_albums(albums));
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = fetch_ajax_get_albums;
-
-
 /***/ })
 
-},[119]);
+},[243]);
 //# sourceMappingURL=albums.js.map

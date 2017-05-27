@@ -30,3 +30,10 @@ max-width: 20em;
 #topic-event-feed .event:hover{
 	background: #f6f6f6
 }
+.toolbar{
+	margin-bottom: 20px;
+}
+#albums-albums .cards .header,
+#albums-albums .cards .description{
+    overflow: hidden;
+}

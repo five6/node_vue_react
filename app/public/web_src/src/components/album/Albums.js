@@ -6,7 +6,9 @@ export default class Albums extends React.Component{
 	constructor(props) {
 		super(props);
 		this.showCreateAlbumModal = this.showCreateAlbumModal.bind(this);
-		this.onclicCreateAlbum = this.onclicCreateAlbum.bind(this);
+		this.onclickCreateAlbum = this.onclickCreateAlbum.bind(this);
+		this.onclickUpdatePhotos = this.onclickUpdatePhotos.bind(this);
+		this.createDate = this.createDate.bind(this);
 	}
 
     showCreateAlbumModal(){
@@ -15,8 +17,13 @@ export default class Albums extends React.Component{
         $('.ui.radio.albumTopic').checkbox();
         
     }
-
-    onclicCreateAlbum(element){
+    showUploadPhotosModal(){
+    
+    }
+    onclickUpdatePhotos(element){
+        alert("唉， 可惜，功能还没完成呢！");
+    }
+    onclickCreateAlbum(element){
         const name = this.refs.preAlbumName.value;
         const description = this.refs.preAlbumDescription.value;
         const topic = $(this.refs.preAlbumTopic).find("input[type='radio']:checked").val();
@@ -40,26 +47,36 @@ export default class Albums extends React.Component{
         }   
      });
     }
+    createDate(date){
+        return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
+    }
 	render(){
-
 		const {albums} = this.props;
 		return(
 			<div className="ui">
                 <div className="toolbar">
                     <div className="ui buttons">
-                        <button className="ui red basic button">上传照片</button>
+                        <button onClick={(e)=> this.onclickUpdatePhotos(e)} className="ui red basic button">上传照片</button>
                         <button onClick={(e)=> this.showCreateAlbumModal(e)} className="ui green basic button">创建相册</button>
                     </div>
                 </div>
-                <div className="albums">
-                    {
-                        albums.map(album =>{
-                           <div className="albums-one">
-                                {album.name}
-                           </div>
-                        })
-                    }
-                
+                <div className="albums" id="albums-albums">
+                    <div className="ui cards">
+                    {albums.map(album =>
+                        <div className="card" key={album._id}>
+                            <div className="image">
+                                <img src="http://www.semantic-ui.cn/images/wireframe/image.png"/>
+                            </div>
+                            <div className="content">
+                                <a className="header">{album.name}</a>
+                                <div className="meta">
+                                    <span className="date">{this.createDate(album.create_at)}</span>
+                                </div>
+                                <div className="description">{album.description}</div>
+                            </div>
+                        </div>
+                    )}
+                    </div>
                 </div>
                 <div className="ui modal createAlbumModal">
                     <div className="header">创建相册</div>
@@ -124,7 +141,7 @@ export default class Albums extends React.Component{
                         </div>
                     </div>
                     <div className="actions">
-                        <div onClick={(e) => this.onclicCreateAlbum(e)} className="ui blue button">确定</div>
+                        <div onClick={(e) => this.onclickCreateAlbum(e)} className="ui blue button">确定</div>
                         <div className="ui cancel grey button">取消</div>
                     </div>
                 </div>

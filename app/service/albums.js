@@ -37,12 +37,12 @@ module.exports = app => {
         }
         * createAlbum(ctx){
             const query = ctx.request.body;
-            console.log(query);
         	const body = {
         		name:query.name,
                 userId:ctx.user._id,
                 description:query.description,
         		photos:[],
+				preview: "",
                 topic:query.topic,
                 authority:query.authority,
         		create_at:new Date(),

@@ -10,7 +10,7 @@ class AlbumApp extends React.Component{
         this.deleteAlbum = this.deleteAlbum.bind(this);
         this.updateAlbum = this.updateAlbum.bind(this);
         this.getAlbums = this.getAlbums.bind(this);
-        this.props.dispatch(fetch_ajax_get_albums([]));
+        this.props.dispatch(fetch_ajax_get_albums(props.albums));
     }
     componentDidMount(){
         

@@ -3,7 +3,7 @@ import * as types  from '../constants/ActionTypes.album';
 export function action_get_albums(albums) {
     return {
         type:types.F_ALBUMS,
-        albums
+        albums:albums
     }
 }
 export function action_received_albums(albums) {

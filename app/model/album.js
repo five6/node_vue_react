@@ -5,6 +5,7 @@ module.exports = mongoose =>{
         description:{type:String},
         userId:{type:String},
         topic:{type:Number},
+        preview:{type:String},
         photos:{type:Array},
         authority:{type:Number},
         create_at:{type:Object},
