@@ -7,18 +7,25 @@ export default class Albums extends React.Component{
 		super(props);
 		this.showCreateAlbumModal = this.showCreateAlbumModal.bind(this);
 		this.onclickCreateAlbum = this.onclickCreateAlbum.bind(this);
+		this.showUpdatePhotosModal = this.showUpdatePhotosModal.bind(this);
 		this.onclickUpdatePhotos = this.onclickUpdatePhotos.bind(this);
 		this.createDate = this.createDate.bind(this);
+		this.onClickAddPhoto = this.onClickAddPhoto.bind(this);
 	}
 
     showCreateAlbumModal(){
-        $('.createAlbumModal').modal('show');
         $('.albumAuthority').dropdown();
         $('.ui.radio.albumTopic').checkbox();
-        
+        $('.createAlbumModal').modal('show');
     }
-    showUploadPhotosModal(){
-    
+    showUpdatePhotosModal(){
+
+        $('.selectAlbum').dropdown();
+        $(".updatePhotosModal").modal('show');
+
+    }
+    onClickAddPhoto(){
+        $("#inputAddPhoto").trigger("click");
     }
     onclickUpdatePhotos(element){
         alert("唉， 可惜，功能还没完成呢！");
@@ -52,11 +59,12 @@ export default class Albums extends React.Component{
     }
 	render(){
 		const {albums} = this.props;
+		const firstAlbum = albums[0]||{};
 		return(
 			<div className="ui">
                 <div className="toolbar">
                     <div className="ui buttons">
-                        <button onClick={(e)=> this.onclickUpdatePhotos(e)} className="ui red basic button">上传照片</button>
+                        <button onClick={(e)=> this.showUpdatePhotosModal(e)} className="ui red basic button">上传照片</button>
                         <button onClick={(e)=> this.showCreateAlbumModal(e)} className="ui green basic button">创建相册</button>
                     </div>
                 </div>
@@ -142,6 +150,40 @@ export default class Albums extends React.Component{
                     </div>
                     <div className="actions">
                         <div onClick={(e) => this.onclickCreateAlbum(e)} className="ui blue button">确定</div>
+                        <div className="ui cancel grey button">取消</div>
+                    </div>
+                </div>
+                <div className="ui modal updatePhotosModal fullscreen">
+                    <div className="header">上传照片</div>
+                    <div className="content">
+                        <div id="updatePhotosform">
+                            <form  action="/api/albums" method="post" encType="multipart/form-data">
+                                <div className="ui form">
+                                    <div className="field">
+                                        <label>上传到</label>
+                                        <div className="ui selectAlbum selection dropdown">
+                                            <i className="dropdown icon"></i>
+                                            < div className = "default text" >{firstAlbum.name||""}</div>
+                                                <div className="menu">
+                                                    {albums.map(album =>
+                                                        <div key={album._id} className="item" data-value={album._id}>{album.name}</div>
+                                                    )};
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div className="field">
+                                        <label></label>
+                                        <div className="ui left icon input">
+                                            <input type="file" className="input-addPhoto" id="inputAddPhoto" />
+                                            <button type="button" className="ui green button" onClick={this.onClickAddPhoto}>添加照片<i className="upload icon"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="actions">
+                        <div onClick={(e) => this.onclickUpdatePhotos(e)} className="ui blue button">确定</div>
                         <div className="ui cancel grey button">取消</div>
                     </div>
                 </div>
