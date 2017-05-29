@@ -40,3 +40,23 @@ max-width: 20em;
 .input-addPhoto{
 	display: none;
 }
+.selectAlbum{
+	width: 200px!important;
+    height: 30px!important;
+}
+.remove-photo-span{
+    bottom: 7px;
+    position: absolute;
+    right: -3px;
+    cursor: pointer;
+    width: 20px;
+    line-height: 20px;
+    height: 20px;
+    text-align: center;
+}
+.remove-photo-span-in{
+	display: block !important;
+}
+.remove-photo-span-out{
+    display: none !important;
+}

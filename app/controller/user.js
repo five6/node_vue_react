@@ -6,6 +6,7 @@ module.exports = app => {
 
         const body = ctx.request.body;
         const user = yield ctx.service.user.login(body);
+        console.log(user._id);
         if(user){
             ctx.login(user,function(){
                 const locals = {

@@ -39,16 +39,18 @@ export function action_received_add_album(album) {
     }
 }
 
-export function action_add_photo(photo) {
+export function action_add_photo(albumId,photos) {
     return{
         type:types.ADD_PHOTO,
-        photo
+        albumId,
+        photos
     }
 }
-export function action_received_add_photo(photo) {
+export function action_received_add_photo(albumId,photos) {
     return{
         type:types.R_ADD_PHOTO,
-        photo
+        albumId,
+        photos
     }
 }
 
@@ -91,14 +93,42 @@ const ajax_create_albums = album => dispatch => {
             const album = result.album||{};
             dispatch(action_received_add_album(album));
         },
-        error:function(err,status){
+        error:function(e5Fdxrr,status){
             console.log(err);
         }
     })
 };
+
+const ajax_upload_photos = (albumId,photos) => dispatch => {
+    dispatch(action_add_photo(albumId,photos));
+    var formData = new FormData();
+    formData.append("albumId",albumId);
+    for(let i =0;i< photos.length ;photos++){
+        formData.append("file",photos[i].file);
+    }
+    $.ajax({
+        url:"/api/albums/"+albumId+"/photos",
+        method:"post",
+        type:"json",
+        data:formData,
+        processData: false,
+        success:function(result){
+            const album = result.album||{};
+            dispatch(action_received_add_photo(albumId,photos));
+        },
+        error:function(err,status){
+            console.log(err);
+        }
+
+    })
+}
+
 export const fetch_ajax_create_albums = album => (dispatch,getState) => {
     dispatch(ajax_create_albums(album));
 };
 export const fetch_ajax_get_albums = albums => (dispatch,getState) => {
     dispatch(ajax_get_albums(albums));
 };
+export const fetch_ajax_uploadPhotos = (albumId,photos) => (dispatch,getstate) => {
+    dispatch(ajax_upload_photos(albumId,photos));
+}

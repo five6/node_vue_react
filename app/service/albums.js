@@ -54,6 +54,7 @@ module.exports = app => {
         * uploadPhotos(ctx){
         	const body = ctx.body ||{};
         	const albumId = ctx.params.id;
+
         	/***
         		文件路径和md5值保存在数据库，文件保存在文件夹
 				文件的md5值由albumId +文件名+时间戳 md5后保存。s

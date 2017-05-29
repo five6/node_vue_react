@@ -42,11 +42,18 @@ function albumReducer(state = initState,action) {
             break;
         case types.R_DEL_ALBUM:
             break;
-            
-            
+
+
         case types.ADD_PHOTO:
+            return Object.assign({},state,{
+                albumId:action.albumId,
+                photos:action.photos
+            });
             break;
         case types.R_ADD_PHOTO:
+            return Object.assign({},state,{
+                albums:state.albums,
+            });
             break;
             
             

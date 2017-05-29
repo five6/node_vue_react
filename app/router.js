@@ -3,6 +3,7 @@
 module.exports = app => {
     //api使用的
   const auth = app.middlewares.auth();
+
   //view使用的 也可以在config文件配置
     // const returnLogin = app.middlewares.returnLogin();
   //view
@@ -18,7 +19,7 @@ module.exports = app => {
   app.post('/api/login','user.login');
   app.post('/api/logout','user.logout');
   app.post('/api/register','user.register');
-  app.post('/api/user/update','user.update');
+  app.post('/api/user/update',auth,'user.update');
   // event api
   app.get('/api/events','event.list');
   app.get('/api/events/userEventList',auth,'event.userEventList');

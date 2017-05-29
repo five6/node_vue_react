@@ -8,7 +8,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Topics__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_topic__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_topic__ = __webpack_require__(43);
 
 
 
@@ -301,7 +301,7 @@ class TopicList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_topic_AddTopic__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_topic_TopicList__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_topic_Topicdetail__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_topic_Topicdetail__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_topic__ = __webpack_require__(25);
 
 
@@ -391,7 +391,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* unused harmony export action_received_add_topic */
 /* unused harmony export action_get_more_topic */
 /* unused harmony export action_received_more_topics */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(41);
 
 
 function action_get_topic_list(topics) {
@@ -566,7 +566,7 @@ const fetch_get_more_topc_if_need = topicId => (dispatch, getState) => {
 
 /***/ }),
 
-/***/ 39:
+/***/ 40:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -608,44 +608,6 @@ class TopicDetail extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 	}
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = TopicDetail;
-
-
-/***/ }),
-
-/***/ 40:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-//topic 
-const GET_TOPIC_LIST = "GET_TOPIC_LIST";
-/* harmony export (immutable) */ __webpack_exports__["a"] = GET_TOPIC_LIST;
-
-const RECEIVED_TOPIC_LIST = "RECEIVED_TOPIC_LIST";
-/* harmony export (immutable) */ __webpack_exports__["b"] = RECEIVED_TOPIC_LIST;
-
-const GET_TOPIC_DETAIL = "GET_TOPIC_DETAIL";
-/* harmony export (immutable) */ __webpack_exports__["c"] = GET_TOPIC_DETAIL;
-
-const RECEIVED_TOPIC_DETAIL = "RECEIVED_TOPIC_DETAIL";
-/* harmony export (immutable) */ __webpack_exports__["d"] = RECEIVED_TOPIC_DETAIL;
-
-const DELETE_TOPIC = "DELETE_TOPIC";
-/* harmony export (immutable) */ __webpack_exports__["e"] = DELETE_TOPIC;
-
-const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
-/* harmony export (immutable) */ __webpack_exports__["f"] = RECEIVED_DELETE_TOPIC;
-
-const ADD_TOPIC = "ADD_TOPIC";
-/* harmony export (immutable) */ __webpack_exports__["g"] = ADD_TOPIC;
-
-const RECEIVED_ADD_TOPIC = "RECEIVED_ADD_TOPIC";
-/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVED_ADD_TOPIC;
-
-const GET_MORE_TOPICS = "GET_MORE_TOPICS";
-/* harmony export (immutable) */ __webpack_exports__["i"] = GET_MORE_TOPICS;
-
-const RECEIVED_GET_MORE_TOPICS = "RECEIVED_GET_MORE_TOPICS";
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVED_GET_MORE_TOPICS;
 
 
 /***/ }),
@@ -692,13 +654,51 @@ const RECEIVED_GET_MORE_TOPICS = "RECEIVED_GET_MORE_TOPICS";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__ = __webpack_require__(41);
+//topic 
+const GET_TOPIC_LIST = "GET_TOPIC_LIST";
+/* harmony export (immutable) */ __webpack_exports__["a"] = GET_TOPIC_LIST;
+
+const RECEIVED_TOPIC_LIST = "RECEIVED_TOPIC_LIST";
+/* harmony export (immutable) */ __webpack_exports__["b"] = RECEIVED_TOPIC_LIST;
+
+const GET_TOPIC_DETAIL = "GET_TOPIC_DETAIL";
+/* harmony export (immutable) */ __webpack_exports__["c"] = GET_TOPIC_DETAIL;
+
+const RECEIVED_TOPIC_DETAIL = "RECEIVED_TOPIC_DETAIL";
+/* harmony export (immutable) */ __webpack_exports__["d"] = RECEIVED_TOPIC_DETAIL;
+
+const DELETE_TOPIC = "DELETE_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["e"] = DELETE_TOPIC;
+
+const RECEIVED_DELETE_TOPIC = "RECEIVED_DELETE_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["f"] = RECEIVED_DELETE_TOPIC;
+
+const ADD_TOPIC = "ADD_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["g"] = ADD_TOPIC;
+
+const RECEIVED_ADD_TOPIC = "RECEIVED_ADD_TOPIC";
+/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVED_ADD_TOPIC;
+
+const GET_MORE_TOPICS = "GET_MORE_TOPICS";
+/* harmony export (immutable) */ __webpack_exports__["i"] = GET_MORE_TOPICS;
+
+const RECEIVED_GET_MORE_TOPICS = "RECEIVED_GET_MORE_TOPICS";
+/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVED_GET_MORE_TOPICS;
+
+
+/***/ }),
+
+/***/ 43:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_redux_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
 
 

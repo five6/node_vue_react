@@ -1,6 +1,7 @@
 import React from 'react';
 import {findAlbums} from  '../../actions/album';
 import Album from './Album';
+import _ from 'lodash';
 
 export default class Albums extends React.Component{
 	constructor(props) {
@@ -11,8 +12,65 @@ export default class Albums extends React.Component{
 		this.onclickUpdatePhotos = this.onclickUpdatePhotos.bind(this);
 		this.createDate = this.createDate.bind(this);
 		this.onClickAddPhoto = this.onClickAddPhoto.bind(this);
+		this.previewPhoto = this.previewPhoto.bind(this);
+		this.setUniqueKey = this.setUniqueKey.bind(this);
+		this.removeSelectedPhoto = this.removeSelectedPhoto.bind(this);
+		this.onmouseoutPhoto = this.onmouseoutPhoto.bind(this);
+		this.onmouseoverPhoto = this.onmouseoverPhoto.bind(this);
+		this.state = {
+            needUploadPhotos:[],
+            needUploadPhotosNames:[]
+		}
 	}
-
+    onUpdatePhotoInputChange(e){
+	    let oldValues = this.state.needUploadPhotos;
+        let newValues = e.target.files;
+        newValues =_.filter(newValues,function (nw) {
+            const file = _.find(oldValues,function (ow) {
+                return ow.file === nw.file;
+            });
+            if(file){
+                return false;
+            }else{
+                return true;
+            }
+        });
+	    let names = [];
+	    let files =[];
+	    const self = this;
+	    _.each(newValues,function (v) {
+            const url = self.previewPhoto(v);
+            const key = self.setUniqueKey(false,32);
+            files.push({
+                file:v,
+                key:key
+            });
+            names.push({
+                url:url,
+                key:key
+            });
+        });
+	    this.setState({
+            needUploadPhotos:self.state.needUploadPhotos.concat(files),
+            needUploadPhotosNames:self.state.needUploadPhotosNames.concat(names)
+        });
+	    console.log(this.state.needUploadPhotos);
+    }
+    setUniqueKey(randomFlag, min, max){
+        var str = "",
+            pos =0,
+            range = min,
+            arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        // 随机产生
+        if(randomFlag){
+            range = Math.round(Math.random() * (max-min)) + min;
+        }
+        for(var i=0; i<range; i++){
+            pos = Math.round(Math.random() * (arr.length-1));
+            str += arr[pos];
+        }
+        return str;
+    }
     showCreateAlbumModal(){
         $('.albumAuthority').dropdown();
         $('.ui.radio.albumTopic').checkbox();
@@ -20,7 +78,7 @@ export default class Albums extends React.Component{
     }
     showUpdatePhotosModal(){
 
-        $('.selectAlbum').dropdown();
+        //$('.selectAlbum').dropdown();
         $(".updatePhotosModal").modal('show');
 
     }
@@ -28,8 +86,22 @@ export default class Albums extends React.Component{
         $("#inputAddPhoto").trigger("click");
     }
     onclickUpdatePhotos(element){
-        alert("唉， 可惜，功能还没完成呢！");
+        const photos = this.state.needUploadPhotos;
+        const albumId = this.refs.selectAlbum.value;
+        if(!albumId || !photos.length){
+            return;
+        }
+        this.props.uploadPhotos(albumId,photos);
     }
+    onmouseoverPhoto(e){
+        if(e.target)
+        $(e.target).next().addClass("remove-photo-span-in");
+    }
+    onmouseoutPhoto(e){
+        $(e.target).next().removeClass("remove-photo-span-in");
+
+    }
+
     onclickCreateAlbum(element){
         const name = this.refs.preAlbumName.value;
         const description = this.refs.preAlbumDescription.value;
@@ -43,6 +115,32 @@ export default class Albums extends React.Component{
         };
         this.props.createAlbum(album);
         $('.createAlbumModal').modal('hide');
+    }
+    previewPhoto(file){
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file)
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file)
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file)
+        }
+        return url
+    }
+    removeSelectedPhoto(e){
+        const key = e.target.getAttribute("data-photo-key");
+        let photos = this.state.needUploadPhotos;
+        let names  = this.state.needUploadPhotosNames;
+        photos =_.filter(photos,function (photo) {
+           return photo.key !== key;
+        });
+        names =_.filter(names,function (name) {
+            return name.key !== key;
+        });
+        this.setState({
+            needUploadPhotos:photos,
+            needUploadPhotosNames:names
+        })
     }
 	componentDidMount() {
          $('#createAlbumform').form({
@@ -73,7 +171,7 @@ export default class Albums extends React.Component{
                     {albums.map(album =>
                         <div className="card" key={album._id}>
                             <div className="image">
-                                <img src="http://www.semantic-ui.cn/images/wireframe/image.png"/>
+                                <img src="../public/images/bg.png"/>
                             </div>
                             <div className="content">
                                 <a className="header">{album.name}</a>
@@ -161,21 +259,33 @@ export default class Albums extends React.Component{
                                 <div className="ui form">
                                     <div className="field">
                                         <label>上传到</label>
-                                        <div className="ui selectAlbum selection dropdown">
-                                            <i className="dropdown icon"></i>
-                                            < div className = "default text" >{firstAlbum.name||""}</div>
-                                                <div className="menu">
-                                                    {albums.map(album =>
-                                                        <div key={album._id} className="item" data-value={album._id}>{album.name}</div>
-                                                    )};
-                                                </div>
+                                        <select defaultValue={firstAlbum._id} className="ui selectAlbum" ref="selectAlbum">
+                                            {albums.map(album =>
+                                                <option value={album._id} key={album._id}>{album.name}</option>
+                                            )}
+                                        </select>
+                                    </div>
+                                    <div className="field">
+                                        <label></label>
+                                        <div className="ui left">
+                                            <div className="ui tiny images">
+                                                {
+                                                    this.state.needUploadPhotosNames.map ((photo) =>
+                                                        <div key={photo.key} className="ui image uploadPhoto-preview-img">
+                                                            <img className="ui image" src={photo.url}  />
+                                                            <span data-photo-key={photo.key}  onClick={(e)=>this.removeSelectedPhoto(e)} className="remove-photo-span" >X</span>
+                                                        </div>
+                                                    )}
                                             </div>
+                                        </div>
                                     </div>
                                     <div className="field">
                                         <label></label>
                                         <div className="ui left icon input">
-                                            <input type="file" className="input-addPhoto" id="inputAddPhoto" />
-                                            <button type="button" className="ui green button" onClick={this.onClickAddPhoto}>添加照片<i className="upload icon"></i></button>
+                                            <div>
+                                                <input type="file" onChange={(e)=> this.onUpdatePhotoInputChange(e)}  accept="image/*"  className="input-addPhoto" id="inputAddPhoto" multiple />
+                                                <button type="button" className="ui green button" onClick={this.onClickAddPhoto}>添加照片<i className="upload icon"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

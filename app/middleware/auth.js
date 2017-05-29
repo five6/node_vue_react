@@ -13,4 +13,4 @@ module.exports = ()=>{
 		      this.status = error.status;
 	    	}
 		}
-}
+};
