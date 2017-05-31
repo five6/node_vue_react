@@ -5,6 +5,8 @@ const mongoose  = require('mongoose');
 const multiparty = require('multiparty');
 const moment = require("moment");
 const async = require('async');
+const crypto = require('crypto');
+const fs = require('fs');
 module.exports = app => {
     class AlbumsService extends app.Service{
         * albumList(ctx){
@@ -57,18 +59,28 @@ module.exports = app => {
         * uploadPhotos(ctx){
         	const body = ctx.body ||{};
         	const albumId = ctx.params.id;
-            let result = {};
-            let photoPath = path.join(app.config.baseDir, "photos");
+            let photos =[];
+            let photoPath = path.join(app.config.baseDir, "./ufiles","photos");
             try {
-                result = yield parseForm(ctx,photoPath);
-                console.log(result);
-                const photo = new app.model.photo(result);
+                const results = yield parseForm(ctx,photoPath);
+                photos = results.photos || [];
+                console.log("***********************");
+                console.log(photos);
+                console.log("***********************");
+                photos = _.map(photos,function(pho){
+                    return {
+                        path:pho.path,
+                        albumId:albumId,
+                        description:"",
+                        create_at:new Date()
+                    }
+                });
+                const photo = new app.model.photo(photos);
                 yield photo.save();
             } catch (err) {
-                console.log(err);
-                result= {};
+                console.log("******************* err ***********************");
             }
-            return result;
+            return photos;
         }
         * deletePhotos(ctx){
         	let idList = [];
@@ -94,12 +106,13 @@ function parseForm(ctx,photoPath) {
             }
             else{
                 var photoList = files.file||[];
+                console.log("photos length : "+photoList.length);
                 var tasks = [];
                 for(var index in photoList){
                     var photo = photoList[index];
                     tasks.push(function (callback) {
                         var path = photo.path;
-                        var md5Name = getMd5Str(path);
+                        var md5Name = imgMd5(path);
                         var fileReadStream=fs.createReadStream(path);
                         var fileWriteStream = fs.createWriteStream(photoPath+"/"+md5Name);
                         fileReadStream.pipe(fileWriteStream);
@@ -125,6 +138,6 @@ function imgMd5(content){
     if(dotIndex !== -1){
         extraName = content.substr(content.lastIndexOf("."));
     };
-    var md5 = crypto.createHash("md5");
-    return md5.update(content).digest("base64")+moment().format("YYYYMMDDHHmmss")+extraName;
+    var md5 = crypto.createHash("sha1");
+    return md5.update(content).digest("hex")+moment().format("YYYYMMDDHHmmss")+extraName;
 }

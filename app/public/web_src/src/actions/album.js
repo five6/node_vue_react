@@ -1,5 +1,6 @@
 import * as types  from '../constants/ActionTypes.album';
-
+import axios from 'axios';
+import _ from 'lodash';
 export function action_get_albums(albums) {
     return {
         type:types.F_ALBUMS,
@@ -103,25 +104,36 @@ const ajax_upload_photos = (albumId,photos) => dispatch => {
     dispatch(action_add_photo(albumId,photos));
     var formData = new FormData();
     formData.append("albumId",albumId);
-    for(let i =0;i< photos.length ;photos++){
-        formData.append("file",photos[i].file);
-    }
-    $.ajax({
-        url:"/api/albums/"+albumId+"/photos",
-        method:"post",
-        type:"json",
-        contentType:"multipart/form-data",
-        data:formData,
-        processData: false,
-        success:function(result){
-            const album = result.album||{};
-            dispatch(action_received_add_photo(albumId,photos));
-        },
-        error:function(err,status){
-            console.log(err);
-        }
+    let photoList = [];
+    let formPhotos = _.map(photos,function(ph){
+        return ph.file;
+    });
+    // for(let i =0;i< photos.length ;photos++){
+    //     formData.append('file[]',photos[i].file);
+    // }
+    formData.append('file',formPhotos);
+    axios.post("/api/albums/"+albumId+"/photos",formData,{ emulateJSON: true}).then((result) => {
+    const album = result.album||{};
+        dispatch(action_received_add_photo(albumId,photos));
+    }, (err) => {
+        console.log(err)
+    });
+    // $.ajax({
+    //     url:"/api/albums/"+albumId+"/photos",
+    //     method:"post",
+    //     type:"json",
+    //     contentType:"multipart/form-data",
+    //     data:formData,
+    //     processData: false,
+    //     success:function(result){
+    //         const album = result.album||{};
+    //         dispatch(action_received_add_photo(albumId,photos));
+    //     },
+    //     error:function(err,status){
+    //         console.log(err);
+    //     }
 
-    })
+    // })
 }
 
 export const fetch_ajax_create_albums = album => (dispatch,getState) => {

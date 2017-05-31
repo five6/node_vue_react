@@ -4,8 +4,7 @@ module.exports = mongoose =>{
         path:{type:String},
         albumId:{type:String},    
         description:{type:String},
-        create_at:{type:Object},
-        update_at:{type:Object}
+        create_at:{type:Object}
     },{collection: "photos"});
     return mongoose.model('photos', photosModel)
 };
