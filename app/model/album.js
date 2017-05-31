@@ -1,7 +1,7 @@
 'use strict';
 module.exports = mongoose =>{
     const albumsModel = new mongoose.Schema({
-        name:{type:String},
+        url:{type:String},
         description:{type:String},
         userId:{type:String},
         topic:{type:Number},

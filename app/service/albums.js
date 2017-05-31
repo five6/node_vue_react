@@ -1,8 +1,10 @@
 'use strict';
 const _ = require('lodash');
+const path = require('path');
 const mongoose  = require('mongoose');
 const multiparty = require('multiparty');
 const moment = require("moment");
+const async = require('async');
 module.exports = app => {
     class AlbumsService extends app.Service{
         * albumList(ctx){
@@ -58,9 +60,13 @@ module.exports = app => {
             let result = {};
             let photoPath = path.join(app.config.baseDir, "photos");
             try {
-               result = yield parseForm(ctx);
+                result = yield parseForm(ctx,photoPath);
+                console.log(result);
+                const photo = new app.model.photo(result);
+                yield photo.save();
             } catch (err) {
-              result= {};
+                console.log(err);
+                result= {};
             }
             return result;
         }
@@ -82,7 +88,7 @@ module.exports = app => {
 function parseForm(ctx,photoPath) {
     return new Promise((resolve, reject) => {
         var form = new multiparty.Form();
-        form.parse(ctx.request, function(err, fields, files) {
+        form.parse(ctx.req, function(err, fields, files) {
             if(err){
                 reject(err);
             }
@@ -98,17 +104,14 @@ function parseForm(ctx,photoPath) {
                         var fileWriteStream = fs.createWriteStream(photoPath+"/"+md5Name);
                         fileReadStream.pipe(fileWriteStream);
                         fileWriteStream.on('close',function(){
-                            callback(null,md5Name);
+                            callback(null,{"path":md5Name});
                         });
                     })
                 }
                 async.parallel(tasks,function (err,result) {
-                    var imgs =[];
-                    _.each(result,function (img) {
-                        imgs.push(img);
-                    });
+                    result = result || [];
                     resolve({
-                        photos:imgs
+                        photos:result
                     });
                 })
             }

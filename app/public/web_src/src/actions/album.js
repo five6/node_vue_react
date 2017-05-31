@@ -110,6 +110,7 @@ const ajax_upload_photos = (albumId,photos) => dispatch => {
         url:"/api/albums/"+albumId+"/photos",
         method:"post",
         type:"json",
+        contentType:"multipart/form-data",
         data:formData,
         processData: false,
         success:function(result){
