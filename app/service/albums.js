@@ -1,7 +1,8 @@
 'use strict';
 const _ = require('lodash');
-
 const mongoose  = require('mongoose');
+const multiparty = require('multiparty');
+const moment = require("moment");
 module.exports = app => {
     class AlbumsService extends app.Service{
         * albumList(ctx){
@@ -54,17 +55,15 @@ module.exports = app => {
         * uploadPhotos(ctx){
         	const body = ctx.body ||{};
         	const albumId = ctx.params.id;
-
-        	/***
-        		文件路径和md5值保存在数据库，文件保存在文件夹
-				文件的md5值由albumId +文件名+时间戳 md5后保存。s
-
-        	***/
-        	
-
-
-
-        } 
+            let result = {};
+            let photoPath = path.join(app.config.baseDir, "photos");
+            try {
+               result = yield parseForm(ctx);
+            } catch (err) {
+              result= {};
+            }
+            return result;
+        }
         * deletePhotos(ctx){
         	let idList = [];
         	const body = ctx.body;
@@ -80,9 +79,49 @@ module.exports = app => {
     }
     return AlbumsService;
 }
+function parseForm(ctx,photoPath) {
+    return new Promise((resolve, reject) => {
+        var form = new multiparty.Form();
+        form.parse(ctx.request, function(err, fields, files) {
+            if(err){
+                reject(err);
+            }
+            else{
+                var photoList = files.file||[];
+                var tasks = [];
+                for(var index in photoList){
+                    var photo = photoList[index];
+                    tasks.push(function (callback) {
+                        var path = photo.path;
+                        var md5Name = getMd5Str(path);
+                        var fileReadStream=fs.createReadStream(path);
+                        var fileWriteStream = fs.createWriteStream(photoPath+"/"+md5Name);
+                        fileReadStream.pipe(fileWriteStream);
+                        fileWriteStream.on('close',function(){
+                            callback(null,md5Name);
+                        });
+                    })
+                }
+                async.parallel(tasks,function (err,result) {
+                    var imgs =[];
+                    _.each(result,function (img) {
+                        imgs.push(img);
+                    });
+                    resolve({
+                        photos:imgs
+                    });
+                })
+            }
+        });
+  });
+}
 
-function imgMd5(name){
-    var md5 = crypto.createHash('md5');
-    return md5.update(name).digest('hex');
-
+function imgMd5(content){
+    var extraName= "";
+    var dotIndex = content.lastIndexOf(".");
+    if(dotIndex !== -1){
+        extraName = content.substr(content.lastIndexOf("."));
+    };
+    var md5 = crypto.createHash("md5");
+    return md5.update(content).digest("base64")+moment().format("YYYYMMDDHHmmss")+extraName;
 }
