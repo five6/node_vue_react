@@ -1,5 +1,180 @@
 webpackJsonp([0],{
 
+/***/ 108:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export action_get_albums */
+/* unused harmony export action_received_albums */
+/* unused harmony export action_delete_album */
+/* unused harmony export action_received_delete_album */
+/* unused harmony export action_add_album */
+/* unused harmony export action_received_add_album */
+/* unused harmony export action_add_photo */
+/* unused harmony export action_received_add_photo */
+/* unused harmony export action_delete_photo */
+/* unused harmony export action_received_delete_photo */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(258);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+
+
+
+function action_get_albums(albums) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["a" /* F_ALBUMS */],
+        albums: albums
+    };
+}
+function action_received_albums(albums) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["b" /* R_ALBUMS */],
+        albums
+    };
+}
+
+function action_delete_album(albumId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["c" /* DEL_ALBUM */],
+        albumId
+    };
+}
+function action_received_delete_album(albumId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["d" /* R_DEL_ALBUM */],
+        albumId
+    };
+}
+
+function action_add_album(album) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["e" /* ADD_ALBUM */],
+        album
+    };
+}
+function action_received_add_album(album) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["f" /* R_ADD_ALBUM */],
+        album
+    };
+}
+
+function action_add_photo(albumId, photos) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["g" /* ADD_PHOTO */],
+        albumId,
+        photos
+    };
+}
+function action_received_add_photo(albumId, photos) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["h" /* R_ADD_PHOTO */],
+        albumId,
+        photos
+    };
+}
+
+function action_delete_photo(photoId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["i" /* DEL_PHOTO */],
+        photoId
+    };
+}
+function action_received_delete_photo(photoId) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["j" /* R_DEL_PHOTO */],
+        photoId
+    };
+}
+
+const ajax_get_albums = albums => dispatch => {
+    dispatch(action_get_albums(albums));
+    $.ajax({
+        url: "/api/albums",
+        method: "get",
+        type: "json",
+        success: function (result) {
+            const albums = result.albums;
+            dispatch(action_received_albums(albums));
+        },
+        error: function (err, status) {
+            console.log(err);
+        }
+    });
+};
+const ajax_create_albums = album => dispatch => {
+    dispatch(action_add_album(album));
+    $.ajax({
+        url: "/api/albums",
+        method: "post",
+        type: "json",
+        data: album,
+        success: function (result) {
+            const album = result.album || {};
+            dispatch(action_received_add_album(album));
+        },
+        error: function (e5Fdxrr, status) {
+            console.log(err);
+        }
+    });
+};
+
+const ajax_upload_photos = (albumId, photos) => dispatch => {
+    dispatch(action_add_photo(albumId, photos));
+    var formData = new FormData();
+    formData.append("albumId", albumId);
+    let photoList = [];
+    __WEBPACK_IMPORTED_MODULE_2_lodash___default.a.map(photos, function (ph) {
+        formData.append('file', ph.file);
+    });
+    // for(let i =0;i< photos.length ;photos++){
+    //     formData.append('file[]',photos[i].file);
+    // }
+    // formData.append('file',formPhotos);
+    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post("/api/albums/" + albumId + "/photos", formData, { emulateJSON: true }).then(result => {
+        const album = result.album || {};
+        dispatch(action_received_add_photo(albumId, photos));
+    }, err => {
+        console.log(err);
+    });
+    // $.ajax({
+    //     url:"/api/albums/"+albumId+"/photos",
+    //     method:"post",
+    //     type:"json",
+    //     contentType:"multipart/form-data",
+    //     data:formData,
+    //     processData: false,
+    //     success:function(result){
+    //         const album = result.album||{};
+    //         dispatch(action_received_add_photo(albumId,photos));
+    //     },
+    //     error:function(err,status){
+    //         console.log(err);
+    //     }
+
+    // })
+};
+
+const fetch_ajax_create_albums = album => (dispatch, getState) => {
+    dispatch(ajax_create_albums(album));
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = fetch_ajax_create_albums;
+
+const fetch_ajax_get_albums = albums => (dispatch, getState) => {
+    dispatch(ajax_get_albums(albums));
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = fetch_ajax_get_albums;
+
+const fetch_ajax_uploadPhotos = (albumId, photos) => (dispatch, getstate) => {
+    dispatch(ajax_upload_photos(albumId, photos));
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = fetch_ajax_uploadPhotos;
+
+
+/***/ }),
+
 /***/ 109:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -505,7 +680,7 @@ module.exports = {
   trim: trim
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(131).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235).Buffer))
 
 /***/ }),
 
@@ -599,9 +774,9 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Albums__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_album__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Albums__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_album__ = __webpack_require__(257);
 
 
 
@@ -621,815 +796,110 @@ class AlbumsRoot extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
 /***/ }),
 
-/***/ 117:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 131:
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+var toString = {}.toString;
 
-
-
-class Album extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-	constructor(props) {
-		super(props);
-	}
-	componentDidMount() {}
-	render() {
-		const { photos } = this.props;
-		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			'div',
-			null,
-			photos.map(photo => {
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'div',
-					{ className: 'album' },
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'div',
-						{ className: 'photo' },
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: photo.src })
-					)
-				);
-			})
-		);
-	}
-}
-/* unused harmony export default */
-
-
-/***/ }),
-
-/***/ 118:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_album__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Album__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash__);
-
-
-
-
-
-class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-    constructor(props) {
-        super(props);
-        this.showCreateAlbumModal = this.showCreateAlbumModal.bind(this);
-        this.onclickCreateAlbum = this.onclickCreateAlbum.bind(this);
-        this.showUpdatePhotosModal = this.showUpdatePhotosModal.bind(this);
-        this.onclickUpdatePhotos = this.onclickUpdatePhotos.bind(this);
-        this.createDate = this.createDate.bind(this);
-        this.onClickAddPhoto = this.onClickAddPhoto.bind(this);
-        this.previewPhoto = this.previewPhoto.bind(this);
-        this.setUniqueKey = this.setUniqueKey.bind(this);
-        this.removeSelectedPhoto = this.removeSelectedPhoto.bind(this);
-        this.onmouseoutPhoto = this.onmouseoutPhoto.bind(this);
-        this.onmouseoverPhoto = this.onmouseoverPhoto.bind(this);
-        this.state = {
-            needUploadPhotos: [],
-            needUploadPhotosNames: []
-        };
-    }
-    onUpdatePhotoInputChange(e) {
-        let oldValues = this.state.needUploadPhotos;
-        let newValues = e.target.files;
-        newValues = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.filter(newValues, function (nw) {
-            const file = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.find(oldValues, function (ow) {
-                return ow.file === nw.file;
-            });
-            if (file) {
-                return false;
-            } else {
-                return true;
-            }
-        });
-        let names = [];
-        let files = [];
-        const self = this;
-        __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.each(newValues, function (v) {
-            const url = self.previewPhoto(v);
-            const key = self.setUniqueKey(false, 32);
-            files.push({
-                file: v,
-                key: key
-            });
-            names.push({
-                url: url,
-                key: key
-            });
-        });
-        this.setState({
-            needUploadPhotos: self.state.needUploadPhotos.concat(files),
-            needUploadPhotosNames: self.state.needUploadPhotosNames.concat(names)
-        });
-        console.log(this.state.needUploadPhotos);
-    }
-    setUniqueKey(randomFlag, min, max) {
-        var str = "",
-            pos = 0,
-            range = min,
-            arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-        // 随机产生
-        if (randomFlag) {
-            range = Math.round(Math.random() * (max - min)) + min;
-        }
-        for (var i = 0; i < range; i++) {
-            pos = Math.round(Math.random() * (arr.length - 1));
-            str += arr[pos];
-        }
-        return str;
-    }
-    showCreateAlbumModal() {
-        $('.albumAuthority').dropdown();
-        $('.ui.radio.albumTopic').checkbox();
-        $('.createAlbumModal').modal('show');
-    }
-    showUpdatePhotosModal() {
-
-        //$('.selectAlbum').dropdown();
-        $(".updatePhotosModal").modal('show');
-    }
-    onClickAddPhoto() {
-        $("#inputAddPhoto").trigger("click");
-    }
-    onclickUpdatePhotos(element) {
-        const photos = this.state.needUploadPhotos;
-        const albumId = this.refs.selectAlbum.value;
-        if (!albumId || !photos.length) {
-            return;
-        }
-        this.props.uploadPhotos(albumId, photos);
-    }
-    onmouseoverPhoto(e) {
-        if (e.target) $(e.target).next().addClass("remove-photo-span-in");
-    }
-    onmouseoutPhoto(e) {
-        $(e.target).next().removeClass("remove-photo-span-in");
-    }
-
-    onclickCreateAlbum(element) {
-        const name = this.refs.preAlbumName.value;
-        const description = this.refs.preAlbumDescription.value;
-        const topic = $(this.refs.preAlbumTopic).find("input[type='radio']:checked").val();
-        const authority = this.refs.albumAuthority.value;
-        const album = {
-            name: name,
-            description: description,
-            authority: authority,
-            topic: topic
-        };
-        this.props.createAlbum(album);
-        $('.createAlbumModal').modal('hide');
-    }
-    previewPhoto(file) {
-        var url = null;
-        if (window.createObjectURL != undefined) {
-            url = window.createObjectURL(file);
-        } else if (window.URL != undefined) {
-            url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) {
-            url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    }
-    removeSelectedPhoto(e) {
-        const key = e.target.getAttribute("data-photo-key");
-        let photos = this.state.needUploadPhotos;
-        let names = this.state.needUploadPhotosNames;
-        photos = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.filter(photos, function (photo) {
-            return photo.key !== key;
-        });
-        names = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.filter(names, function (name) {
-            return name.key !== key;
-        });
-        this.setState({
-            needUploadPhotos: photos,
-            needUploadPhotosNames: names
-        });
-    }
-    componentDidMount() {
-        $('#createAlbumform').form({
-            fields: {
-                albumName: 'empty',
-                albumDescription: 'empty',
-                topic: 'empty',
-                albumAuthority: 'empty'
-            }
-        });
-    }
-    createDate(date) {
-        return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
-    }
-    render() {
-        const { albums } = this.props;
-        const firstAlbum = albums[0] || {};
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'ui' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'toolbar' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'ui buttons' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { onClick: e => this.showUpdatePhotosModal(e), className: 'ui red basic button' },
-                        '\u4E0A\u4F20\u7167\u7247'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { onClick: e => this.showCreateAlbumModal(e), className: 'ui green basic button' },
-                        '\u521B\u5EFA\u76F8\u518C'
-                    )
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'albums', id: 'albums-albums' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'ui cards' },
-                    albums.map(album => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card', key: album._id },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'image' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '../public/images/bg.png' })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'content' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'a',
-                                { className: 'header' },
-                                album.name
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'meta' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'span',
-                                    { className: 'date' },
-                                    this.createDate(album.create_at)
-                                )
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'description' },
-                                album.description
-                            )
-                        )
-                    ))
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'ui modal createAlbumModal' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'header' },
-                    '\u521B\u5EFA\u76F8\u518C'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'content' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { id: 'createAlbumform' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'form',
-                            { action: '/api/albums', method: 'post' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'ui form' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
-                                        null,
-                                        '\u76F8\u518C\u540D\u79F0'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'ui left icon input' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'preAlbumName', name: 'albumName', maxLength: '30', placeholder: '' })
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
-                                        null,
-                                        '\u76F8\u518C\u63CF\u8FF0'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'ui left icon input' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { ref: 'preAlbumDescription', name: 'albumDescription', maxLength: '2000', rows: '5', cols: '8', placeholder: '\u975E\u5FC5\u586B' })
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'inline fields', ref: 'preAlbumTopic' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
-                                        { htmlFor: 'topic' },
-                                        '\u4E3B\u9898'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'field' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'ui radio checkbox albumTopic' },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '0', defaultChecked: true, tabIndex: '0', className: 'hidden' }),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'label',
-                                                null,
-                                                '\u666E\u901A'
-                                            )
-                                        )
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'field' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'ui radio checkbox albumTopic' },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '1', tabIndex: '0', className: 'hidden' }),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'label',
-                                                null,
-                                                '\u4EB2\u5B50'
-                                            )
-                                        )
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'field' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'ui radio checkbox albumTopic' },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '2', tabIndex: '0', className: 'hidden' }),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'label',
-                                                null,
-                                                '\u65C5\u6E38'
-                                            )
-                                        )
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'field' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'ui radio checkbox albumTopic' },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '3', tabIndex: '0', className: 'hidden' }),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'label',
-                                                null,
-                                                '\u6821\u53CB'
-                                            )
-                                        )
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
-                                        null,
-                                        '\u6743\u9650'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'ui albumAuthority selection dropdown' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: 'albumAuthority', ref: 'albumAuthority' }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'dropdown icon' }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'default text' },
-                                            '\u6240\u6709\u4EBA\u53EF\u89C1'
-                                        ),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'menu' },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'div',
-                                                { className: 'item', 'data-value': '0' },
-                                                '\u6240\u6709\u4EBA\u53EF\u89C1'
-                                            ),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'div',
-                                                { className: 'item', 'data-value': '1' },
-                                                '\u670B\u53CB\u53EF\u89C1'
-                                            ),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'div',
-                                                { className: 'item', 'data-value': '2' },
-                                                '\u4EC5\u81EA\u5DF1\u53EF\u89C1'
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'actions' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { onClick: e => this.onclickCreateAlbum(e), className: 'ui blue button' },
-                        '\u786E\u5B9A'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'ui cancel grey button' },
-                        '\u53D6\u6D88'
-                    )
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'ui modal updatePhotosModal fullscreen' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'header' },
-                    '\u4E0A\u4F20\u7167\u7247'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'content' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { id: 'updatePhotosform' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'form',
-                            { action: '/api/albums', method: 'post', encType: 'multipart/form-data' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'ui form' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
-                                        null,
-                                        '\u4E0A\u4F20\u5230'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'select',
-                                        { defaultValue: firstAlbum._id, className: 'ui selectAlbum', ref: 'selectAlbum' },
-                                        albums.map(album => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'option',
-                                            { value: album._id, key: album._id },
-                                            album.name
-                                        ))
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'ui left' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: 'ui tiny images' },
-                                            this.state.needUploadPhotosNames.map(photo => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'div',
-                                                { key: photo.key, className: 'ui image uploadPhoto-preview-img' },
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'ui image', src: photo.url }),
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'span',
-                                                    { 'data-photo-key': photo.key, onClick: e => this.removeSelectedPhoto(e), className: 'remove-photo-span' },
-                                                    'X'
-                                                )
-                                            ))
-                                        )
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'ui left icon input' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            null,
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', onChange: e => this.onUpdatePhotoInputChange(e), accept: 'image/*', className: 'input-addPhoto', id: 'inputAddPhoto', multiple: true }),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'button',
-                                                { type: 'button', className: 'ui green button', onClick: this.onClickAddPhoto },
-                                                '\u6DFB\u52A0\u7167\u7247',
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'upload icon' })
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'actions' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { onClick: e => this.onclickUpdatePhotos(e), className: 'ui blue button' },
-                        '\u786E\u5B9A'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'ui cancel grey button' },
-                        '\u53D6\u6D88'
-                    )
-                )
-            )
-        );
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Albums;
-
-
-/***/ }),
-
-/***/ 121:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const F_ALBUMS = "F_ALBUMS";
-/* harmony export (immutable) */ __webpack_exports__["a"] = F_ALBUMS;
-
-const R_ALBUMS = "R_ALBUMS";
-/* harmony export (immutable) */ __webpack_exports__["b"] = R_ALBUMS;
-
-
-const F_ALBUM = "F_ALBUM";
-/* unused harmony export F_ALBUM */
-
-const R_ALBUM = "R_ALBUM";
-/* unused harmony export R_ALBUM */
-
-
-const ADD_ALBUM = "ADD_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["e"] = ADD_ALBUM;
-
-const R_ADD_ALBUM = "R_ADD_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["f"] = R_ADD_ALBUM;
-
-
-const DEL_ALBUM = "DEL_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["c"] = DEL_ALBUM;
-
-const R_DEL_ALBUM = "R_DEL_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["d"] = R_DEL_ALBUM;
-
-
-const ADD_PHOTO = "ADD_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["g"] = ADD_PHOTO;
-
-const R_ADD_PHOTO = "R_ADD_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["h"] = R_ADD_PHOTO;
-
-
-const DEL_PHOTO = "DEL_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["i"] = DEL_PHOTO;
-
-const R_DEL_PHOTO = "R_DEL_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["j"] = R_DEL_PHOTO;
-
-
-/***/ }),
-
-/***/ 122:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const F_ALBUMS = "F_ALBUMS";
-/* harmony export (immutable) */ __webpack_exports__["a"] = F_ALBUMS;
-
-const R_ALBUMS = "R_ALBUMS";
-/* harmony export (immutable) */ __webpack_exports__["b"] = R_ALBUMS;
-
-
-const F_ALBUM = "F_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["c"] = F_ALBUM;
-
-const R_ALBUM = "R_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["d"] = R_ALBUM;
-
-
-const ADD_ALBUM = "ADD_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["e"] = ADD_ALBUM;
-
-const R_ADD_ALBUM = "R_ADD_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["f"] = R_ADD_ALBUM;
-
-
-const DEL_ALBUM = "DEL_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["g"] = DEL_ALBUM;
-
-const R_DEL_ALBUM = "R_DEL_ALBUM";
-/* harmony export (immutable) */ __webpack_exports__["h"] = R_DEL_ALBUM;
-
-
-const ADD_PHOTO = "ADD_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["i"] = ADD_PHOTO;
-
-const R_ADD_PHOTO = "R_ADD_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["j"] = R_ADD_PHOTO;
-
-
-const DEL_PHOTO = "DEL_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["k"] = DEL_PHOTO;
-
-const R_DEL_PHOTO = "R_DEL_PHOTO";
-/* harmony export (immutable) */ __webpack_exports__["l"] = R_DEL_PHOTO;
-
-
-/***/ }),
-
-/***/ 123:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_album_Albums__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_album__ = __webpack_require__(69);
-
-
-
-
-
-class AlbumApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  constructor(props) {
-    super(props);
-    this.createAlbum = this.createAlbum.bind(this);
-    this.deleteAlbum = this.deleteAlbum.bind(this);
-    this.updateAlbum = this.updateAlbum.bind(this);
-    this.getAlbums = this.getAlbums.bind(this);
-    this.uploadPhotos = this.uploadPhotos.bind(this);
-    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["a" /* fetch_ajax_get_albums */])(props.albums));
-  }
-  componentDidMount() {}
-  getAlbums() {
-    alert("get albums");
-  }
-  createAlbum(album) {
-    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["b" /* fetch_ajax_create_albums */])(album));
-  }
-  deleteAlbum() {
-    alert("delete alubm");
-  }
-  updateAlbum() {
-    alert("update album");
-  }
-  uploadPhotos(albumId, photos) {
-    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["c" /* fetch_ajax_uploadPhotos */])(albumId, photos));
-  }
-  render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_album_Albums__["a" /* default */], { updateAlbum: this.updateAlbum, deleteAlbum: this.deleteAlbum, createAlbum: this.createAlbum, getAlbums: this.getAlbums, uploadPhotos: this.uploadPhotos, albums: this.props.albums });
-  }
-
-}
-AlbumApp.propTypes = {
-  albums: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
 };
 
-function mapStateToProps(state) {
-  return {
-    albums: state.albums
-  };
+
+/***/ }),
+
+/***/ 135:
+/***/ (function(module, exports) {
+
+exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+  var e, m
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var nBits = -7
+  var i = isLE ? (nBytes - 1) : 0
+  var d = isLE ? -1 : 1
+  var s = buffer[offset + i]
+
+  i += d
+
+  e = s & ((1 << (-nBits)) - 1)
+  s >>= (-nBits)
+  nBits += eLen
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & ((1 << (-nBits)) - 1)
+  e >>= (-nBits)
+  nBits += mLen
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias
+  } else if (e === eMax) {
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
+  } else {
+    m = m + Math.pow(2, mLen)
+    e = e - eBias
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
 }
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(AlbumApp));
 
-/***/ }),
+exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
+  var i = isLE ? 0 : (nBytes - 1)
+  var d = isLE ? 1 : -1
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
 
-/***/ 126:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  value = Math.abs(value)
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_album_AlbumsRoot__ = __webpack_require__(114);
-
-
-
-
-const nodeDiv = document.getElementById("album-container");
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_album_AlbumsRoot__["a" /* default */], null), nodeDiv);
-
-/***/ }),
-
-/***/ 129:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_redux_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
-
-
-
-
-
-const initState = {
-    albums: []
-};
-
-function albumReducer(state = initState, action) {
-    switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["a" /* F_ALBUMS */]:
-            return Object.assign({}, state, {
-                albums: action.albums
-            });
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["b" /* R_ALBUMS */]:
-            return Object.assign({}, state, {
-                albums: action.albums
-            });
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["c" /* F_ALBUM */]:
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["d" /* R_ALBUM */]:
-            break;
-
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["e" /* ADD_ALBUM */]:
-            console.log("添加相册！");
-            return Object.assign({}, state, {
-                album: action.album
-            });
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["f" /* R_ADD_ALBUM */]:
-            console.log("成功添加相册！");
-            return Object.assign({}, state, {
-                album: action.album,
-                albums: state.albums.concat([action.album])
-            });
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["g" /* DEL_ALBUM */]:
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["h" /* R_DEL_ALBUM */]:
-            break;
-
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["i" /* ADD_PHOTO */]:
-            return Object.assign({}, state, {
-                albumId: action.albumId,
-                photos: action.photos
-            });
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["j" /* R_ADD_PHOTO */]:
-            return Object.assign({}, state, {
-                albums: state.albums
-            });
-            break;
-
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["k" /* DEL_PHOTO */]:
-            break;
-        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["l" /* R_DEL_PHOTO */]:
-            break;
-        default:
-            return state;
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0
+    e = eMax
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2)
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--
+      c *= 2
     }
+    if (e + eBias >= 1) {
+      value += rt / c
+    } else {
+      value += rt * Math.pow(2, 1 - eBias)
+    }
+    if (value * c >= 2) {
+      e++
+      c /= 2
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0
+      e = eMax
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen)
+      e = e + eBias
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+      e = 0
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = (e << mLen) | m
+  eLen += mLen
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128
 }
-const middleware = [__WEBPACK_IMPORTED_MODULE_2_redux_thunk___default.a];
-if (process.env.NODE_ENV !== 'production') {
-    middleware.push(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_redux_logger__["createLogger"])());
-}
-const store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["b" /* createStore */])(albumReducer, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["c" /* applyMiddleware */])(...middleware));
-/* harmony default export */ __webpack_exports__["a"] = (store);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+
 
 /***/ }),
 
-/***/ 130:
+/***/ 136:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1551,7 +1021,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 131:
+/***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1565,9 +1035,9 @@ function fromByteArray (uint8) {
 
 
 
-var base64 = __webpack_require__(130)
-var ieee754 = __webpack_require__(147)
-var isArray = __webpack_require__(149)
+var base64 = __webpack_require__(136)
+var ieee754 = __webpack_require__(135)
+var isArray = __webpack_require__(131)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -3345,110 +2815,815 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
 
-/***/ 147:
-/***/ (function(module, exports) {
+/***/ 245:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-exports.read = function (buffer, offset, isLE, mLen, nBytes) {
-  var e, m
-  var eLen = nBytes * 8 - mLen - 1
-  var eMax = (1 << eLen) - 1
-  var eBias = eMax >> 1
-  var nBits = -7
-  var i = isLE ? (nBytes - 1) : 0
-  var d = isLE ? -1 : 1
-  var s = buffer[offset + i]
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 
-  i += d
 
-  e = s & ((1 << (-nBits)) - 1)
-  s >>= (-nBits)
-  nBits += eLen
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
 
-  m = e & ((1 << (-nBits)) - 1)
-  e >>= (-nBits)
-  nBits += mLen
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-  if (e === 0) {
-    e = 1 - eBias
-  } else if (e === eMax) {
-    return m ? NaN : ((s ? -1 : 1) * Infinity)
-  } else {
-    m = m + Math.pow(2, mLen)
-    e = e - eBias
-  }
-  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+class Album extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+	constructor(props) {
+		super(props);
+	}
+	componentDidMount() {}
+	render() {
+		const { photos } = this.props;
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			null,
+			photos.map(photo => {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'album' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'photo' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: photo.src })
+					)
+				);
+			})
+		);
+	}
 }
-
-exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
-  var e, m, c
-  var eLen = nBytes * 8 - mLen - 1
-  var eMax = (1 << eLen) - 1
-  var eBias = eMax >> 1
-  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
-  var i = isLE ? 0 : (nBytes - 1)
-  var d = isLE ? 1 : -1
-  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
-
-  value = Math.abs(value)
-
-  if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0
-    e = eMax
-  } else {
-    e = Math.floor(Math.log(value) / Math.LN2)
-    if (value * (c = Math.pow(2, -e)) < 1) {
-      e--
-      c *= 2
-    }
-    if (e + eBias >= 1) {
-      value += rt / c
-    } else {
-      value += rt * Math.pow(2, 1 - eBias)
-    }
-    if (value * c >= 2) {
-      e++
-      c /= 2
-    }
-
-    if (e + eBias >= eMax) {
-      m = 0
-      e = eMax
-    } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen)
-      e = e + eBias
-    } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
-      e = 0
-    }
-  }
-
-  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-  e = (e << mLen) | m
-  eLen += mLen
-  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-  buffer[offset + i - d] |= s * 128
-}
+/* unused harmony export default */
 
 
 /***/ }),
 
-/***/ 149:
-/***/ (function(module, exports) {
+/***/ 246:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var toString = {}.toString;
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_album__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Album__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash__);
 
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
+
+
+
+
+class Albums extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.showCreateAlbumModal = this.showCreateAlbumModal.bind(this);
+        this.onclickCreateAlbum = this.onclickCreateAlbum.bind(this);
+        this.showUpdatePhotosModal = this.showUpdatePhotosModal.bind(this);
+        this.onclickUpdatePhotos = this.onclickUpdatePhotos.bind(this);
+        this.createDate = this.createDate.bind(this);
+        this.onClickAddPhoto = this.onClickAddPhoto.bind(this);
+        this.previewPhoto = this.previewPhoto.bind(this);
+        this.setUniqueKey = this.setUniqueKey.bind(this);
+        this.removeSelectedPhoto = this.removeSelectedPhoto.bind(this);
+        this.onmouseoutPhoto = this.onmouseoutPhoto.bind(this);
+        this.onmouseoverPhoto = this.onmouseoverPhoto.bind(this);
+        this.state = {
+            needUploadPhotos: [],
+            needUploadPhotosNames: []
+        };
+    }
+    onUpdatePhotoInputChange(e) {
+        let oldValues = this.state.needUploadPhotos;
+        let newValues = e.target.files;
+        newValues = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.filter(newValues, function (nw) {
+            const file = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.find(oldValues, function (ow) {
+                return ow.file === nw.file;
+            });
+            if (file) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+        let names = [];
+        let files = [];
+        const self = this;
+        __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.each(newValues, function (v) {
+            const url = self.previewPhoto(v);
+            const key = self.setUniqueKey(false, 32);
+            files.push({
+                file: v,
+                key: key
+            });
+            names.push({
+                url: url,
+                key: key
+            });
+        });
+        this.setState({
+            needUploadPhotos: self.state.needUploadPhotos.concat(files),
+            needUploadPhotosNames: self.state.needUploadPhotosNames.concat(names)
+        });
+        console.log(this.state.needUploadPhotos);
+    }
+    setUniqueKey(randomFlag, min, max) {
+        var str = "",
+            pos = 0,
+            range = min,
+            arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        // 随机产生
+        if (randomFlag) {
+            range = Math.round(Math.random() * (max - min)) + min;
+        }
+        for (var i = 0; i < range; i++) {
+            pos = Math.round(Math.random() * (arr.length - 1));
+            str += arr[pos];
+        }
+        return str;
+    }
+    showCreateAlbumModal() {
+        $('.albumAuthority').dropdown();
+        $('.ui.radio.albumTopic').checkbox();
+        $('.createAlbumModal').modal('show');
+    }
+    showUpdatePhotosModal() {
+
+        //$('.selectAlbum').dropdown();
+        $(".updatePhotosModal").modal('show');
+    }
+    onClickAddPhoto() {
+        $("#inputAddPhoto").trigger("click");
+    }
+    onclickUpdatePhotos(element) {
+        const photos = this.state.needUploadPhotos;
+        const albumId = this.refs.selectAlbum.value;
+        if (!albumId || !photos.length) {
+            return;
+        }
+        this.props.uploadPhotos(albumId, photos);
+    }
+    onmouseoverPhoto(e) {
+        if (e.target) $(e.target).next().addClass("remove-photo-span-in");
+    }
+    onmouseoutPhoto(e) {
+        $(e.target).next().removeClass("remove-photo-span-in");
+    }
+
+    onclickCreateAlbum(element) {
+        const name = this.refs.preAlbumName.value;
+        const description = this.refs.preAlbumDescription.value;
+        const topic = $(this.refs.preAlbumTopic).find("input[type='radio']:checked").val();
+        const authority = this.refs.albumAuthority.value;
+        const album = {
+            name: name,
+            description: description,
+            authority: authority,
+            topic: topic
+        };
+        this.props.createAlbum(album);
+        $('.createAlbumModal').modal('hide');
+    }
+    previewPhoto(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+    removeSelectedPhoto(e) {
+        const key = e.target.getAttribute("data-photo-key");
+        let photos = this.state.needUploadPhotos;
+        let names = this.state.needUploadPhotosNames;
+        photos = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.filter(photos, function (photo) {
+            return photo.key !== key;
+        });
+        names = __WEBPACK_IMPORTED_MODULE_3_lodash___default.a.filter(names, function (name) {
+            return name.key !== key;
+        });
+        this.setState({
+            needUploadPhotos: photos,
+            needUploadPhotosNames: names
+        });
+    }
+    componentDidMount() {
+        $('#createAlbumform').form({
+            fields: {
+                albumName: 'empty',
+                albumDescription: 'empty',
+                topic: 'empty',
+                albumAuthority: 'empty'
+            }
+        });
+    }
+    createDate(date) {
+        return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
+    }
+    render() {
+        const { albums } = this.props;
+        const firstAlbum = albums[0] || {};
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'ui' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'toolbar' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'ui buttons' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: e => this.showUpdatePhotosModal(e), className: 'ui red basic button' },
+                        '\u4E0A\u4F20\u7167\u7247'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: e => this.showCreateAlbumModal(e), className: 'ui green basic button' },
+                        '\u521B\u5EFA\u76F8\u518C'
+                    )
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'albums', id: 'albums-albums' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'ui cards' },
+                    albums.map(album => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card', key: album._id },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'image' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '../public/images/bg.png' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'content' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'a',
+                                { className: 'header' },
+                                album.name
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'meta' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: 'date' },
+                                    this.createDate(album.create_at)
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'description' },
+                                album.description
+                            )
+                        )
+                    ))
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'ui modal createAlbumModal' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'header' },
+                    '\u521B\u5EFA\u76F8\u518C'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'content' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { id: 'createAlbumform' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'form',
+                            { action: '/api/albums', method: 'post' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'ui form' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'label',
+                                        null,
+                                        '\u76F8\u518C\u540D\u79F0'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'ui left icon input' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'preAlbumName', name: 'albumName', maxLength: '30', placeholder: '' })
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'label',
+                                        null,
+                                        '\u76F8\u518C\u63CF\u8FF0'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'ui left icon input' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { ref: 'preAlbumDescription', name: 'albumDescription', maxLength: '2000', rows: '5', cols: '8', placeholder: '\u975E\u5FC5\u586B' })
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'inline fields', ref: 'preAlbumTopic' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'label',
+                                        { htmlFor: 'topic' },
+                                        '\u4E3B\u9898'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'field' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'ui radio checkbox albumTopic' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '0', defaultChecked: true, tabIndex: '0', className: 'hidden' }),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'label',
+                                                null,
+                                                '\u666E\u901A'
+                                            )
+                                        )
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'field' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'ui radio checkbox albumTopic' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '1', tabIndex: '0', className: 'hidden' }),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'label',
+                                                null,
+                                                '\u4EB2\u5B50'
+                                            )
+                                        )
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'field' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'ui radio checkbox albumTopic' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '2', tabIndex: '0', className: 'hidden' }),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'label',
+                                                null,
+                                                '\u65C5\u6E38'
+                                            )
+                                        )
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'field' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'ui radio checkbox albumTopic' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'topic', value: '3', tabIndex: '0', className: 'hidden' }),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'label',
+                                                null,
+                                                '\u6821\u53CB'
+                                            )
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'label',
+                                        null,
+                                        '\u6743\u9650'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'ui albumAuthority selection dropdown' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: 'albumAuthority', ref: 'albumAuthority' }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'dropdown icon' }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'default text' },
+                                            '\u6240\u6709\u4EBA\u53EF\u89C1'
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'menu' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'div',
+                                                { className: 'item', 'data-value': '0' },
+                                                '\u6240\u6709\u4EBA\u53EF\u89C1'
+                                            ),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'div',
+                                                { className: 'item', 'data-value': '1' },
+                                                '\u670B\u53CB\u53EF\u89C1'
+                                            ),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'div',
+                                                { className: 'item', 'data-value': '2' },
+                                                '\u4EC5\u81EA\u5DF1\u53EF\u89C1'
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'actions' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { onClick: e => this.onclickCreateAlbum(e), className: 'ui blue button' },
+                        '\u786E\u5B9A'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'ui cancel grey button' },
+                        '\u53D6\u6D88'
+                    )
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'ui modal updatePhotosModal fullscreen' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'header' },
+                    '\u4E0A\u4F20\u7167\u7247'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'content' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { id: 'updatePhotosform' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'form',
+                            { action: '/api/albums', method: 'post', encType: 'multipart/form-data' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'ui form' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'label',
+                                        null,
+                                        '\u4E0A\u4F20\u5230'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'select',
+                                        { defaultValue: firstAlbum._id, className: 'ui selectAlbum', ref: 'selectAlbum' },
+                                        albums.map(album => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'option',
+                                            { value: album._id, key: album._id },
+                                            album.name
+                                        ))
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', null),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'ui left' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: 'ui tiny images' },
+                                            this.state.needUploadPhotosNames.map(photo => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'div',
+                                                { key: photo.key, className: 'ui image uploadPhoto-preview-img' },
+                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'ui image', src: photo.url }),
+                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                    'span',
+                                                    { 'data-photo-key': photo.key, onClick: e => this.removeSelectedPhoto(e), className: 'remove-photo-span' },
+                                                    'X'
+                                                )
+                                            ))
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', null),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'ui left icon input' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', onChange: e => this.onUpdatePhotoInputChange(e), accept: 'image/*', className: 'input-addPhoto', id: 'inputAddPhoto', multiple: true }),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'button',
+                                                { type: 'button', className: 'ui green button', onClick: this.onClickAddPhoto },
+                                                '\u6DFB\u52A0\u7167\u7247',
+                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'upload icon' })
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'actions' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { onClick: e => this.onclickUpdatePhotos(e), className: 'ui blue button' },
+                        '\u786E\u5B9A'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'ui cancel grey button' },
+                        '\u53D6\u6D88'
+                    )
+                )
+            )
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Albums;
+
+
+/***/ }),
+
+/***/ 249:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const F_ALBUMS = "F_ALBUMS";
+/* harmony export (immutable) */ __webpack_exports__["a"] = F_ALBUMS;
+
+const R_ALBUMS = "R_ALBUMS";
+/* harmony export (immutable) */ __webpack_exports__["b"] = R_ALBUMS;
+
+
+const F_ALBUM = "F_ALBUM";
+/* unused harmony export F_ALBUM */
+
+const R_ALBUM = "R_ALBUM";
+/* unused harmony export R_ALBUM */
+
+
+const ADD_ALBUM = "ADD_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["e"] = ADD_ALBUM;
+
+const R_ADD_ALBUM = "R_ADD_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["f"] = R_ADD_ALBUM;
+
+
+const DEL_ALBUM = "DEL_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["c"] = DEL_ALBUM;
+
+const R_DEL_ALBUM = "R_DEL_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["d"] = R_DEL_ALBUM;
+
+
+const ADD_PHOTO = "ADD_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["g"] = ADD_PHOTO;
+
+const R_ADD_PHOTO = "R_ADD_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["h"] = R_ADD_PHOTO;
+
+
+const DEL_PHOTO = "DEL_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["i"] = DEL_PHOTO;
+
+const R_DEL_PHOTO = "R_DEL_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["j"] = R_DEL_PHOTO;
+
+
+/***/ }),
+
+/***/ 250:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const F_ALBUMS = "F_ALBUMS";
+/* harmony export (immutable) */ __webpack_exports__["a"] = F_ALBUMS;
+
+const R_ALBUMS = "R_ALBUMS";
+/* harmony export (immutable) */ __webpack_exports__["b"] = R_ALBUMS;
+
+
+const F_ALBUM = "F_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["c"] = F_ALBUM;
+
+const R_ALBUM = "R_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["d"] = R_ALBUM;
+
+
+const ADD_ALBUM = "ADD_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["e"] = ADD_ALBUM;
+
+const R_ADD_ALBUM = "R_ADD_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["f"] = R_ADD_ALBUM;
+
+
+const DEL_ALBUM = "DEL_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["g"] = DEL_ALBUM;
+
+const R_DEL_ALBUM = "R_DEL_ALBUM";
+/* harmony export (immutable) */ __webpack_exports__["h"] = R_DEL_ALBUM;
+
+
+const ADD_PHOTO = "ADD_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["i"] = ADD_PHOTO;
+
+const R_ADD_PHOTO = "R_ADD_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["j"] = R_ADD_PHOTO;
+
+
+const DEL_PHOTO = "DEL_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["k"] = DEL_PHOTO;
+
+const R_DEL_PHOTO = "R_DEL_PHOTO";
+/* harmony export (immutable) */ __webpack_exports__["l"] = R_DEL_PHOTO;
+
+
+/***/ }),
+
+/***/ 251:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_album_Albums__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_album__ = __webpack_require__(108);
+
+
+
+
+
+class AlbumApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.createAlbum = this.createAlbum.bind(this);
+    this.deleteAlbum = this.deleteAlbum.bind(this);
+    this.updateAlbum = this.updateAlbum.bind(this);
+    this.getAlbums = this.getAlbums.bind(this);
+    this.uploadPhotos = this.uploadPhotos.bind(this);
+    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["a" /* fetch_ajax_get_albums */])(props.albums));
+  }
+  componentDidMount() {}
+  getAlbums() {
+    alert("get albums");
+  }
+  createAlbum(album) {
+    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["b" /* fetch_ajax_create_albums */])(album));
+  }
+  deleteAlbum() {
+    alert("delete alubm");
+  }
+  updateAlbum() {
+    alert("update album");
+  }
+  uploadPhotos(albumId, photos) {
+    this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_album__["c" /* fetch_ajax_uploadPhotos */])(albumId, photos));
+  }
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_album_Albums__["a" /* default */], { updateAlbum: this.updateAlbum, deleteAlbum: this.deleteAlbum, createAlbum: this.createAlbum, getAlbums: this.getAlbums, uploadPhotos: this.uploadPhotos, albums: this.props.albums });
+  }
+
+}
+AlbumApp.propTypes = {
+  albums: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired
 };
 
+function mapStateToProps(state) {
+  return {
+    albums: state.albums
+  };
+}
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(AlbumApp));
+
+/***/ }),
+
+/***/ 254:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_album_AlbumsRoot__ = __webpack_require__(114);
+
+
+
+
+const nodeDiv = document.getElementById("album-container");
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_album_AlbumsRoot__["a" /* default */], null), nodeDiv);
+
+/***/ }),
+
+/***/ 257:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__ = __webpack_require__(250);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_redux_logger__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
+
+
+
+
+
+const initState = {
+    albums: []
+};
+
+function albumReducer(state = initState, action) {
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["a" /* F_ALBUMS */]:
+            return Object.assign({}, state, {
+                albums: action.albums
+            });
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["b" /* R_ALBUMS */]:
+            return Object.assign({}, state, {
+                albums: action.albums
+            });
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["c" /* F_ALBUM */]:
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["d" /* R_ALBUM */]:
+            break;
+
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["e" /* ADD_ALBUM */]:
+            console.log("添加相册！");
+            return Object.assign({}, state, {
+                album: action.album
+            });
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["f" /* R_ADD_ALBUM */]:
+            console.log("成功添加相册！");
+            return Object.assign({}, state, {
+                album: action.album,
+                albums: state.albums.concat([action.album])
+            });
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["g" /* DEL_ALBUM */]:
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["h" /* R_DEL_ALBUM */]:
+            break;
+
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["i" /* ADD_PHOTO */]:
+            return Object.assign({}, state, {
+                albumId: action.albumId,
+                photos: action.photos
+            });
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["j" /* R_ADD_PHOTO */]:
+            return Object.assign({}, state, {
+                albums: state.albums
+            });
+            break;
+
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["k" /* DEL_PHOTO */]:
+            break;
+        case __WEBPACK_IMPORTED_MODULE_0__constants_actionTypes_album__["l" /* R_DEL_PHOTO */]:
+            break;
+        default:
+            return state;
+    }
+}
+const middleware = [__WEBPACK_IMPORTED_MODULE_2_redux_thunk___default.a];
+if (process.env.NODE_ENV !== 'production') {
+    middleware.push(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_redux_logger__["createLogger"])());
+}
+const store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["b" /* createStore */])(albumReducer, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["c" /* applyMiddleware */])(...middleware));
+/* harmony default export */ __webpack_exports__["a"] = (store);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 
@@ -3468,7 +3643,7 @@ module.exports = __webpack_require__(259);
 var utils = __webpack_require__(11);
 var bind = __webpack_require__(113);
 var Axios = __webpack_require__(261);
-var defaults = __webpack_require__(68);
+var defaults = __webpack_require__(67);
 
 /**
  * Create an instance of Axios
@@ -3590,7 +3765,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(68);
+var defaults = __webpack_require__(67);
 var utils = __webpack_require__(11);
 var InterceptorManager = __webpack_require__(262);
 var dispatchRequest = __webpack_require__(263);
@@ -3746,7 +3921,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(11);
 var transformData = __webpack_require__(266);
 var isCancel = __webpack_require__(111);
-var defaults = __webpack_require__(68);
+var defaults = __webpack_require__(67);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -4313,7 +4488,7 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ 68:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4412,182 +4587,7 @@ module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
-/***/ }),
-
-/***/ 69:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export action_get_albums */
-/* unused harmony export action_received_albums */
-/* unused harmony export action_delete_album */
-/* unused harmony export action_received_delete_album */
-/* unused harmony export action_add_album */
-/* unused harmony export action_received_add_album */
-/* unused harmony export action_add_photo */
-/* unused harmony export action_received_add_photo */
-/* unused harmony export action_delete_photo */
-/* unused harmony export action_received_delete_photo */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(258);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-
-
-
-function action_get_albums(albums) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["a" /* F_ALBUMS */],
-        albums: albums
-    };
-}
-function action_received_albums(albums) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["b" /* R_ALBUMS */],
-        albums
-    };
-}
-
-function action_delete_album(albumId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["c" /* DEL_ALBUM */],
-        albumId
-    };
-}
-function action_received_delete_album(albumId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["d" /* R_DEL_ALBUM */],
-        albumId
-    };
-}
-
-function action_add_album(album) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["e" /* ADD_ALBUM */],
-        album
-    };
-}
-function action_received_add_album(album) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["f" /* R_ADD_ALBUM */],
-        album
-    };
-}
-
-function action_add_photo(albumId, photos) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["g" /* ADD_PHOTO */],
-        albumId,
-        photos
-    };
-}
-function action_received_add_photo(albumId, photos) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["h" /* R_ADD_PHOTO */],
-        albumId,
-        photos
-    };
-}
-
-function action_delete_photo(photoId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["i" /* DEL_PHOTO */],
-        photoId
-    };
-}
-function action_received_delete_photo(photoId) {
-    return {
-        type: __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes_album__["j" /* R_DEL_PHOTO */],
-        photoId
-    };
-}
-
-const ajax_get_albums = albums => dispatch => {
-    dispatch(action_get_albums(albums));
-    $.ajax({
-        url: "/api/albums",
-        method: "get",
-        type: "json",
-        success: function (result) {
-            const albums = result.albums;
-            dispatch(action_received_albums(albums));
-        },
-        error: function (err, status) {
-            console.log(err);
-        }
-    });
-};
-const ajax_create_albums = album => dispatch => {
-    dispatch(action_add_album(album));
-    $.ajax({
-        url: "/api/albums",
-        method: "post",
-        type: "json",
-        data: album,
-        success: function (result) {
-            const album = result.album || {};
-            dispatch(action_received_add_album(album));
-        },
-        error: function (e5Fdxrr, status) {
-            console.log(err);
-        }
-    });
-};
-
-const ajax_upload_photos = (albumId, photos) => dispatch => {
-    dispatch(action_add_photo(albumId, photos));
-    var formData = new FormData();
-    formData.append("albumId", albumId);
-    let photoList = [];
-    let formPhotos = __WEBPACK_IMPORTED_MODULE_2_lodash___default.a.map(photos, function (ph) {
-        return ph.file;
-    });
-    // for(let i =0;i< photos.length ;photos++){
-    //     formData.append('file[]',photos[i].file);
-    // }
-    formData.append('file', formPhotos);
-    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post("/api/albums/" + albumId + "/photos", formData, { emulateJSON: true }).then(result => {
-        const album = result.album || {};
-        dispatch(action_received_add_photo(albumId, photos));
-    }, err => {
-        console.log(err);
-    });
-    // $.ajax({
-    //     url:"/api/albums/"+albumId+"/photos",
-    //     method:"post",
-    //     type:"json",
-    //     contentType:"multipart/form-data",
-    //     data:formData,
-    //     processData: false,
-    //     success:function(result){
-    //         const album = result.album||{};
-    //         dispatch(action_received_add_photo(albumId,photos));
-    //     },
-    //     error:function(err,status){
-    //         console.log(err);
-    //     }
-
-    // })
-};
-
-const fetch_ajax_create_albums = album => (dispatch, getState) => {
-    dispatch(ajax_create_albums(album));
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = fetch_ajax_create_albums;
-
-const fetch_ajax_get_albums = albums => (dispatch, getState) => {
-    dispatch(ajax_get_albums(albums));
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = fetch_ajax_get_albums;
-
-const fetch_ajax_uploadPhotos = (albumId, photos) => (dispatch, getstate) => {
-    dispatch(ajax_upload_photos(albumId, photos));
-};
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetch_ajax_uploadPhotos;
-
-
 /***/ })
 
-},[126]);
+},[254]);
 //# sourceMappingURL=albums.js.map

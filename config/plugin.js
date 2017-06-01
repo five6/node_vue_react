@@ -37,6 +37,8 @@ const config = {
     cors :{
         enable: true,
         package: 'egg-cors',
-    }
+    },
+    //启用静态资源
+    static:true
 };
 module.exports =config;

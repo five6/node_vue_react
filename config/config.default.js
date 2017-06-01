@@ -74,10 +74,9 @@ module.exports = appInfo => {
    ];
    //安全机制 线上启用
    config.security = {
-    domainWhiteList: ['*'],
+    domainWhiteList: [''],
     csp: {
       enable: false,
-      // ignore: '/api/logout',
     },
     csrf: {
       enable: false,
@@ -119,6 +118,13 @@ module.exports = appInfo => {
             '.psd',
             '.svg',
     ]
+  };
+  config.static = {
+    prefix: '/public/',
+    dir: path.join(appInfo.baseDir, 'app/public'),
+    dynamic: true,
+    preload: false,
+    buffer: false,
   };
   return config;
 };

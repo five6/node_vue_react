@@ -105,13 +105,13 @@ const ajax_upload_photos = (albumId,photos) => dispatch => {
     var formData = new FormData();
     formData.append("albumId",albumId);
     let photoList = [];
-    let formPhotos = _.map(photos,function(ph){
-        return ph.file;
+    _.map(photos,function(ph){
+         formData.append('file',ph.file);
     });
     // for(let i =0;i< photos.length ;photos++){
     //     formData.append('file[]',photos[i].file);
     // }
-    formData.append('file',formPhotos);
+    // formData.append('file',formPhotos);
     axios.post("/api/albums/"+albumId+"/photos",formData,{ emulateJSON: true}).then((result) => {
     const album = result.album||{};
         dispatch(action_received_add_photo(albumId,photos));

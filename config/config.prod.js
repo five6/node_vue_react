@@ -73,7 +73,7 @@ module.exports = appInfo => {
     ];
     //安全机制 线上启用
     config.security = {
-        domainWhiteList: [ 'http://localhost:8080'],
+        domainWhiteList: [''],
         csp: {
             enable: true
         },

@@ -60,12 +60,10 @@ module.exports = app => {
         	const body = ctx.body ||{};
         	const albumId = ctx.params.id;
             let photos =[];
-            let photoPath = path.join(app.config.baseDir, "./ufiles","photos");
+            let photoPath = path.join(app.config.baseDir, "app/public/ufiles/photos");
             try {
                 const results = yield parseForm(ctx,photoPath);
                 photos = results.photos || [];
-                console.log("***********************");
-                console.log(photos);
                 console.log("***********************");
                 photos = _.map(photos,function(pho){
                     return {
@@ -75,8 +73,7 @@ module.exports = app => {
                         create_at:new Date()
                     }
                 });
-                const photo = new app.model.photo(photos);
-                yield photo.save();
+                yield app.model.photo.insertMany(photos);
             } catch (err) {
                 console.log("******************* err ***********************");
             }
@@ -108,13 +105,13 @@ function parseForm(ctx,photoPath) {
                 var photoList = files.file||[];
                 console.log("photos length : "+photoList.length);
                 var tasks = [];
-                for(var index in photoList){
-                    var photo = photoList[index];
+                for(let index in photoList){
                     tasks.push(function (callback) {
+                        var photo = photoList[index];
                         var path = photo.path;
                         var md5Name = imgMd5(path);
                         var fileReadStream=fs.createReadStream(path);
-                        var fileWriteStream = fs.createWriteStream(photoPath+"/"+md5Name);
+                        var fileWriteStream = fs.createWriteStream(photoPath+"/" + md5Name);
                         fileReadStream.pipe(fileWriteStream);
                         fileWriteStream.on('close',function(){
                             callback(null,{"path":md5Name});
@@ -134,10 +131,12 @@ function parseForm(ctx,photoPath) {
 
 function imgMd5(content){
     var extraName= "";
-    var dotIndex = content.lastIndexOf(".");
-    if(dotIndex !== -1){
-        extraName = content.substr(content.lastIndexOf("."));
-    };
+    // var dotIndex = content.lastIndexOf(".");
+    // if(dotIndex !== -1){
+    //     extraName = content.substr(content.lastIndexOf("."));
+    // };
     var md5 = crypto.createHash("sha1");
-    return md5.update(content).digest("hex")+moment().format("YYYYMMDDHHmmss")+extraName;
+    const str =  md5.update(content).digest("hex")+moment().format("YYYYMMDDHHMMSSss")+extraName;
+    console.log(str);
+    return str;
 }
