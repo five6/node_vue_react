@@ -16,10 +16,21 @@ module.exports = app => {
             return yield app.model.album.find(cond);
         }
         * oneAlbum(albumId){
-        	const cond = {
-    			_id:new mongoose.Types.ObjectId(albumId)
-        	};
-        	yield app.model.album.findOne(cond);
+            let objectId = new mongoose.Types.ObjectId(albumId);
+            let album = yield app.model.album.findOne({_id:objectId});
+            let photos = yield app.model.photo.find({albumId:albumId});
+            let albumInfo = {
+                _id:album._id+"",
+                name:album.name,
+                userId:album.userId,
+                description:album.description,
+                topic:album.topic,
+                authority:album.authority,
+                create_at:album.create_at,
+                update_at:album.update_at,
+                photos:photos
+            };
+            return albumInfo;
         }
         * updateAlbum(albumId,body){
         	let sets = {
@@ -46,7 +57,6 @@ module.exports = app => {
         		name:query.name,
                 userId:ctx.user._id,
                 description:query.description,
-        		photos:[],
 				preview: "",
                 topic:query.topic,
                 authority:query.authority,

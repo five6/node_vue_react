@@ -8,7 +8,8 @@ module.exports = app => {
             ctx.body = {code:0,msg:"success",albums:result};
         }
         * album(ctx){
-            return yield ctx.service.albums.oneAlbum(ctx.params.id);
+            const result = yield ctx.service.albums.oneAlbum(ctx.params.id);
+            ctx.body = {code:0,msg:"success",album:result};
         }
         * updateAlbum(ctx){
             return yield ctx.service.albums.updateAlbum(ctx.params.id,ctx.body);
