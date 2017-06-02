@@ -22,7 +22,7 @@ export default class Albums extends React.Component{
         return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
     }
     onClickChangeCurrentPage(element){
-        const albumId = element.target.attributes["data-albumId"].value ||"";
+        const albumId = element.target.getAttribute("data-albumId");
     	this.props.changeCurrentPage(albumId,"album");
 	}
 	render(){
