@@ -4,7 +4,9 @@ import thunk from 'redux-thunk';
 import {createLogger}  from 'redux-logger';
 import 	_ from 'lodash';
 const initState = {
-  albums:[]
+    albums:[],
+    album:{},
+  currentPage:"albums"
 };
 
 function albumReducer(state = initState,action) {
@@ -20,11 +22,15 @@ function albumReducer(state = initState,action) {
             });
             break;
         case types.F_ALBUM:
+            return Object.assign({},state,{
+                albumId:action.albumId
+            });
             break;
         case types.R_ALBUM:
+            return Object.assign({},state,{
+                album:action.album||{}
+            });
             break;
-            
-            
         case types.ADD_ALBUM:
             console.log("添加相册！")
             return Object.assign({},state,{
@@ -55,12 +61,15 @@ function albumReducer(state = initState,action) {
                 albums:state.albums,
             });
             break;
-            
-            
         case types.DEL_PHOTO:
             break;
         case types.R_DEL_PHOTO:
             break;
+        case types.CHANGE_CURRENT_PAGE:
+            return Object.assign({},state,{
+                currentPage:action.currentPage,
+                albumId:action.albumId
+            });
         default:
             return state;
     }

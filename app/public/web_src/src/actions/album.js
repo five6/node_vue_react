@@ -67,7 +67,25 @@ export function action_received_delete_photo(photoId) {
         photoId
     }
 }
-
+export function action_change_current_page(albumId,currentPage) {
+    return{
+        type:types.CHANGE_CURRENT_PAGE,
+        albumId:albumId,
+        currentPage:currentPage
+    }
+}
+export function action_get_one_album(albumId) {
+    return{
+        type:types.F_ALBUM,
+        albumId
+    }
+}
+export function action_received_one_album(album) {
+    return{
+        type:types.F_ALBUM,
+        album
+    }
+}
 const ajax_get_albums = albums => dispatch => {
     dispatch(action_get_albums(albums));
     $.ajax({
@@ -108,33 +126,23 @@ const ajax_upload_photos = (albumId,photos) => dispatch => {
     _.map(photos,function(ph){
          formData.append('file',ph.file);
     });
-    // for(let i =0;i< photos.length ;photos++){
-    //     formData.append('file[]',photos[i].file);
-    // }
-    // formData.append('file',formPhotos);
     axios.post("/api/albums/"+albumId+"/photos",formData,{ emulateJSON: true}).then((result) => {
     const album = result.album||{};
         dispatch(action_received_add_photo(albumId,photos));
     }, (err) => {
         console.log(err)
     });
-    // $.ajax({
-    //     url:"/api/albums/"+albumId+"/photos",
-    //     method:"post",
-    //     type:"json",
-    //     contentType:"multipart/form-data",
-    //     data:formData,
-    //     processData: false,
-    //     success:function(result){
-    //         const album = result.album||{};
-    //         dispatch(action_received_add_photo(albumId,photos));
-    //     },
-    //     error:function(err,status){
-    //         console.log(err);
-    //     }
+};
 
-    // })
-}
+const ajax_get_one_album =(albumId) => dispatch => {
+    dispatch(action_get_one_album(albumId));
+    axios.get("/api/albums/"+albumId)
+    .then(function (resonse) {
+        dispatch(action_received_one_album(resonse));
+    }).catch(function (err) {
+      console.log(err);
+    });
+};
 
 export const fetch_ajax_create_albums = album => (dispatch,getState) => {
     dispatch(ajax_create_albums(album));
@@ -144,4 +152,10 @@ export const fetch_ajax_get_albums = albums => (dispatch,getState) => {
 };
 export const fetch_ajax_uploadPhotos = (albumId,photos) => (dispatch,getstate) => {
     dispatch(ajax_upload_photos(albumId,photos));
-}
+};
+export const change_current_page = (albumId,currentPage) => (dispatch,getstate) => {
+    dispatch(action_change_current_page(albumId,currentPage));
+};
+export const fetch_ajax_get_one_album = (albumId) => (dispatch,getstate) => {
+    dispatch(ajax_get_one_album(albumId));
+};
