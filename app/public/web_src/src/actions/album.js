@@ -82,7 +82,7 @@ export function action_get_one_album(albumId) {
 }
 export function action_received_one_album(album) {
     return{
-        type:types.F_ALBUM,
+        type:types.R_ALBUM,
         album
     }
 }
@@ -138,7 +138,9 @@ const ajax_get_one_album =(albumId) => dispatch => {
     dispatch(action_get_one_album(albumId));
     axios.get("/api/albums/"+albumId)
     .then(function (resonse) {
-        dispatch(action_received_one_album(resonse));
+        const data = resonse.data || {};
+        const album = data.album || {};
+        dispatch(action_received_one_album(album));
     }).catch(function (err) {
       console.log(err);
     });
