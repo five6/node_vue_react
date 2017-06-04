@@ -646,8 +646,26 @@ class Album extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 		const photos = album.photos || [];
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
-			{ className: 'ui images' },
-			(album.photos ? album.photos : []).map(p => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'ui image', key: p._id, src: '/public/ufiles/photos/' + p.path }))
+			{ className: 'ui' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h3',
+					null,
+					album.name
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'description' },
+					album.description
+				)
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'ui images' },
+				(album.photos ? album.photos : []).map(p => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'ui image', key: p._id, src: '/public/ufiles/photos/' + p.path }))
+			)
 		);
 	}
 }
@@ -1193,8 +1211,26 @@ class Album extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 		const photos = album.photos || [];
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
-			{ className: 'ui images' },
-			(album.photos ? album.photos : []).map(p => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'ui image', key: p._id, src: '/public/ufiles/photos/' + p.path }))
+			{ className: 'ui' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h3',
+					null,
+					album.name
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'description' },
+					album.description
+				)
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'ui images' },
+				(album.photos ? album.photos : []).map(p => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'ui image', key: p._id, src: '/public/ufiles/photos/' + p.path }))
+			)
 		);
 	}
 }

@@ -14,12 +14,19 @@ export default class Album extends React.Component{
 		const {album} = this.props;
 		const photos = album.photos||[];
 		return(
-            <div className="ui images">
-				{
-					(album.photos ? album.photos:[]).map(p =>
-					<img className="ui image" key={p._id} src={'/public/ufiles/photos/'+p.path} />
-				)}
+			<div className="ui">
+				<div>
+					<h3>{album.name}</h3>
+					<div className="description">{album.description}</div>
+				</div>
+				<div className="ui images">
+                    {
+                        (album.photos ? album.photos:[]).map(p =>
+							<img className="ui image" key={p._id} src={'/public/ufiles/photos/'+p.path} />
+                        )}
+				</div>
 			</div>
+
 
 		)
 	}
