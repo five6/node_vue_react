@@ -9,6 +9,7 @@ module.exports = app => {
   //view
   app.get('/','index.index');
   app.get('/view/index','index.index');
+  app.get('/view/news','index.news');
   app.get('/view/login','index.login');
   app.get('/view/register','index.register');
   app.get('/view/topics','index.topics');
@@ -35,8 +36,7 @@ module.exports = app => {
   app.delete("/api/topics/:id",auth,"topics.delete");
   app.get("/api/topics/more",auth,"topics.more");
   //news
-  app.get("/api/news/articles","news.articles");
-  app.get("/api/news/news/article/:id","news.newsList");
+  app.get("/api/news","news.newsList");
   app.get("/api/news/:id","news.detail");
 
   //albums

@@ -91,6 +91,9 @@ $(function(){
 	}else if(location.href.indexOf("album") > -1){
 		$("#menu-item-album").addClass("active");
 	}
+	else if(location.href.indexOf("news") > -1){
+		$("#menu-item-news").addClass("active");
+	}
 	else if(location.href.indexOf("topics") > -1){
 		$("#menu-item-topics").addClass("active");
 	}
@@ -115,6 +118,7 @@ $(function(){
   <div class="ui container">
     <a href="/view/index" class="item" id="menu-item-index">主页</a>
     {% if userName %}
+    	<a href="/view/news" class="item" id="menu-item-news">新闻</a>
     	{% if topicId %}
  			<a href="/view/topic/{{topicId}}" class="item" id="menu-item-topics">主题</a>
 		{% else %}

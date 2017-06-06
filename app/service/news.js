@@ -4,19 +4,16 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 module.exports = app =>{
 	class NewsService extends app.Service{
-		* articles(){
-			let result = yield app.model.article.find();
-			result = _.groupBy(result,function(item){
-				return item.country || "Ohters";
-			});
-			return result || [];
-		}
-		* newsList(articleId){
-			const cond = {
-				articleId:articleId
+		* list(){
+			const news = yield app.model.news.find();
+			let newsList = [];
+			for(let i=0;i<10000000;i++){
+				newsList.push({
+					_id:"news-"+i,
+					content:"测试新闻"
+				});
 			}
-			const newsList = yield app.model.news.find(cond);
-			return newsList || [];
+			return [];
 		}
 		* detail(id){
 			const cond = {

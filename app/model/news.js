@@ -4,8 +4,6 @@ module.exports = mongoose => {
 		_id:{ type: Object},
 		title:{type:String},
 		body:{type:String},
-		country:{type:String},
-		mm:{type:Array},
 	},{collection: "news"});
 	return mongoose.model('news', newsSchema);
 };

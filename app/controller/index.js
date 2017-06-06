@@ -9,6 +9,13 @@ module.exports = app => {
         };
         yield ctx.render('index.tpl',locals);
     }
+    * news(ctx){
+        const locals ={};
+       if(ctx.isAuthenticated()){
+            locals.userName = ctx.user._id;
+        };
+        yield ctx.render('news.html',locals);
+    }
     * login(ctx){
         yield ctx.render('login.tpl');
     }
