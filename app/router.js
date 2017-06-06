@@ -36,8 +36,8 @@ module.exports = app => {
   app.delete("/api/topics/:id",auth,"topics.delete");
   app.get("/api/topics/more",auth,"topics.more");
   //news
-  app.get("/api/news","news.newsList");
-  app.get("/api/news/:id","news.detail");
+  app.get("/api/news",auth,"news.newsList");
+  app.get("/api/news/:id",auth,"news.detail");
 
   //albums
   app.get("/api/albums",auth,"albums.albums");//获取所有相册
