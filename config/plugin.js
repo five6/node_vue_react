@@ -41,7 +41,7 @@ const config = {
     elasticsearch:{
         enable: true,
         package: 'egg-elasticsearch'
-    };
+    },
     //启用静态资源
     static:true
 };
