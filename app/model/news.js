@@ -1,9 +1,11 @@
 'use strict';
 module.exports = mongoose => {
 	const newsSchema = new mongoose.Schema({
-		_id:{ type: Object},
+		_id:{ type: String},
 		title:{type:String},
-		body:{type:String},
+		time:{type:String},
+        _at:{type:Object},
+        source:{type:String},
 	},{collection: "news"});
 	return mongoose.model('news', newsSchema);
 };

@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 module.exports = {
     bulkOperate(fn, scope, arr, argus, cb) {
         if (!cb) {
@@ -36,4 +37,12 @@ module.exports = {
         }
 
     },
+    getMd5(content,moment){
+        var md5 = crypto.createHash("sha1");
+        if(moment){
+            return md5.update(content).digest("hex")+ moment("YYYYMMDDHHMMSS");
+        }else {
+            return md5.update(content).digest("hex");
+        }
+    }
 };
