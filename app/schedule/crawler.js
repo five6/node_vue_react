@@ -28,6 +28,7 @@ module.exports = app => {
                     var href = oneNews.find("a").attr("href");
                     var time = oneNews.next().next().text();
                     var currentData = {
+                        expireAt:new Date(new Date().getTime()+ 1000 * 60 * 60 * 24 * 7),//一周后自动过期删除
                         _id:app.getMd5(newsTitle),
                         title:newsTitle,
                         source:href,
