@@ -4,6 +4,7 @@
   "description": "egg demo project",
   "private": true,
   "dependencies": {
+    "basic-auth": "^1.1.0",
     "cheerio": "^0.22.0",
     "crawler": "^1.0.5",
     "crypto": "0.0.3",

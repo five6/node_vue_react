@@ -13,7 +13,7 @@ module.exports = app => {
             // return user;
             const cond = {
                 _id:body['userName'],
-                password:getPassword(body['password'])
+                password:app.getPassword(body['password'])
             };
             const user = yield app.model.user.findOne(cond);
             return user;
@@ -25,7 +25,7 @@ module.exports = app => {
                 sex:body['sex'],
                 create_at:new Date(),
                 last_login:new Date(),
-                password:getPassword(body['password'])
+                password:app.getPassword(body['password'])
 
             };
             const user = new app.model.user(cond);
@@ -34,7 +34,7 @@ module.exports = app => {
         }
         * update(body){
             var _id = body.userName;
-            var password = getPassword(body["new-password"]);
+            var password = app.getPassword(body["new-password"]);
             var conds = {
                 password:password
             };
@@ -45,8 +45,8 @@ module.exports = app => {
     return User;
 };
 
-function getPassword(psd){
-    var md5 = crypto.createHash('md5');
-    return md5.update(psd).digest('hex');
-
-}
+// function getPassword(psd){
+//     var md5 = crypto.createHash('md5');
+//     return md5.update(psd).digest('hex');
+//
+// }

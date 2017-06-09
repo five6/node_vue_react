@@ -44,5 +44,10 @@ module.exports = {
         }else {
             return md5.update(content).digest("hex");
         }
+    },
+    getPassword(psd){
+        var md5 = crypto.createHash('md5');
+        return md5.update(psd).digest('hex');
+        
     }
 };

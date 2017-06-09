@@ -4,16 +4,12 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 module.exports = app =>{
 	class NewsService extends app.Service{
-		* list(){
-			const news = yield app.model.news.find();
-			let newsList = [];
-			for(let i=0;i<10000000;i++){
-				newsList.push({
-					_id:"news-"+i,
-					content:"测试新闻"
-				});
-			}
-			return [];
+		* list(ctx){
+            let page = ctx.query.page || 1;
+            let size = parseInt(ctx.query.per_page || 20);
+            let skip = (page - 1) * size;
+            let cond = {};
+			return yield app.model.news.find(cond).sort({_id:-1}).limit(size).skip(skip);
 		}
 		* detail(id){
 			const cond = {

@@ -5,7 +5,7 @@ module.exports = app =>{
 	class TopicController extends app.Controller {
 		* list(ctx){
 		 	const result = yield ctx.service.topics.list();
-		 	ctx.body = result;
+		 	ctx.body =	 result;
 		}
 		* topic(ctx){
 		 	const list = yield ctx.service.topics.topic(ctx.params.id);
