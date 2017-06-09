@@ -1,17 +1,18 @@
 <template>
 	<div class="ui">
 	 	<div v-show="isFetching" class="ui active centered inline loader"></div>
-		<div v-show="newsList.length" class="ui bottom content">
-			<div v-for="(news,index) in newsList">
-
-			</div>
-		</div>
+        <div v-for="(news,index) in newsList">
+            <p>
+                <span>{{news.title}}</span>
+                <span>{{news.time}}</span>
+            </p>
+        </div>
 		<!-- 避免使用v-else  -->
 		<div v-show="!newsList.length && !isFetching">暂无数据</div>
 	</div>
 </template>
 <script>
-	import {mapGetters,mapActions} from 'vuex'
+	import {mapGetters,mapActions} from 'vuex';
 	export default{
 		data(){
 			return {
@@ -27,7 +28,9 @@
       	}),
 	    methods:{
 
-	    }
+	    },
+		components:{
+		}
 	}
 </script>
 <style lang="less" scoped>
