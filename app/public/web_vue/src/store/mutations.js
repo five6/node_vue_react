@@ -12,5 +12,13 @@ export default {
 	[types.GET_NEWS_LIST_ERROR](state){
 		console.log("获取数据报错！");
 		state.isFetching = false;
-	}
+	},
+    [types.GET_MORE_NEWS](state,{newsId}){
+        console.log("获取更多的数据！");
+        state.loading = true;
+    },
+    [types.RECEIVED_MORE_NEWS](state,{newsId}){
+        console.log("获取更多的数据！");
+        state.loading = true;
+    }
 }

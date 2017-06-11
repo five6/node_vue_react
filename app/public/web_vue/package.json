@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "less": "^2.7.2",
+    "muse-ui": "^2.0.3",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0"
   },

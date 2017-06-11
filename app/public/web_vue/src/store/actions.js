@@ -12,5 +12,11 @@ export default {
 			}
 			
 		})
+	},
+    getMoreNews({commit},{newsId,page,per_page}){
+		commit(types.GET_MORE_NEWS,{newsId});
+		api.getMoreNews({newsId,page,per_page},function (err,data) {
+
+        })
 	}
 }

@@ -26,7 +26,10 @@ module.exports = app => {
                     let oneNews = $(this);
                     let newsTitle = oneNews.find("a").text();
                     let href = oneNews.find("a").attr("href");
-                    let time = oneNews.next().next().text();
+                    let time = oneNews.next().next().text()||"";
+                    if(time.charAt(time.length-1)===":"){
+                        time = time.substring(0,time.length-1);
+                    }
                     let currentData = {
                         expireAt:new Date(new Date().getTime()+ 1000 * 60 * 60 * 24 * 7),//一周后自动过期删除
                         md5:app.getMd5(newsTitle),
