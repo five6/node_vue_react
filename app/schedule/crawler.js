@@ -3,13 +3,14 @@ const _  = require('lodash');
 const async = require('async');
 const request = require('request');
 const fs = require('fs');
+const path = require('path');
 const cheerio = require('cheerio');
 const eventproxy = require('eventproxy');
 const mongoose = require('mongoose');
 module.exports = app => {
     let config = {};
     config.schedule = {
-        interval:"30m",
+        interval:"30s",
         type:"all"
     };
     config.task = function* (ctx){
@@ -42,9 +43,36 @@ module.exports = app => {
                 });
             }
             let ops =[];
+            let imageUrls = {};
             newsList =_.chain(newsList).values(newsList).sortBy(function (news) {
+                imageUrls[news.md5]= function (callback) {
+                    request(news.source,headers,function (err,response,body) {
+                        if(!err && response.statusCode === 200){
+                            let $2 = cheerio.load(body);
+                            let imgElement = $2(".img_wrapper");
+                            async.each(imgElement,function (imgDiv,subCallback) {
+                                let img = $2(imgDiv).find("img");
+                                let imgSrc = $2(img).attr("src");
+                                if(img && imgSrc){
+                                    let imgMd5Src = app.getMd5(imgSrc);
+                                    var photoPath = path.join(app.config.baseDir, "app/public/newsImages");
+                                    var fileWriteStream = fs.createWriteStream(photoPath+"/" + imgMd5Src);
+                                    request(imgSrc).pipe(fileWriteStream).on('close', function () {
+                                        console.log(imgMd5Src);
+                                        subCallback();
+                                    });
+                                }else{
+                                    subCallback();
+                                }
+                            },function (err,subResult) {
+                                callback()
+                            });
+                        }
+                    })
+                };
                 return -news._at;
             }).value();
+            var imgTasks =
             _.each(newsList,function (news) {
                 ops.push({
                     updateOne: {
@@ -55,11 +83,16 @@ module.exports = app => {
                         upsert: true
                     }
                 });
-            })
-            app.bulkOperate(app.model.news.bulkWrite,app.model.news,ops,function(err,result){
-                ctx.logger.info("保存news完成 ： ");
             });
-        })
+            
+            app.bulkOperate(app.model.news.bulkWrite,app.model.news,ops,function(err,result){
+                ctx.logger.info("保存news title完成 开始保存图片： ");
+                async.parallel(imageUrls,function (err,result) {
+                    console.log("保存news photos 完成！")
+                })
+            });
+        });
+        
     };
     return config;
 }
