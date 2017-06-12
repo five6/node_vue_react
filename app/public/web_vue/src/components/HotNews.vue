@@ -29,7 +29,10 @@
             }
 		},
 		created(){
-		   this.$store.dispatch('getNewsList');
+            var newsId = "";
+            var page = this.page;
+            var per_page = this.per_page;
+            this.$store.dispatch('getNewsList',{newsId:newsId,page:page,per_page:per_page,init:true});
 		},
         mounted(){
             this.scroller = document.getElementById("news-infinite-container");
@@ -39,31 +42,26 @@
             newsList:'getNewsList',
             isFetching:'isFetching',
             refreshing:'refreshing',
-            loading:'loading'
+            loading:'loading',
+            page:'page',
+            per_page:'per_page'
       	}),
 	    methods:{
             refresh () {
                 this.refreshing = true;
-                this.$store.dispatch('getNewsList');
-//                setTimeout(() => {
-//                    this.refreshing = false
-//                }, 2000)
+                var newsId = "";
+                var page = this.page;
+                var per_page = this.per_page;
+                this.$store.dispatch('getNewsList',{newsId:newsId,page:page,per_page:per_page,init:false});
             },
             loadMore () {
                 this.loading = true;
                 var newsList = this.newsList;
                 var lastNews = newsList[newsList.length-1];
                 var newsId =lastNews._id;
-                this.$store.dispatch('getMoreNews',{newsId:newsId,page:1,per_page:20});
-//                setTimeout(() => {
-//                    for(var i= 0;i< 10;i++){
-//                        this.newsList.push({
-//                            title:"",
-//                            time:new Date()
-//                        })
-//                    }
-//                    this.loading = false;
-//                }, 2000)
+                var page = this.page;
+                var per_page = this.per_page;
+                this.$store.dispatch('getMoreNews',{newsId:newsId,page:page,per_page:per_page});
             }
 	    },
 		components:{
