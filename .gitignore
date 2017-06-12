@@ -6,6 +6,7 @@ coverage/
 app/public/web_src/node_modules/
 app/public/web_vue/node_modules/
 app/public/ufiles/
+app/public/newsImages/
 run/
 .DS_Store
 *.swp
