@@ -1,11 +1,11 @@
 <template>
 	<div class="">
 	 	<div v-show="isFetching" class="ui active centered inline loader"></div>
-        <diV class="news-infinite-container" id="news-infinite-container">
+        <diV class="news-infinite-container" id="news-infinite-container" v-show="!showNewsDetail">
             <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
             <mu-list>
                 <template v-for="(news,index) in newsList">
-                    <mu-list-item>
+                    <mu-list-item @click="newsDetail(news)">
                         <mu-sub-header>{{news.title}}</mu-sub-header>
                         <mu-content-block>
                             <template v-for="(img,index) in news.images" class="imagesContainer">
@@ -29,6 +29,7 @@
                 formatSrc:function (src) {
                     return "/public/newsImages/"+src;
                 },
+                showNewsDetail:false,
                 scroller: null,
                 trigger: null,
             }
@@ -67,6 +68,9 @@
                 var page = this.page;
                 var per_page = this.per_page;
                 this.$store.dispatch('getMoreNews',{newsId:newsId,page:page,per_page:per_page});
+            },
+            newsDetail(news){
+
             }
 	    },
 		components:{
