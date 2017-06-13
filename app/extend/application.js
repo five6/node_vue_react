@@ -1,4 +1,7 @@
 const crypto = require('crypto');
+const async = require('async');
+const _  = require('lodash');
+
 module.exports = {
     bulkOperate(fn, scope, arr, argus, cb) {
         if (!cb) {

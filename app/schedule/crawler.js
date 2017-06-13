@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 module.exports = app => {
     let config = {};
     config.schedule = {
-        interval:"30s",
+        interval:"30m",
         type:"all"
     };
     config.task = function* (ctx){
@@ -20,6 +20,7 @@ module.exports = app => {
         let url2 = "http://fulilt.com/thread-19174-1-1.html";
         request(url,headers,function (err,response,body) {
             let newsList = {};
+            let ops =[];
             if(!err && response.statusCode === 200){
                 let $ = cheerio.load(body);
                 let news_data_list = $(".ConsTi");
@@ -42,37 +43,9 @@ module.exports = app => {
                     newsList[currentData.md5] = currentData;
                 });
             }
-            let ops =[];
-            let imageUrls = {};
-            newsList =_.chain(newsList).values(newsList).sortBy(function (news) {
-                imageUrls[news.md5]= function (callback) {
-                    request(news.source,headers,function (err,response,body) {
-                        if(!err && response.statusCode === 200){
-                            let $2 = cheerio.load(body);
-                            let imgElement = $2(".img_wrapper");
-                            async.each(imgElement,function (imgDiv,subCallback) {
-                                let img = $2(imgDiv).find("img");
-                                let imgSrc = $2(img).attr("src");
-                                if(img && imgSrc){
-                                    let imgMd5Src = app.getMd5(imgSrc);
-                                    var photoPath = path.join(app.config.baseDir, "app/public/newsImages");
-                                    var fileWriteStream = fs.createWriteStream(photoPath+"/" + imgMd5Src);
-                                    request(imgSrc).pipe(fileWriteStream).on('close', function () {
-                                        console.log(imgMd5Src);
-                                        subCallback();
-                                    });
-                                }else{
-                                    subCallback();
-                                }
-                            },function (err,subResult) {
-                                callback()
-                            });
-                        }
-                    })
-                };
+            newsList = _.chain(newsList).values(newsList).sortBy(function (news) {
                 return -news._at;
             }).value();
-            var imgTasks =
             _.each(newsList,function (news) {
                 ops.push({
                     updateOne: {
@@ -84,15 +57,71 @@ module.exports = app => {
                     }
                 });
             });
-            
-            app.bulkOperate(app.model.news.bulkWrite,app.model.news,ops,function(err,result){
-                ctx.logger.info("保存news title完成 开始保存图片： ");
-                async.parallel(imageUrls,function (err,result) {
-                    console.log("保存news photos 完成！")
-                })
+            // 内容图片
+            let imageUrls = {};
+            _.each(newsList,function (news) {
+                imageUrls[news.md5]= function (callback) {
+                    request(news.source,headers,function (err,response,body) {
+                        if(!err && response.statusCode === 200){
+                            let $2 = cheerio.load(body);
+                            let imgElement = $2(".img_wrapper");
+                            let ops2Obj = {
+                                md5:news.md5,
+                                images:[]
+                            };
+                            async.each(imgElement,function (imgDiv,subCallback) {
+                                let img = $2(imgDiv).find("img");
+                                let imgSrc = $2(img).attr("src");
+                                if(img && imgSrc){
+                                    let imgMd5Src = app.getMd5(imgSrc);
+                                    ops2Obj.images.push(imgMd5Src);
+                                    var photoPath = path.join(app.config.baseDir, "app/public/newsImages");
+                                    var fileWriteStream = fs.createWriteStream(photoPath+"/" + imgMd5Src);
+                                    request(imgSrc).pipe(fileWriteStream).on('close', function () {
+                                        subCallback();
+                                    });
+                                }else{
+                                    subCallback();
+                                }
+                            },function (err,subResult) {
+                                callback(null,{
+                                    updateOne: {
+                                        filter: { md5: ops2Obj.md5},
+                                        update: {
+                                            "$set":{images:ops2Obj.images}
+                                        },
+                                        upsert: true
+                                    }
+                                })
+                            });
+                        }
+                    })
+                };
+            });
+            async.waterfall([
+                function (sub_callback) {
+                    app.bulkOperate(app.model.news.bulkWrite,app.model.news,ops,function(){
+                        ctx.logger.info("保存news title完成 ");
+                        sub_callback(null,{});
+                    });
+                },
+                function (result,sub_callback) {
+                    async.parallel(imageUrls,function (err,result2) {
+                        ctx.logger.info("保存图片到本地完成： ");
+                        sub_callback(null,result2);
+                    })
+                },
+                function (result,sub_callback) {
+                    let opsOptions = _.values(result);
+                    app.bulkOperate(app.model.news.bulkWrite,app.model.news,opsOptions,function(err,result){
+                        ctx.logger.info("保存图片到数据库完成！");
+                        sub_callback();
+                    });
+                }
+            ],function (err,result) {
+                ctx.logger.info("爬虫 task  完成！");
             });
         });
-        
     };
     return config;
 }

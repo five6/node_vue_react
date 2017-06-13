@@ -6,9 +6,11 @@
             <mu-list>
                 <template v-for="(news,index) in newsList">
                     <mu-list-item>
-                        <mu-sub-header>{{news.time}}</mu-sub-header>
+                        <mu-sub-header>{{news.title}}</mu-sub-header>
                         <mu-content-block>
-                            {{news.title}}
+                            <template v-for="(img,index) in news.images" class="imagesContainer">
+                                <img :src="formatSrc(img)" class="news-images"/>
+                            </template>
                         </mu-content-block>
                     </mu-list-item>
                 </template>
@@ -24,6 +26,9 @@
 	export default{
 		data(){
             return{
+                formatSrc:function (src) {
+                    return "/public/newsImages/"+src;
+                },
                 scroller: null,
                 trigger: null,
             }
@@ -75,5 +80,10 @@
         overflow: auto;
         -webkit-overflow-scrolling: touch;
         border: 1px solid #d9d9d9;
+    }
+    .news-images{
+        margin: 10px;
+        width: 280px;
+        height: 180px;
     }
 </style>
