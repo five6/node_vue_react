@@ -1,6 +1,9 @@
 <template>
 	<div class="">
 	 	<div v-show="isFetching" class="ui active centered inline loader"></div>
+        <div v-show="showNewsDetail">
+            <NewsDetailL v-on:news="news"></NewsDetailL>
+        </div>
         <diV class="news-infinite-container" id="news-infinite-container" v-show="!showNewsDetail">
             <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
             <mu-list>
@@ -23,6 +26,7 @@
 </template>
 <script>
 	import {mapGetters,mapActions} from 'vuex';
+	import  NewsDetailL from './NewsDetail';
 	export default{
 		data(){
             return{
@@ -32,6 +36,8 @@
                 showNewsDetail:false,
                 scroller: null,
                 trigger: null,
+                news:null,
+                transitionName:"",
             }
 		},
 		created(){
@@ -70,10 +76,13 @@
                 this.$store.dispatch('getMoreNews',{newsId:newsId,page:page,per_page:per_page});
             },
             newsDetail(news){
-
+                var source = news.source;
+                this.showNewsDetail = true;
+                this.news = news;
             }
 	    },
 		components:{
+            NewsDetailL
         }
 	}
 </script>

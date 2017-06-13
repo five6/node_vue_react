@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 module.exports = app => {
     let config = {};
     config.schedule = {
-        interval:"30m",
+        interval:"5m",
         type:"all"
     };
     config.task = function* (ctx){
@@ -107,6 +107,7 @@ module.exports = app => {
                 },
                 function (result,sub_callback) {
                     async.parallel(imageUrls,function (err,result2) {
+                        console.log(err);
                         ctx.logger.info("保存图片到本地完成： ");
                         sub_callback(null,result2);
                     })
