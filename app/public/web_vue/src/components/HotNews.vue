@@ -2,7 +2,7 @@
 	<div class="">
 	 	<div v-show="isFetching" class="ui active centered inline loader"></div>
         <div v-show="showNewsDetail">
-            <NewsDetailL v-on:news="news"></NewsDetailL>
+            <NewsDetailL :news="news"></NewsDetailL>
         </div>
         <diV class="news-infinite-container" id="news-infinite-container" v-show="!showNewsDetail">
             <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
@@ -76,9 +76,8 @@
                 this.$store.dispatch('getMoreNews',{newsId:newsId,page:page,per_page:per_page});
             },
             newsDetail(news){
-                var source = news.source;
-                this.showNewsDetail = true;
                 this.news = news;
+                this.showNewsDetail = true;
             }
 	    },
 		components:{
