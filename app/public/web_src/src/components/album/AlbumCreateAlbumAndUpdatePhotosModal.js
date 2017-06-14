@@ -251,6 +251,28 @@ export default class AlbumCreateAlbumAndUpdatePhotosModal extends React.Componen
                         <div className="ui cancel grey button">取消</div>
                     </div>
                 </div>
+                <div className="ui modal editAlbumBackgroundModal">
+                    <div className="header">上传照片</div>
+                    <div className="content">
+                        <div id="uploadAlbumBackgroundDiv">
+                            <form method="post" encType="multipart/form-data">
+                                <div className="field">
+                                    <label></label>
+                                    <div className="ui left icon input">
+                                        <div>
+                                            <input type="file" onChange={(e)=> this.onAlbumBackgroundChange(e)}  accept="image/*"  />
+                                            <button type="button" className="ui green button" onClick={this.onUploadAlbumBK}>选择照片<i className="upload icon"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="actions">
+                        <div onClick={(e) => this.onclickUpLoadPhotos(e)} className="ui blue button">确定</div>
+                        <div className="ui cancel grey button">取消</div>
+                    </div>
+                </div>
             </div>
         )
     }

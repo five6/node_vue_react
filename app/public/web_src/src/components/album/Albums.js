@@ -9,14 +9,7 @@ export default class Albums extends React.Component{
 		this.onClickChangeCurrentPage = this.onClickChangeCurrentPage.bind(this);
 	}
 	componentDidMount() {
-        //  $('#createAlbumform').form({
-        //   fields: {
-        //     albumName : 'empty',
-        //     albumDescription : 'empty',
-        //     topic : 'empty',
-        //     albumAuthority : 'empty'
-        // }
-     // });
+
     }
     createDate(date){
         return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
