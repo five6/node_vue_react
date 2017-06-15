@@ -33,7 +33,7 @@ module.exports = app => {
                         time = time.substring(0,time.length-1);
                     }
                     let currentData = {
-                        expireAt:new Date(new Date().getTime()+ 1000 * 60 * 60 * 24 * 7),//一周后自动过期删除
+                        // expireAt:new Date(new Date().getTime()+ 1000 * 60 * 60 * 24 * 7),//一周后自动过期删除
                         md5:app.getMd5(newsTitle),
                         title:newsTitle,
                         source:href,
