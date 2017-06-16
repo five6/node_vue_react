@@ -17,6 +17,7 @@ class AlbumApp extends React.Component{
         this.showCreateAlbumModal = this.showCreateAlbumModal.bind(this);
         this.changeCurrentPage = this.changeCurrentPage.bind(this);
         this.getOneAlbum = this.getOneAlbum.bind(this);
+        this.setAlbumBackground = this.setAlbumBackground.bind(this);
         this.props.dispatch(fetch_ajax_get_albums(props.albums));
     }
     showCreateAlbumModal(){
@@ -55,6 +56,9 @@ class AlbumApp extends React.Component{
     changeCurrentPage(albumId,currentPage){
         this.props.dispatch(change_current_page(albumId,currentPage));
     }
+    setAlbumBackground(photo){
+        alert(photo);
+    }
     render(){
         const {currentPage} = this.props;
         if(currentPage === "albums"){
@@ -66,8 +70,8 @@ class AlbumApp extends React.Component{
                             <button onClick={(e)=> this.showCreateAlbumModal(e)} className="ui green basic button">创建相册</button>
                         </div>
                     </div>
-                    <Albums albums={this.props.albums} changeCurrentPage={this.changeCurrentPage} />
-                    <AlbumCreateAlbumAndUpdatePhotosModal albums={this.props.albums}  updateAlbum={this.updateAlbum} deleteAlbum={this.deleteAlbum} createAlbum={this.createAlbum} uploadPhotos = {this.uploadPhotos} />
+                    <Albums  albums={this.props.albums} changeCurrentPage={this.changeCurrentPage} deleteAlbum={this.deleteAlbum} setAlbumBackground={this.setAlbumBackground}/>
+                    <AlbumCreateAlbumAndUpdatePhotosModal albums={this.props.albums}  updateAlbum={this.updateAlbum} createAlbum={this.createAlbum} uploadPhotos = {this.uploadPhotos} />
                 </div>
             );
         }else{
@@ -80,7 +84,7 @@ class AlbumApp extends React.Component{
                         </div>
                     </div>
                     <Album getOneAlbum={this.getOneAlbum} album={this.props.album} albumId={this.props.albumId} deletePhoto={this.deletePhoto}></Album>
-                    <AlbumCreateAlbumAndUpdatePhotosModal albums={this.props.albums}  updateAlbum={this.updateAlbum} deleteAlbum={this.deleteAlbum} createAlbum={this.createAlbum} uploadPhotos = {this.uploadPhotos} />
+                    <AlbumCreateAlbumAndUpdatePhotosModal albums={this.props.albums}  updateAlbum={this.updateAlbum}  createAlbum={this.createAlbum} uploadPhotos = {this.uploadPhotos} />
                 </div>
             )
         }

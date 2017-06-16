@@ -60,3 +60,16 @@ max-width: 20em;
 .remove-photo-span-out{
     display: none !important;
 }
+.albums_menus{
+	position: absolute !important;
+	right: 0px !important;
+	top:0px !important;
+	z-index: 100
+}
+.input-file-album-bk{
+	display: none;
+}
+.album-background-preview{
+	max-width: 740px;
+	max-height: 465px;
+}

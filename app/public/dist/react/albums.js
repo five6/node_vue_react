@@ -35647,65 +35647,6 @@ var AlbumCreateAlbumAndUpdatePhotosModal = function (_React$Component) {
                             '\u53D6\u6D88'
                         )
                     )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'ui modal editAlbumBackgroundModal' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'header' },
-                        '\u4E0A\u4F20\u7167\u7247'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'content' },
-                        _react2.default.createElement(
-                            'div',
-                            { id: 'uploadAlbumBackgroundDiv' },
-                            _react2.default.createElement(
-                                'form',
-                                { method: 'post', encType: 'multipart/form-data' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'field' },
-                                    _react2.default.createElement('label', null),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'ui left icon input' },
-                                        _react2.default.createElement(
-                                            'div',
-                                            null,
-                                            _react2.default.createElement('input', { type: 'file', onChange: function onChange(e) {
-                                                    return _this2.onAlbumBackgroundChange(e);
-                                                }, accept: 'image/*' }),
-                                            _react2.default.createElement(
-                                                'button',
-                                                { type: 'button', className: 'ui green button', onClick: this.onUploadAlbumBK },
-                                                '\u9009\u62E9\u7167\u7247',
-                                                _react2.default.createElement('i', { className: 'upload icon' })
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'actions' },
-                        _react2.default.createElement(
-                            'div',
-                            { onClick: function onClick(e) {
-                                    return _this2.onclickUpLoadPhotos(e);
-                                }, className: 'ui blue button' },
-                            '\u786E\u5B9A'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'ui cancel grey button' },
-                            '\u53D6\u6D88'
-                        )
-                    )
                 )
             );
         }
@@ -35761,12 +35702,20 @@ var Albums = function (_React$Component) {
 
         _this.createDate = _this.createDate.bind(_this);
         _this.onClickChangeCurrentPage = _this.onClickChangeCurrentPage.bind(_this);
+        _this.onAlbumsMenuSelect = _this.onAlbumsMenuSelect.bind(_this);
+        _this.onAlbumBackgroundChange = _this.onAlbumBackgroundChange.bind(_this);
+        _this.previewPhoto = _this.previewPhoto.bind(_this);
+        _this.state = {
+            multiple: false
+        };
         return _this;
     }
 
     _createClass(Albums, [{
         key: 'componentDidMount',
-        value: function componentDidMount() {}
+        value: function componentDidMount() {
+            $(".albums_menus").dropdown();
+        }
     }, {
         key: 'createDate',
         value: function createDate(date) {
@@ -35777,6 +35726,52 @@ var Albums = function (_React$Component) {
         value: function onClickChangeCurrentPage(element) {
             var albumId = element.target.getAttribute("data-albumId");
             this.props.changeCurrentPage(albumId, "album");
+        }
+    }, {
+        key: 'onAlbumsMenuSelect',
+        value: function onAlbumsMenuSelect(e) {
+            var albumId = e.target.getAttribute("data-albumId");
+            var value = e.target.value;
+            if (value === "bk") {
+                $('.editAlbumBackgroundModal').modal('show');
+            } else if (value === "de") {
+                this.props.deleteAlbum(albumId);
+            }
+        }
+    }, {
+        key: 'onAlbumBackgroundChange',
+        value: function onAlbumBackgroundChange(e) {
+            var file = e.target.files[0];
+            if (file) {
+                this.setState({
+                    imgSrc: this.previewPhoto(file),
+                    backgroundImg: file
+                });
+            }
+        }
+    }, {
+        key: 'previewPhoto',
+        value: function previewPhoto(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) {
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+    }, {
+        key: 'onUploadAlbumBK',
+        value: function onUploadAlbumBK() {
+            $(".input-file-album-bk").trigger("click");
+        }
+    }, {
+        key: 'onCommitSetAlbumBackground',
+        value: function onCommitSetAlbumBackground() {
+            var bk = this.state.backgroundImg;
+            this.props.setAlbumBackground(bk);
         }
     }, {
         key: 'render',
@@ -35798,6 +35793,27 @@ var Albums = function (_React$Component) {
                             return _react2.default.createElement(
                                 'div',
                                 { className: 'card', key: album._id },
+                                _react2.default.createElement(
+                                    'select',
+                                    { onChange: function onChange(e) {
+                                            return _this2.onAlbumsMenuSelect(e);
+                                        }, className: 'ui dropdown albums_menus', 'data-albumId': album._id },
+                                    _react2.default.createElement(
+                                        'option',
+                                        { value: '' },
+                                        '\u64CD\u4F5C'
+                                    ),
+                                    _react2.default.createElement(
+                                        'option',
+                                        { value: 'bk' },
+                                        '\u8BBE\u7F6E\u5C01\u9762'
+                                    ),
+                                    _react2.default.createElement(
+                                        'option',
+                                        { value: 'de' },
+                                        '\u5220\u9664\u76F8\u518C'
+                                    )
+                                ),
                                 _react2.default.createElement(
                                     'div',
                                     { className: 'image' },
@@ -35830,6 +35846,79 @@ var Albums = function (_React$Component) {
                                 )
                             );
                         })
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'ui modal editAlbumBackgroundModal' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'header' },
+                        '\u4E0A\u4F20\u7167\u7247'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'content' },
+                        _react2.default.createElement(
+                            'div',
+                            { id: 'uploadAlbumBackgroundDiv' },
+                            _react2.default.createElement(
+                                'form',
+                                { method: 'post', encType: 'multipart/form-data' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    _react2.default.createElement('label', null),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'ui left icon input' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            null,
+                                            _react2.default.createElement('input', { type: 'file', className: 'input-file-album-bk', onChange: function onChange(e) {
+                                                    return _this2.onAlbumBackgroundChange(e);
+                                                }, accept: 'image/*', multiple: this.state.multiple }),
+                                            _react2.default.createElement(
+                                                'button',
+                                                { type: 'button', className: 'ui green button', onClick: this.onUploadAlbumBK },
+                                                '\u9009\u62E9\u7167\u7247',
+                                                _react2.default.createElement('i', { className: 'upload icon' })
+                                            )
+                                        )
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'field' },
+                                    _react2.default.createElement('label', null),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'ui left icon input' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            null,
+                                            _react2.default.createElement('img', { className: 'ui image album-background-preview', src: this.state.imgSrc })
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'actions' },
+                        _react2.default.createElement(
+                            'div',
+                            { onClick: function onClick(e) {
+                                    return _this2.onCommitSetAlbumBackground(e);
+                                }, className: 'ui blue button' },
+                            '\u786E\u5B9A'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'ui cancel grey button' },
+                            '\u53D6\u6D88'
+                        )
                     )
                 )
             );
@@ -36052,6 +36141,7 @@ var AlbumApp = function (_React$Component) {
         _this.showCreateAlbumModal = _this.showCreateAlbumModal.bind(_this);
         _this.changeCurrentPage = _this.changeCurrentPage.bind(_this);
         _this.getOneAlbum = _this.getOneAlbum.bind(_this);
+        _this.setAlbumBackground = _this.setAlbumBackground.bind(_this);
         _this.props.dispatch((0, _album3.fetch_ajax_get_albums)(props.albums));
         return _this;
     }
@@ -36110,6 +36200,11 @@ var AlbumApp = function (_React$Component) {
             this.props.dispatch((0, _album3.change_current_page)(albumId, currentPage));
         }
     }, {
+        key: 'setAlbumBackground',
+        value: function setAlbumBackground(photo) {
+            alert(photo);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -36142,8 +36237,8 @@ var AlbumApp = function (_React$Component) {
                             )
                         )
                     ),
-                    _react2.default.createElement(_Albums2.default, { albums: this.props.albums, changeCurrentPage: this.changeCurrentPage }),
-                    _react2.default.createElement(_AlbumCreateAlbumAndUpdatePhotosModal2.default, { albums: this.props.albums, updateAlbum: this.updateAlbum, deleteAlbum: this.deleteAlbum, createAlbum: this.createAlbum, uploadPhotos: this.uploadPhotos })
+                    _react2.default.createElement(_Albums2.default, { albums: this.props.albums, changeCurrentPage: this.changeCurrentPage, deleteAlbum: this.deleteAlbum, setAlbumBackground: this.setAlbumBackground }),
+                    _react2.default.createElement(_AlbumCreateAlbumAndUpdatePhotosModal2.default, { albums: this.props.albums, updateAlbum: this.updateAlbum, createAlbum: this.createAlbum, uploadPhotos: this.uploadPhotos })
                 );
             } else {
                 return _react2.default.createElement(
@@ -36172,7 +36267,7 @@ var AlbumApp = function (_React$Component) {
                         )
                     ),
                     _react2.default.createElement(_album2.default, { getOneAlbum: this.getOneAlbum, album: this.props.album, albumId: this.props.albumId, deletePhoto: this.deletePhoto }),
-                    _react2.default.createElement(_AlbumCreateAlbumAndUpdatePhotosModal2.default, { albums: this.props.albums, updateAlbum: this.updateAlbum, deleteAlbum: this.deleteAlbum, createAlbum: this.createAlbum, uploadPhotos: this.uploadPhotos })
+                    _react2.default.createElement(_AlbumCreateAlbumAndUpdatePhotosModal2.default, { albums: this.props.albums, updateAlbum: this.updateAlbum, createAlbum: this.createAlbum, uploadPhotos: this.uploadPhotos })
                 );
             }
         }
