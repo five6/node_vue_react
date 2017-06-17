@@ -146,6 +146,16 @@ const ajax_get_one_album =(albumId) => dispatch => {
     });
 };
 
+const ajax_delete_album =(albumId)=> dispatch =>{
+    axios.delete("/api/albums/"+albumId).then(function (response) {
+        dispatch(action_received_delete_album(albumId));
+    }).catch(function (err) {
+        console.log(err);
+    })
+}
+const ajax_set_album_background = photo => dispatch =>{
+    console.log(photo)
+}
 export const fetch_ajax_create_albums = album => (dispatch,getState) => {
     dispatch(ajax_create_albums(album));
 };
@@ -161,3 +171,11 @@ export const change_current_page = (albumId,currentPage) => (dispatch,getstate) 
 export const fetch_ajax_get_one_album = (albumId) => (dispatch,getstate) => {
     dispatch(ajax_get_one_album(albumId));
 };
+
+export const fetch_ajax_delete_album = (albumId) => (dispatch) => {
+    dispatch(ajax_delete_album(albumId));
+}
+
+export const fetch_ajax_set_album_background = (photo) => (dispatch) => {
+    dispatch(ajax_set_album_background(photo));
+}

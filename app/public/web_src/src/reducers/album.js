@@ -2,7 +2,8 @@ import * as types from '../constants/actionTypes.album';
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {createLogger}  from 'redux-logger';
-import 	_ from 'lodash';
+import _ from 'lodash';
+
 const initState = {
     albums:[],
     album:{},
@@ -45,11 +46,19 @@ function albumReducer(state = initState,action) {
             });
             break;
         case types.DEL_ALBUM:
+            return Object.assign({},state,{
+                albumId:action.albumId,
+            });
             break;
         case types.R_DEL_ALBUM:
+            const albums =_.filter(state.albums,function (album) {
+                return album._id !== action.albumId
+            });
+            return {
+                albums:albums,
+                currentPage:"albums"
+            };
             break;
-
-
         case types.ADD_PHOTO:
             return Object.assign({},state,{
                 albumId:action.albumId,

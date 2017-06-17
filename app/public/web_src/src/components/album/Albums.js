@@ -25,6 +25,7 @@ export default class Albums extends React.Component{
     	this.props.changeCurrentPage(albumId,"album");
 	}
     onAlbumsMenuSelect(e){
+        e.preventDefault();
         const albumId = e.target.getAttribute("data-albumId");
         const value =  e.target.value;
         if(value === "bk"){

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import Albums from '../../components/album/Albums';
 import Album from '../../components/album/album';
-import {fetch_ajax_create_albums,fetch_ajax_get_albums,fetch_ajax_uploadPhotos,change_current_page,fetch_ajax_get_one_album} from '../../actions/album';
+import {fetch_ajax_create_albums,fetch_ajax_get_albums,fetch_ajax_uploadPhotos,change_current_page,fetch_ajax_get_one_album,fetch_ajax_delete_album,fetch_ajax_set_album_background} from '../../actions/album';
 import AlbumCreateAlbumAndUpdatePhotosModal from "../../components/album/AlbumCreateAlbumAndUpdatePhotosModal";
 class AlbumApp extends React.Component{
     constructor(props) {
@@ -37,8 +37,8 @@ class AlbumApp extends React.Component{
     createAlbum(album){
         this.props.dispatch(fetch_ajax_create_albums(album));
     }
-    deleteAlbum(){
-      alert("delete alubm");
+    deleteAlbum(albumId){
+      this.props.dispatch(fetch_ajax_delete_album(albumId))
     }
     updateAlbum(){
       alert("update album");
@@ -57,7 +57,7 @@ class AlbumApp extends React.Component{
         this.props.dispatch(change_current_page(albumId,currentPage));
     }
     setAlbumBackground(photo){
-        alert(photo);
+        this.props.dispatch(fetch_ajax_set_album_background(photo))
     }
     render(){
         const {currentPage} = this.props;

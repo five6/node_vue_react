@@ -49,6 +49,7 @@ module.exports = app => {
     		const cond = {
         		_id:new mongoose.Types.ObjectId(albumId)
         	}
+        	console.log(cond)
 			return yield app.model.album.deleteOne(cond);
         }
         * createAlbum(ctx){
