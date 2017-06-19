@@ -15,7 +15,7 @@ module.exports = app => {
             return yield ctx.service.albums.updateAlbum(ctx.params.id,ctx.body);
         }
         * deleteAlbum(ctx){
-            const result = yield ctx.service.albums.deleteAlbum( ctx.params.id);
+            const result = yield ctx.service.albums.deleteAlbum(ctx);
             ctx.body = {code:0,msg:"success",data:result};
         }
         * createAlbum(ctx){
