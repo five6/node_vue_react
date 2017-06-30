@@ -79,6 +79,17 @@ function albumReducer(state = initState,action) {
                 currentPage:action.currentPage,
                 albumId:action.albumId
             });
+        case types.R_SET_ALBUM_BACKGROUND:
+            return Object.assign({},state,{
+                currentPage:state.currentPage,
+                albumId:action.albumId,
+                albums:_.map(state.albums,function (album) {
+                    if(album._id === action.albumId){
+                        album.preview = action.photo;
+                    }
+                    return album;
+                })
+            });
         default:
             return state;
     }

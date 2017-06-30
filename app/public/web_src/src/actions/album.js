@@ -86,6 +86,13 @@ export function action_received_one_album(album) {
         album
     }
 }
+export function action_received_set_album_background(albumId,photo){
+    return{
+        type:types.R_SET_ALBUM_BACKGROUND,
+        albumId,
+        photo
+    }
+}
 const ajax_get_albums = albums => dispatch => {
     dispatch(action_get_albums(albums));
     $.ajax({
@@ -153,8 +160,17 @@ const ajax_delete_album =(albumId)=> dispatch =>{
         console.log(err);
     })
 }
-const ajax_set_album_background = photo => dispatch =>{
-    console.log(photo)
+const ajax_set_album_background = (albumId,photo) => dispatch =>{
+    var formData = new FormData();
+    formData.append("albumId",albumId);
+    formData.append('file',photo);
+    axios.post("/api/albums/setBackgroundImg",formData,{ emulateJSON: true}).then(function (response) {
+        const data = response.data;
+        const photoPath = data.path;
+        dispatch(action_received_set_album_background(albumId,photoPath));
+    }).catch(function (err) {
+        console.log(err);
+    })
 }
 export const fetch_ajax_create_albums = album => (dispatch,getState) => {
     dispatch(ajax_create_albums(album));
@@ -176,6 +192,6 @@ export const fetch_ajax_delete_album = (albumId) => (dispatch) => {
     dispatch(ajax_delete_album(albumId));
 }
 
-export const fetch_ajax_set_album_background = (photo) => (dispatch) => {
-    dispatch(ajax_set_album_background(photo));
+export const fetch_ajax_set_album_background = (albumId,photo) => (dispatch) => {
+    dispatch(ajax_set_album_background(albumId,photo));
 }

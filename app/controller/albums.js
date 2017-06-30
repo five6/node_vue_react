@@ -27,7 +27,12 @@ module.exports = app => {
              ctx.body = {code:0,msg:"success",photos:photos};
         }
         * deletePhotos(ctx){
-            return yield ctx.service.albums.deletePhotos(ctx);
+            const photos = yield ctx.service.albums.deletePhotos(ctx);
+            ctx.body = {code:0,msg:"success",photos:photos};
+        }
+        * setBackground(ctx){
+            const path = yield ctx.service.albums.setBackground(ctx);
+            ctx.body = {code:0,msg:"success",path:path};
         }
     };
     return AlbumsController;

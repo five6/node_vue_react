@@ -47,4 +47,5 @@ module.exports = app => {
   app.post("/api/albums",auth,"albums.createAlbum");//新增相册
   app.post("/api/albums/:id/photos",auth,"albums.uploadPhotos");//添加图片
   app.delete("/api/albums/:id/photos",auth,"albums.deletePhotos"); //删除图片
+  app.post("/api/albums/setBackgroundImg",auth,"albums.setBackground");
 };

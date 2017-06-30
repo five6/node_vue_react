@@ -1,14 +1,15 @@
 'use strict';
+const path = require('path');
 module.exports = appInfo => {
     const config = {};
-
+    
     // should change to your own
     config.keys = appInfo.name + '_egg_key_2017000035';
     config.view = {
         defaultViewEngine: 'nunjucks',
         mapping: {
             '.tpl': 'nunjucks',
-            '.index': 'nunjucks'
+            '.html': 'nunjucks'
         },
     };
     config.mysql = {
@@ -69,16 +70,16 @@ module.exports = appInfo => {
     config.middleware=[
         'saveSession'
         ,'auth'
-        // ,'errorHandler'
+        ,'error'
     ];
     //安全机制 线上启用
     config.security = {
         domainWhiteList: [''],
         csp: {
-            enable: true
+            enable: false,
         },
         csrf: {
-            enable: true,
+            enable: false,
             useSession: false,          // if useSession set to true, the secret will keep in session instead of cookie
             ignoreJSON: false,          // skip check JSON requests if ignoreJSON set to true
             cookieName: 'csrfToken',    // csrf token's cookie name
@@ -92,14 +93,38 @@ module.exports = appInfo => {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
     };
     // 只对 /api 前缀的 url 路径生效
-    config.errorHandler= {
+    config.error= {
         match: '/api',
     };
+    //登录的时候保存session
     config.saveSession = {
         match:'/api/lgoin'
     };
+    //如果不在router.js文件里面添加的话，可以在这儿配置
     config.auth = {
-        match:'/api'
-    }
+        match:'/api/books'
+    };
+    config.multipart = {
+        whitelist: [
+            '.png',
+            '.jpg',
+            '.jpeg', // image/jpeg
+            '.png', // image/png, image/x-png
+            '.gif', // image/gif
+            '.bmp', // image/bmp
+            '.wbmp', // image/vnd.wap.wbmp
+            '.webp',
+            '.tif',
+            '.psd',
+            '.svg',
+        ]
+    };
+    config.static = {
+        prefix: '/public/',
+        dir: path.join(appInfo.baseDir, 'app/public'),
+        dynamic: true,
+        preload: false,
+        buffer: false,
+    };
     return config;
 };

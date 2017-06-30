@@ -118,6 +118,24 @@ module.exports = app => {
             }
             return yield app.model.album.delete(cond);
         }
+        * setBackground(ctx){
+            let photoPath = path.join(app.config.baseDir, "app/public/ufiles/photos");
+            let bkImg;
+            try{
+                let bkImgObj = yield parseForm(ctx, photoPath,"albumId")||{};
+                let albumId = bkImgObj.albumId;
+                let photos = bkImgObj.photos||[];
+                photos = photos[0]||{};
+                bkImg = photos.path||"";
+                if(bkImg && albumId){
+                    const objId = new mongoose.Types.ObjectId(albumId);
+                    yield app.model.album.updateOne({_id:albumId},{"$set":{"preview":bkImg}});
+                }
+            }catch (e){
+                console.log(e);
+            }
+            return bkImg;
+        }   
     }
     return AlbumsService;
 }
@@ -147,10 +165,12 @@ function deleteAlbumPhotos(ctx,photos,photoPath){
     })
 }
 
-function parseForm(ctx, photoPath) {
+function parseForm(ctx, photoPath,paramName) {
     return new Promise((resolve, reject) => {
         var form = new multiparty.Form();
         form.parse(ctx.req, function (err, fields, files) {
+            var paramValue = fields[paramName]||[];
+            paramValue = paramValue[0]||"";
             if (err) {
                 reject(err);
             }
@@ -173,9 +193,13 @@ function parseForm(ctx, photoPath) {
                 }
                 async.parallel(tasks, function (err, result) {
                     result = result || [];
-                    resolve({
-                        photos: result
-                    });
+                    var obj = {
+                        photos: result,
+                    };
+                    if(paramName){
+                        obj[paramName] = paramValue;
+                    }
+                    resolve(obj);
                 })
             }
         });

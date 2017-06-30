@@ -10,8 +10,10 @@ export default class Albums extends React.Component{
         this.onAlbumsMenuSelect = this.onAlbumsMenuSelect.bind(this);
         this.onAlbumBackgroundChange = this.onAlbumBackgroundChange.bind(this);
         this.previewPhoto = this.previewPhoto.bind(this);
+        this.showBackground = this.showBackground.bind(this);
         this.state ={
-            multiple:false
+            multiple:false,
+            albumId:""
         };
     }
 	componentDidMount() {
@@ -28,6 +30,9 @@ export default class Albums extends React.Component{
         e.preventDefault();
         const albumId = e.target.getAttribute("data-albumId");
         const value =  e.target.value;
+        this.setState({
+            albumId:albumId
+        })
         if(value === "bk"){
             $('.editAlbumBackgroundModal').modal('show');
         }else if(value === "de"){
@@ -59,7 +64,15 @@ export default class Albums extends React.Component{
     }
     onCommitSetAlbumBackground(){
         const bk = this.state.backgroundImg;
-        this.props.setAlbumBackground(bk);
+        this.props.setAlbumBackground(this.state.albumId,bk);
+        $('.editAlbumBackgroundModal').modal('hide');
+    }
+    showBackground(album){
+        var result ="../public/images/bg.png";
+        if(album.preview){
+            result = "/public/ufiles/photos/"+album.preview;
+        }
+        return result;
     }
 	render(){
 		const {albums} = this.props;
@@ -75,7 +88,7 @@ export default class Albums extends React.Component{
                               <option value="de">删除相册</option>
                             </select>
                             <div className="image">
-                                <img src="../public/images/bg.png" data-albumId={album._id} onClick={(e) => this.onClickChangeCurrentPage(e)} />
+                                <img src={this.showBackground(album)} data-albumId={album._id} onClick={(e) => this.onClickChangeCurrentPage(e)} />
                             </div>
                             <div className="content">
                                 <a className="header">{album.name}</a>

@@ -56,8 +56,8 @@ class AlbumApp extends React.Component{
     changeCurrentPage(albumId,currentPage){
         this.props.dispatch(change_current_page(albumId,currentPage));
     }
-    setAlbumBackground(photo){
-        this.props.dispatch(fetch_ajax_set_album_background(photo))
+    setAlbumBackground(albumId,photo){
+        this.props.dispatch(fetch_ajax_set_album_background(albumId,photo))
     }
     render(){
         const {currentPage} = this.props;
